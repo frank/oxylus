@@ -18,6 +18,7 @@ N.B. The TA mentioned the fact that we may also have conditions where, instead o
 where a minimum of N facts need to be true for the conclusion to be true. I guess we could solve this by including in the data structure also counters such as:
 
 p1, p2, p3 => p4 : 0 : 3
+
 T, p6, p7, p8 => p9 : 1 : 3
 
 In the first case, all 3 facts need to be true for the rule to activate, but there are 0 true facts at the moment. In the second one, only three out of 4 facts need to be true
@@ -27,7 +28,7 @@ In order to use these facts, we need a parser, which will read and encode both t
 would be a good way to do this).
 All of this may be done in a class of its own, and a couple of methods could be useful here:
 
-- A method that returns the dictionary associated with the facts. It would just read the facts from a file, parse them into a dicrionary, and return it.
+- A method that returns the dictionary associated with the facts. It would just read the facts from a file, parse them into a dictionary, and return it.
 
 - A method that returns the rule base as some data structure. Same thing as for the facts, but I'm unsure as to the data structure.
 
