@@ -1,4 +1,4 @@
-# Prometheus
-A knowledge based troubleshooter system for debugging C code, aimed at basic use of the language.
+# Oxylus
+A knowledge based system for deciding what type of wood to use for a specific application.
 
-Courtesy of Dr. Arnold Meijster.
+Courtesy of the expert carpenter Timo Stolt.
