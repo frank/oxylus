@@ -1,6 +1,6 @@
 '''
 
-# Prometheus
+# Oxylus
 
 ## Making the knowledge base: storing the facts and the rules
 
