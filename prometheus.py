@@ -48,13 +48,25 @@ methods. I will list methods that come to mind as useful:
 
 '''
 
-print("Is your C code working? (yes/no)")
-answer = raw_input().lower()
-if answer == 'yes':
-    print("Then it probably doesn't contain any bug.")
 
-elif answer == 'no':
-    print("Then it probably contains some bug.")
 
-else:
-    print("I'm not prepared for this.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
