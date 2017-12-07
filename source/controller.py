@@ -16,7 +16,7 @@ class Controller():
     def run(self):
         self.root.title("Oxylus")
         self.root.geometry('700x400')
-        self.root.deiconify()
+        self.root.iconbitmap(default = 'icons\log32.ico')
         self.root.mainloop()
 
     # I removed internal objects that required extra packages.
