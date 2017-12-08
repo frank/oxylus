@@ -2,8 +2,9 @@ import tkinter as tk
 import numpy as np
 
 class Model():
-
-    # Currently the model is a meshgrid that's supposed to hold a plot.
+    '''
+    Currently the model is a meshgrid that's supposed to hold a plot.
+    '''
     def __init__(self):
         self.xpoint = 200
         self.ypoint = 200

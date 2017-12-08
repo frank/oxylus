@@ -4,8 +4,9 @@ from model import Model
 from view import View, SidePanel
 
 class Controller():
-
-    # Initializing the 'root' main container, the model, the view,
+    '''
+    Initializing the 'root' main container, the model, the view,
+    '''
     def __init__(self):
         self.root = tk.Tk()
         self.model = Model()
