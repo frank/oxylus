@@ -6,6 +6,3 @@ from controller import Controller
 if __name__ == '__main__':
     controller = Controller()
     controller.run()
-    controller.loadDataFromFiles() #load facts, rules, questions, wood types
-    controller.fuckFranky()        #fucks franky furiously but softly
-    controller.
