@@ -1,7 +1,7 @@
 import tkinter as tk
 import numpy as np
-from model import Model
-from view import View, SidePanel
+from model.model import Model
+from view.view import View, SidePanel
 
 class Controller():
     '''
@@ -16,7 +16,7 @@ class Controller():
 
     def run(self):
         self.root.title("Oxylus")
-        self.root.geometry('700x400')
+        self.root.geometry('1200x600')
         self.root.iconbitmap(default = 'icons\o24.ico')
         self.root.mainloop()
 
