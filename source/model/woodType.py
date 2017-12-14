@@ -22,12 +22,13 @@ class WoodType():
     self.properties.append([name,value,True])
 
   def updatePropertyAdmission(name, value, comparisonType ):
-    for property in self.properties:
-      if property[0] == name and (
-         comparisonType == HIGHER and property[1] <= value or
-         comparisonType == LOWER  and property[1] >= value or
-         comparisonType == EQUAL  and property[1] != value):
-          property[2] = False
+    for prop in self.properties:
+      # We need to add the enum type that encompasses HIGHER, LOWER and EQUAL.
+      if prop[0] == name and 
+         (comparisonType == HIGHER and prop[1] <= value or
+         comparisonType == LOWER  and prop[1] >= value or
+         comparisonType == EQUAL  and prop[1] != value):
+          prop[2] = False
           self.setDismissed()
 
   def setDismissed():

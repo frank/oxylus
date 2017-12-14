@@ -1,5 +1,12 @@
 import numpy as np
 
+
+class comparisonType(Enum): # needed for the decisive facts
+  HIGHER = 1
+  LOWER = 2
+  EQUAL = 3
+
+
 class Model():
     
   def __init__(self):
