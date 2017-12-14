@@ -1,18 +1,38 @@
-import tkinter as tk
 import numpy as np
 
 class Model():
-    '''
-    Currently the model is a meshgrid that's supposed to hold a plot.
-    '''
-    def __init__(self):
-        self.xpoint = 200
-        self.ypoint = 200
-        self.res = None
+    
+  def __init__(self):
+    self.woods = [] # list of all the woodtypes
+    self.facts = [] # list of all facts
+    self.rules = [] # list of all rules
 
-    def calculate(self):
-        x,y = np.meshgrid(np.linspace(-5, 5, self.xpoint),
-                          np.linspace(-5, 5, self.ypoint))
-        z = np.cos(x**2*y**3)
-        self.res = {"x":x, "y":y, "z":z}
-        print("Calculating useless stuff...")
+    self.readFacts()
+    self.readRules()
+    self.readWoods()
+
+  def fireRules(self):
+    for i in range(0,len(rules)):
+      if rules[i].canFire():
+        rules[i].fire()
+        i = 0
+  
+  def readWoods(self):
+    pass #scans in all the wood types from csv file
+
+  def readFacts(self):
+    pass #scans in all the facts from csv file
+
+  def readRules(self):
+    pass #scans in all the rules from csv file
+
+  def addWood(self,wood):
+    self.woods.append(wood)
+  
+  def addRule(self,rule):
+    self.rules.append(rule)
+
+  def addFact(self,fact):
+    self.facts.append(fact)
+
+

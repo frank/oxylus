@@ -18,3 +18,8 @@ class Fact():
     self.name = name
 	
 
+# if a decisive fact is set to TRUE it will trigger the elimination of certain wood types
+class decisiveFact(Fact):
+  def __init__(self):
+    pass
+  

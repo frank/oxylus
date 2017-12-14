@@ -27,4 +27,5 @@ class Controller():
     # Since I removed some commands that required extra packages,
     # probably doesn't do much.
     def my_plot(self,event):
-        self.model.calculate()
+        pass
+        #self.model.calculate()
