@@ -36,6 +36,3 @@ class WoodType():
       self.admissible = false
       dismissedWoods  += 1
       admissibleWoods -= 1 
-
-          
-          
