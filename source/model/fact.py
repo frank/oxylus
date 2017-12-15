@@ -9,8 +9,6 @@ class factValue(Enum):
 class Fact():
   '''
   This class should represent the facts which are contained in rules.
-  Effectively, they represent the features of the woods, eventually
-  used to classify and rank the woods.
   '''
   def __init__(self, name, text):
     self.value = UNKNOWN # Possible values: UNKNOWN, TRUE, FALSE, MAYBE

@@ -1,5 +1,5 @@
 import numpy as np
-
+from enum import Enum
 
 class comparisonType(Enum): # needed for the decisive facts
   HIGHER = 1
