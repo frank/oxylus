@@ -20,5 +20,15 @@ import csv
 
 with open('Wood_data.csv', 'rb') as readFile, open('data.csv', 'rb') as writeFile:
 	for row in readFile:
-		if row
-
+		if row[8] == 'E':
+			row[8] = 1
+		if row[8] == 'M':
+			row[8] = 2
+		if row[8] == 'D':
+			row[8] = 3
+		for x in range(9):
+			if row[9+x] == None:
+				row[9+x] = False
+			if row[9+x] == 'X':
+				row[9+x] = True
+		writeFile.write(row)
