@@ -2,6 +2,7 @@ import numpy as np
 from enum import Enum
 import csv
 from .woodType import WoodType
+from .fact import Fact
 
 class comparisonType(Enum): # needed for the decisive facts
   HIGHER = 1
@@ -31,11 +32,12 @@ class Model():
     readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
     propertyNames = next(readCSV)
     for wood in readCSV:
-       newWood = WoodType(wood[1], wood[2])
-       for prop in range(3,18):
-         newWood.addProperty(propertyNames[prop], wood[prop])
-       self.addWood(newWood)
-    pass
+       if( len(wood) > 0 ):
+         newWood = WoodType(wood[1], wood[2])
+         for prop in range(3,18):
+           newWood.addProperty(propertyNames[prop], wood[prop])
+         self.addWood(newWood)
+    
 
   def printWoods(self):
      for wood in self.woods:
