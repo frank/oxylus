@@ -1,5 +1,4 @@
 import tkinter as tk
-import numpy as np
 from model.model import Model
 from view.view import View, SidePanel
 

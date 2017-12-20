@@ -31,10 +31,10 @@ class Model():
     readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
     propertyNames = next(readCSV)
     for wood in readCSV:
-       x = WoodType(wood[1], wood[2])
+       newWood = WoodType(wood[1], wood[2])
        for prop in range(3,18):
-         x.addProperty(propertyNames[prop], wood[prop])
-       self.addWood(x)
+         newWood.addProperty(propertyNames[prop], wood[prop])
+       self.addWood(newWood)
     pass
 
   def printWoods(self):
@@ -44,7 +44,13 @@ class Model():
 
 
   def readFacts(self):
-    pass #scans in all the facts from csv file
+    readCSV = csv.reader(open('Facts.csv','rt'), delimiter = ",")
+    
+    for fact in readCSV:
+      newFact = Fact(fact[0])
+      if(      
+
+      self.facts.append(newFact)
 
   def readRules(self):
     pass #scans in all the rules from csv file
