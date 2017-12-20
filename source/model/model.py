@@ -51,7 +51,7 @@ class Model():
         propName = fact[1]
         propCompType = fact[2]
         propVal = fact[3]
-        newFact = DecisiveFact(factName,propName,propCompType,propVal)
+        newFact = decisiveFact(factName,propName,propCompType,propVal)
       else:
         newFact = Fact(factName)
       self.facts.append(newFact)
