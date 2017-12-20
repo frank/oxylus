@@ -21,6 +21,7 @@ class Model():
     self.readRules()
     self.readWoods()
 
+
   def fireRules(self):
     i = 0
     while i < len(rules):
