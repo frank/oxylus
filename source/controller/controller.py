@@ -27,5 +27,8 @@ class Controller():
     # Since I removed some commands that required extra packages,
     # probably doesn't do much.
     def my_plot(self,event):
-        pass
-        #self.model.calculate()
+        print("Reads and Prints all the scanned woodnames and the fifth property")
+        self.model.readWoods()
+        self.model.printWoods()
+       
+

@@ -1,6 +1,7 @@
 import numpy as np
 from enum import Enum
-# import woodType.py
+import csv
+from .woodType import WoodType
 
 class comparisonType(Enum): # needed for the decisive facts
   HIGHER = 1
@@ -20,20 +21,26 @@ class Model():
     self.readWoods()
 
   def fireRules(self):
-    for i in range(0,len(rules)):
+    i = 0
+    while i < len(rules):
       if rules[i].canFire():
         rules[i].fire()
         i = 0
   
   def readWoods(self):
-    # readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
-    # propertyNames = readCSV[0]
-    # for wood in range(1,len(readCSV)):
-    #   x = woodType(self, wood[1], wood[2])
-    #   for i in range(3,18):
-    #     x.addProperty(propertyNames[i], wood[i])
+    readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
+    propertyNames = next(readCSV)
+    for wood in readCSV:
+       x = WoodType(wood[1], wood[2])
+       for prop in range(3,18):
+         x.addProperty(propertyNames[prop], wood[prop])
+       self.addWood(x)
     pass
 
+  def printWoods(self):
+     for wood in self.woods:
+       wood.print()
+     
 
 
   def readFacts(self):
@@ -41,6 +48,9 @@ class Model():
 
   def readRules(self):
     pass #scans in all the rules from csv file
+
+  def getWoods(self):
+    return self.woods
 
   def addWood(self,wood):
     self.woods.append(wood)

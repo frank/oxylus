@@ -15,24 +15,30 @@ class WoodType():
                          # a property also has a name
     
     self.admissible  = True
-    count           += 1
-    admissibleWoods += 1
+    WoodType.count           += 1
+    WoodType.admissibleWoods += 1
   
-  def addProperty(name, value)
+  def addProperty(self, name, value):
     self.properties.append([name,value,True])
 
-  def updatePropertyAdmission(name, value, comparisonType ):
+  def updatePropertyAdmission(self, name, value, comparisonType ):
     for prop in self.properties:
       # We need to add the enum type that encompasses HIGHER, LOWER and EQUAL.
-      if prop[0] == name and 
+      if ( prop[0] == name and 
          (comparisonType == HIGHER and prop[1] <= value or
          comparisonType == LOWER  and prop[1] >= value or
-         comparisonType == EQUAL  and prop[1] != value):
+         comparisonType == EQUAL  and prop[1] != value) ):
           prop[2] = False
           self.setDismissed()
 
-  def setDismissed():
+  def setDismissed(self):
     if self.admissible == true:
       self.admissible = false
       dismissedWoods  += 1
       admissibleWoods -= 1 
+
+  def print(self):
+    print("This is the wood named ", self.englishName, " with the following property values:", 		end='')
+    for prop in self.properties:
+      print(" ",prop[1] , end = '')
+    print('')
