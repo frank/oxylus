@@ -1,11 +1,8 @@
 from enum import Enum
 import csv
 from .woodType import WoodType
-<<<<<<< HEAD
 from .rule import Rule
-=======
 from .fact import Fact
->>>>>>> 13cc4869ad84407398eac0db0d29ecf3057b2c95
 
 class comparisonType(Enum): # needed for the decisive facts
   HIGHER = 1
@@ -64,14 +61,18 @@ class Model():
       fact.print()
 
   def readRules(self):
-    # Rules in CSV file are arranged such that conclusion is the first element in list,
-    # followed by a collectiong of negation-premise pairs
+    # Rules in CSV file are arranged such that conclusion is the last element in list.
+    # Every item before the conclusion is a fact, which can be negated by adding a 
+    # "!" character in front of it
     readCSV = csv.reader(open('Rule_data.csv', 'rt'), delimiter=",")
     for rule in readCSV:
-      newRule = Rule(rule[0])
-      for item in range(1,len(rule),2):
-        newRule.addPremise(rule[item], rule[item + 1])
-      self.addRule(newWood)
+      newRule = Rule(rule[len(rule - 1)])
+      for item in range(len(rule)-1):
+        if rule[item][0] == "!":
+          newRule.addPremise(rule[item], false)
+        else:
+          newRule.addPremise(rule[item], true)
+      self.addRule(newRule)
 
   def getWoods(self):
     return self.woods
