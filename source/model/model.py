@@ -1,7 +1,11 @@
 from enum import Enum
 import csv
 from .woodType import WoodType
+<<<<<<< HEAD
 from .rule import Rule
+=======
+from .fact import Fact
+>>>>>>> 13cc4869ad84407398eac0db0d29ecf3057b2c95
 
 class comparisonType(Enum): # needed for the decisive facts
   HIGHER = 1
@@ -20,6 +24,7 @@ class Model():
     self.readRules()
     self.readWoods()
 
+
   def fireRules(self):
     i = 0
     while i < len(rules):
@@ -36,17 +41,27 @@ class Model():
         newWood.addProperty(propertyNames[prop], wood[prop])
       self.addWood(newWood)
 
+
   def printWoods(self):
      for wood in self.woods:
        wood.print()
 
   def readFacts(self):
     readCSV = csv.reader(open('Facts.csv','rt'), delimiter = ",")
-    
     for fact in readCSV:
-      newFact = Fact(fact[0])    
-
+      factName = fact[0]
+      if len(fact) > 1:
+        propName = fact[1]
+        propCompType = fact[2]
+        propVal = fact[3]
+        newFact = DecisiveFact(factName,propName,propCompType,propVal)
+      else:
+        newFact = Fact(factName)
       self.facts.append(newFact)
+
+  def printFacts(self):
+    for fact in self.facts:
+      fact.print()
 
   def readRules(self):
     # Rules in CSV file are arranged such that conclusion is the first element in list,

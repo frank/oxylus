@@ -27,7 +27,7 @@ class Controller():
     # probably doesn't do much.
     def my_plot(self,event):
         print("Reads and Prints all the scanned woodnames and the fifth property")
-        self.model.readWoods()
+        #self.model.readWoods()
         self.model.printWoods()
        
 
