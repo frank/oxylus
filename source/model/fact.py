@@ -1,9 +1,9 @@
 from enum import Enum
 
 class factValue(Enum):
-  UNKNOWN = 1
-  TRUE = 2
-  FALSE = 3
+  UNKNOWN = 1,
+  TRUE = 2,
+  FALSE = 3,
   MAYBE = 4
 
 class Fact():
@@ -11,7 +11,7 @@ class Fact():
   This class should represent the facts which are contained in rules.
   '''
   def __init__(self, name):
-    self.value = UNKNOWN # Possible values: UNKNOWN, TRUE, FALSE, MAYBE
+    self.value = factValue.UNKNOWN # Possible values: UNKNOWN, TRUE, FALSE, MAYBE
     self.name = name
 
   def print(self):
