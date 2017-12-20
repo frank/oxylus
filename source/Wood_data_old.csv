@@ -1,5 +1,5 @@
 "
-Espesie",Species,Latin name,Density (kg/m^3),Wood movement (Nerviosidad),Dilatation %,Hardness,Price,Ease of supply,Decorative plates,Exterior Carpentry,Interior carpentry,Furniture and cabinet making,Malleability (Torneria escultura i talla),Sportive elements and tool handles,Musical Instruments,Saunas,Mock-ups
+Espesie",Species,Latin name,Density,Wood movement (Nerviosidad),Dilatation %,Hardness,Price,Ease of supply,Decorative plates,Exterior Carpentry,Interior carpentry,Furniture and cabinet making,Malleability (Torneria escultura i talla),Sportive elements and tool handles,Musical Instruments,Saunas,Mock-ups
 Abedul,Birch,Betula alba,640-670,2,11.4-17,3,1,E,X,,X,X,X,X,X,,
 Abeto,Whitewood/Fir,Abies alba,440-480,2,12-15,2,1,E,X,,X,X,,,X,X,
 Abeto rojo,Spruce,Picea abies,440-470,2,13-14,3,1,E,X,,X,X,,,X,,
