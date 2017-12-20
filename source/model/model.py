@@ -45,12 +45,20 @@ class Model():
 
   def readFacts(self):
     readCSV = csv.reader(open('Facts.csv','rt'), delimiter = ",")
-    
     for fact in readCSV:
-      newFact = Fact(fact[0])
-      if(      
-
+      factName = fact[0]
+      if len(fact) > 1:
+        propName = fact[1]
+        propCompType = fact[2]
+        propVal = fact[3]
+        newFact = DecisiveFact(factName,propName,propCompType,propVal)
+      else:
+        newFact = Fact(factName)
       self.facts.append(newFact)
+
+  def printFacts(self):
+    for fact in self.facts:
+      fact.print()
 
   def readRules(self):
     pass #scans in all the rules from csv file
