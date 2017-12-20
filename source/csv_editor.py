@@ -1,4 +1,5 @@
 import csv
+
 readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
 with open('data.csv', 'w') as writeFile:
 	writer = csv.writer(writeFile)
