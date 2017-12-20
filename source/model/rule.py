@@ -27,3 +27,9 @@ class Rule():
   def fire(self):
     self.conclusion.setTrue()
     self.conclusion.activate() # if conclusion is a decisive fact then activate its consequences
+
+  def setFired(self, bool):
+    self.fired = bool
+
+  def setAvailable(self, bool)
+    self.available = bool

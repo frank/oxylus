@@ -1,8 +1,11 @@
-import numpy as np
 from enum import Enum
 import csv
 from .woodType import WoodType
+<<<<<<< HEAD
+from .rule import Rule
+=======
 from .fact import Fact
+>>>>>>> 13cc4869ad84407398eac0db0d29ecf3057b2c95
 
 class comparisonType(Enum): # needed for the decisive facts
   HIGHER = 1
@@ -33,18 +36,15 @@ class Model():
     readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
     propertyNames = next(readCSV)
     for wood in readCSV:
-       if( len(wood) > 0 ):
-         newWood = WoodType(wood[1], wood[2])
-         for prop in range(3,18):
-           newWood.addProperty(propertyNames[prop], wood[prop])
-         self.addWood(newWood)
-    
+      newWood = WoodType(wood[1], wood[2])
+      for prop in range(3,18):
+        newWood.addProperty(propertyNames[prop], wood[prop])
+      self.addWood(newWood)
+
 
   def printWoods(self):
      for wood in self.woods:
        wood.print()
-     
-
 
   def readFacts(self):
     readCSV = csv.reader(open('Facts.csv','rt'), delimiter = ",")
@@ -64,7 +64,14 @@ class Model():
       fact.print()
 
   def readRules(self):
-    pass #scans in all the rules from csv file
+    # Rules in CSV file are arranged such that conclusion is the first element in list,
+    # followed by a collectiong of negation-premise pairs
+    readCSV = csv.reader(open('Rule_data.csv', 'rt'), delimiter=",")
+    for rule in readCSV:
+      newRule = Rule(rule[0])
+      for item in range(1,len(rule),2):
+        newRule.addPremise(rule[item], rule[item + 1])
+      self.addRule(newWood)
 
   def getWoods(self):
     return self.woods
