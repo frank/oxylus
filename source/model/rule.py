@@ -9,9 +9,9 @@ class Rule():
     self.fired = False
     self.available = True
 
-  def addPremise(self,fact, truthValue):
+  def addPremise(self, fact, truthValue):
     self.premises.append(fact)
-    self.negations.append(truthValue)
+    self.truthValues.append(truthValue)
 
   def canFire(self):
     for i in range(0, len(premises)):
