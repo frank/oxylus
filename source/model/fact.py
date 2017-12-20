@@ -21,7 +21,7 @@ class Fact():
 # if a decisive fact is set to TRUE it will trigger the elimination of certain wood types
 class decisiveFact(Fact):
   def __init__(self, name, prop, compType, value):
-    super().__init__()
+    super().__init__(name)
     self.compType = compType # HIGHER, LOWER or EQUAL
     self.property = prop # name of the property of woods that will be affected
     self.numValue = value

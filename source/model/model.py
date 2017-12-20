@@ -1,8 +1,8 @@
-import numpy as np
 from enum import Enum
 import csv
 from .woodType import WoodType
-from .fact import Fact
+from .rule import Rule
+from .fact import *
 
 class comparisonType(Enum): # needed for the decisive facts
   HIGHER = 1
@@ -21,6 +21,7 @@ class Model():
     self.readRules()
     self.readWoods()
 
+
   def fireRules(self):
     i = 0
     while i < len(rules):
@@ -32,18 +33,15 @@ class Model():
     readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
     propertyNames = next(readCSV)
     for wood in readCSV:
-       if( len(wood) > 0 ):
-         newWood = WoodType(wood[1], wood[2])
-         for prop in range(3,18):
-           newWood.addProperty(propertyNames[prop], wood[prop])
-         self.addWood(newWood)
-    
+      newWood = WoodType(wood[1], wood[2])
+      for prop in range(3,18):
+        newWood.addProperty(propertyNames[prop], wood[prop])
+      self.addWood(newWood)
+
 
   def printWoods(self):
      for wood in self.woods:
        wood.print()
-     
-
 
   def readFacts(self):
     readCSV = csv.reader(open('Facts.csv','rt'), delimiter = ",")
@@ -53,7 +51,7 @@ class Model():
         propName = fact[1]
         propCompType = fact[2]
         propVal = fact[3]
-        newFact = DecisiveFact(factName,propName,propCompType,propVal)
+        newFact = decisiveFact(factName,propName,propCompType,propVal)
       else:
         newFact = Fact(factName)
       self.facts.append(newFact)
@@ -63,7 +61,18 @@ class Model():
       fact.print()
 
   def readRules(self):
-    pass #scans in all the rules from csv file
+    # Rules in CSV file are arranged such that conclusion is the last element in list.
+    # Every item before the conclusion is a fact, which can be negated by adding a 
+    # "!" character in front of it
+    readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
+    for rule in readCSV:
+      newRule = Rule(rule[len(rule)-1])
+      for item in range(len(rule)-1):
+        if rule[item][0] == "!":
+          newRule.addPremise(rule[item], False)
+        else:
+          newRule.addPremise(rule[item], True)
+      self.addRule(newRule)
 
   def getWoods(self):
     return self.woods

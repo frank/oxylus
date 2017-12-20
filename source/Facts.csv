@@ -1,4 +1,7 @@
-UseOutside
+UseOutside, DensityMin, HIGHER, 400
 Chair
 Table
 BuildDeck
+ToolsAvailable
+ElectricTools
+StrongPerson
