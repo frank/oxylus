@@ -26,27 +26,29 @@ class View():
             newLabel = tk.Label(self.sidePanel, text=str(model.getWoods()[wood].getEnglishName()) + \
                 ", (" + str(model.getWoods()[wood].getLatinName()) + ")", fg="Black",\
                 anchor = "w")
-            newLabel.pack(side = tk.TOP, fill = tk.BOTH)
+            newLabel.grid(row = wood)
             master.update_idletasks()
             #self.woodFrames.append(newWoodFrame)
-            newLabel.bind("<Enter>", lambda eff: popup(eff, master, model, self.frame1, self.woodDisplay,\
-                newLabel, wood))
-            newLabel.bind("<Leave>", lambda eff: deleteContents(eff, self.woodDisplay))
             self.woodLabels.append(newLabel)
+        for x in range(len(model.getWoods())):
+            self.woodLabels[x].bind("<Enter>", lambda eff: popup(eff, master, model, self.frame1, self.woodDisplay,\
+                newLabel, x))
+            self.woodLabels[x].bind("<Leave>", lambda eff: deleteContents(eff, self.woodDisplay))
 
 def popup(event, master, model, frame1, woodDisplay, woodLabel, woodNumber):
     deleteContents(event, woodDisplay)
-    master.update_idletasks()
     #print(event.y, woodLabel.winfo_height(), master.winfo_y())
     woodDisplay.place(x = frame1.winfo_width() - woodDisplay.winfo_width(),\
      y = event.y_root - master.winfo_y() -  event.y)
     woodDisplay.pack_propagate(False) #Force woodDisplay to not change size as things are packed in it
+    master.update_idletasks()
     # Insert wood picture
     file_path = os.getcwd() + r"\view\pictures\eyy.png"
-    print(file_path)
     photo = Image.open(file_path)
     pWidth, pHeight = photo.size
+    print(pWidth, pHeight)
     ratio = pWidth/pHeight
+    print(woodDisplay.winfo_height(), ratio, (woodDisplay.winfo_height()-25)*ratio)
     photo = photo.resize((int((woodDisplay.winfo_height()-25)*ratio), woodDisplay.winfo_height()-25), Image.ANTIALIAS)
     photo = ImageTk.PhotoImage(photo)
     woodPicture = tk.Label(woodDisplay, image = photo)
@@ -56,6 +58,7 @@ def popup(event, master, model, frame1, woodDisplay, woodLabel, woodNumber):
     textBox = tk.Frame(woodDisplay)
     textBox.pack(side = tk.RIGHT, fill = tk.BOTH)
     # Inser Wood Name
+    print(woodNumber)
     woodText = tk.Label(textBox, text = str(model.getWoods()[woodNumber].getEnglishName()), fg = "black")
     woodText.grid(row = 1)
     # Insert Text
