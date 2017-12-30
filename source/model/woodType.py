@@ -17,6 +17,12 @@ class WoodType():
     self.admissible  = True
     WoodType.count           += 1
     WoodType.admissibleWoods += 1
+
+  def getEnglishName(self):
+    return self.englishName
+
+  def getLatinName(self):
+    return self.latinName
   
   def addProperty(self, name, value):
     self.properties.append([name,value,True])

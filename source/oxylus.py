@@ -1,15 +1,23 @@
-import tkinter as tk
-from controller.controller import Controller
+from controller.controller import Controller_new
 from model import *
+from view.view import View_new
 import csv
 
 # Main function. It initalizes the controller.
 if __name__ == '__main__':
 
+    SCREEN_WIDTH = 1200
+    SCREEN_HEIGHT = 600
     with open('Wood_data.csv', 'rb') as csvfile:
         reader = csv.reader(open('Wood_data.csv', newline=''), delimiter=',', quotechar='|')
         for row in reader:
            pass
            #print(', '.join(row))
-    controller = Controller()
-    controller.run()
+    model = Model_new()
+    view = View_new(SCREEN_WIDTH, SCREEN_HEIGHT, model)
+    controller = Controller_new(model, view)
+    view.redraw()
+
+    while controller.running:
+    	controller.process_input()
+    	view.blit()

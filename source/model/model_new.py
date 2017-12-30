@@ -10,9 +10,12 @@ class comparisonType(Enum): # needed for the decisive facts
   EQUAL = 3
 
 
-class Model():
+class Model_new():
     
   def __init__(self):
+    #Listener for model events
+    self.listeners = []
+
     self.woods = [] # list of all the woodtypes
     self.facts = [] # list of all facts
     self.rules = [] # list of all rules
@@ -28,6 +31,17 @@ class Model():
       if rules[i].canFire():
         rules[i].fire()
         i = 0
+
+# Model changing methods (remember to notify()!! ) 
+#Examples of notifying:
+  def __woodTypes_rearranged():
+    pass
+    self.notify('woodTypes_rearranged', None)
+
+  def __next_question():
+    pass
+    self.notify('next_question', None)
+################
   
   def readWoods(self):
     readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
@@ -87,4 +101,10 @@ class Model():
   def addFact(self,fact):
     self.facts.append(fact)
 
+  #MVC related method
+  def register_listener(self, listener):
+        self.listeners.append(listener)
 
+  def notify(self, event_name, data):
+    for listener in self.listeners:
+      listener(event_name, data)

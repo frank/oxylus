@@ -1,6 +1,6 @@
 import tkinter as tk
 from model.model import Model
-from view.view import View, SidePanel
+from view.view import *
 
 class Controller():
     '''
@@ -9,9 +9,9 @@ class Controller():
     def __init__(self):
         self.root = tk.Tk()
         self.model = Model()
-        self.view = View(self.root)
-        self.view.sidepanel.plotBut.bind("<Button>", self.my_plot)
-        self.view.sidepanel.clearButton.bind("<Button>", self.clear)
+        self.view = View(self.root, self.model)
+        # self.view.sidepanel.plotBut.bind("<Button>", self.my_plot)
+        # self.view.sidepanel.clearButton.bind("<Button>", self.clear)
 
     def run(self):
         self.root.title("Oxylus")
