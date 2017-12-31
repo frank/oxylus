@@ -17,13 +17,13 @@ class Controller_new():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
-            elif event.type == KEYDOWN:
+            elif event.type == pygame.KEYDOWN:
                 if event.key == K_ESCAPE:
                     self.running = False
-            elif event.type == MOUSEMOTION:
+            elif event.type == pygame.MOUSEMOTION:
                 #if in sidebar
                 if pygame.mouse.get_pos()[0] > self.view.getSideBar_pos_and_size()[0][0] and \
-                pygame.mouse.get_pos()[1] > self.view.getSideBar_pos_and_size[0][1] and \
+                pygame.mouse.get_pos()[1] > self.view.getSideBar_pos_and_size()[0][1] and \
                 pygame.mouse.get_pos()[0] < self.view.getSideBar_pos_and_size()[0][0] + self.view.getSideBar_pos_and_size()[1][0] and \
                 pygame.mouse.get_pos()[1] < self.view.getSideBar_pos_and_size()[0][1] + self.view.getSideBar_pos_and_size()[1][1]:
 

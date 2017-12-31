@@ -1,6 +1,6 @@
-from controller.controller import Controller_new
-from model import *
-from view.view import View_new
+from controller.controller_new import Controller_new
+from model.model_new import *
+from view.view_new import View_new
 import csv
 
 # Main function. It initalizes the controller.
