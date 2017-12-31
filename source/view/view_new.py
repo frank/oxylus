@@ -47,6 +47,10 @@ class View_new():
             self.woodLabel_size = pixel_width / 3, 26
         else:
             self.woodLabel_size = pixel_width / 3, pixel_height / len(model.getWoods())
+        #YES/NO Question Response buttons
+        self.button_size = self.questionFrame_size[0]/4, self.questionFrame_size[1]/8
+        self.YESbutton_pos = self.questionFrame_size[0]/8, self.questionFrame_size[1]*5/8
+        self.NObutton_pos = self.questionFrame_size[0]*5/8, self.questionFrame_size[1]*5/8
         #Currently selected wood Popup
         self.woodPopup_selection = None
         self.woodPopup_size = 400, 300
@@ -65,11 +69,17 @@ class View_new():
         self.questionText_pos = int(self.questionFrame_size[0]/8), int(self.questionFrame_size[1]/8)
         self.woodLabelEnglishFont = pygame.font.SysFont(None, 24)
         self.woodLabelLatinFont = pygame.font.SysFont(None, 24, italic=True)
-        self.woodLabelTextList = []
         self.questionText = None        
+        self.buttonFont = pygame.font.SysFont(None, 40, italic=True)
 
     def getSideBar_pos_and_size(self):
         return (self.sideBar_pos, self.sideBar_size)
+
+    def getYESbutton_pos_and_size(self):
+    	return (self.YESbutton_pos, self.button_size)
+
+    def getNObutton_pos_and_size(self):
+    	return (self.NObutton_pos, self.button_size)
 
     def mouseInsideSideBar(self, mousePos):
         pass
@@ -81,6 +91,10 @@ class View_new():
     def __draw_questionFrame(self):
         self.questionFrame_surf.fill(BLACK)
         self.questionText = self.model.getNextQuestion().getText()
+        YESbutton = pygame.Rect(self.YESbutton_pos, self.button_size)
+        NObutton = pygame.Rect(self.NObutton_pos, self.button_size)
+        self.questionFrame_surf.fill(WHITE, YESbutton)
+        self.questionFrame_surf.fill(WHITE, NObutton)
 
     def __draw_sideBar(self):
         self.sideBar_surf.fill(TRANSPARENT)
@@ -92,10 +106,7 @@ class View_new():
                 newLabel = pygame.Rect(0, wood*self.woodLabel_size[1], self.woodLabel_size[0], self.woodLabel_size[1]-1)
                 self.sideBar_surf.fill(WHITE, newLabel)
                 self.woodLabelRectList.append(newLabel)
-                newLabelEnglishText = self.woodLabelEnglishFont.render(wv[wood].getEnglishName(), True, RED)
-                newLabelLatinText = self.woodLabelLatinFont.render(" (" + wv[wood].getLatinName() + ") ", True, RED)
-                self.woodLabelTextList.append((newLabelEnglishText, newLabelLatinText))
-
+                
     def __draw_woodPopup(self):
         pass
         # deleteContents(event, woodDisplay)
@@ -141,6 +152,7 @@ class View_new():
         self.screen.blit(self.sideBar_surf, self.sideBar_pos)
         self.blit_questionText()
         self.blit_labelText()
+        self.blit_buttonText()
         if self.woodPopup_selection:
             self.screen.blit(self.select_surf, self.woodPopup_pos)
         pygame.display.flip()
@@ -149,7 +161,7 @@ class View_new():
     def blit_questionText(self):
         words = [word.split(' ') for word in self.questionText.splitlines()] # 2D array where each row is a list of words.
         space = self.questionFont.size(' ')[0]  # The width of a space.
-        max_width = self.questionFrame_size[0]*3/4
+        max_width = self.questionFrame_size[0]*7/8
         x, y = self.questionText_pos
         for line in words:
             for word in line:
@@ -158,16 +170,30 @@ class View_new():
                 if x + word_width >= max_width:
                     x = self.questionText_pos[0]  # Reset the x.
                     y += word_height  # Start on new row.
-                self.questionFrame_surf.blit(word_surface, (x, y))
+                self.screen.blit(word_surface, (x, y))
                 x += word_width + space
             x = self.questionText_pos[0]  # Reset the x.
             y += word_height  # Start on new row.
 
     def blit_labelText(self):
-        for wood in range(len(self.model.getWoods())):
-            self.screen.blit(self.woodLabelTextList[wood][0], (self.sideBar_pos[0]+10, wood*self.woodLabel_size[1]+2))
-            self.screen.blit(self.woodLabelTextList[wood][1], ((self.sideBar_pos[0]+10) + \
-            (self.woodLabelTextList[wood][0].get_width() + 2), wood*self.woodLabel_size[1]+2))
+        wv = self.model.getWoods()
+        for wood in range(len(wv)):
+            if(wv[wood]):
+                englishText = self.woodLabelEnglishFont.render(wv[wood].getEnglishName(), True, RED)
+                latinText = self.woodLabelLatinFont.render(" (" + wv[wood].getLatinName() + ") ", True, RED)
+                self.screen.blit(englishText, (self.sideBar_pos[0]+10, wood*self.woodLabel_size[1]+2))
+                self.screen.blit(latinText, ((self.sideBar_pos[0]+10) + \
+                (englishText.get_width() + 2), wood*self.woodLabel_size[1]+2))
+
+    def blit_buttonText(self):
+        YEStext = self.buttonFont.render("YES", True, BLACK)
+        NOtext = self.buttonFont.render("NO", True, BLACK)
+        YEStext_size = YEStext.get_size()
+        NOtext_size = NOtext.get_size()
+        self.screen.blit(YEStext, (self.YESbutton_pos[0] + (self.button_size[0]-YEStext_size[0])/2,\
+            self.YESbutton_pos[1] + (self.button_size[1]-YEStext_size[1])/2))
+        self.screen.blit(NOtext, (self.NObutton_pos[0] + (self.button_size[0]-NOtext_size[0])/2,\
+            self.NObutton_pos[1] + (self.button_size[1]-NOtext_size[1])/2))
 
     def model_event(self, event_name, data):
         #In case you want to redraw only part of the screen use the if-statements with event names
