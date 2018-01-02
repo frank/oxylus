@@ -1,2 +1,3 @@
-Chair, Table, Desk, UseOutside
--ToolsAvailable, Durable, StrongPerson
+HumidityResist, !WoodMovementHigh
+Exterior, wood[11]
+Exterior, BethellProcess
