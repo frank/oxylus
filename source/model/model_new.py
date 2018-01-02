@@ -48,11 +48,24 @@ class Model_new():
     self.notify(None, None)
 
   def readQuestions(self):
+    #The Question csv file is structured like such:
+    # Question text, question type, questiontype dependent fact data strcture
+    # Question type is a number that determines what kind of question it is (eg: 0 == YES/NO question)
+    # In the case of YES/NO question, fact data structure looks like following:
+    # Number of YES facts, yes fact1,..., yes fact n, number of NO facts, no fact 1, ..., no fact n
     readCSV = csv.reader(open('Questions.csv', 'rt'), delimiter=",")
     for wood in readCSV:
       if(len(wood)>0):
-        newQuestion = Question(wood[0], [], 0)
-        self.questions.append(newQuestion)
+        if int(wood[1]) == 0:
+          YESfacts = []
+          for i in range(int(wood[2])):
+            YESfacts.append(wood[3+i])
+          NOfacts = []
+          for i in range(int(wood[2+int(wood[2])+1])):
+            NOfacts.append(wood[2+int(wood[2])+2+i])
+          facts = [YESfacts, NOfacts]
+          newQuestion = Question(wood[0], wood[1], facts)
+          self.questions.append(newQuestion)
 
   def getNextQuestion(self):
     return self.nextQuestion

@@ -8,11 +8,7 @@ if __name__ == '__main__':
 
     SCREEN_WIDTH = 1200
     SCREEN_HEIGHT = 600
-    with open('Wood_data.csv', 'rb') as csvfile:
-        reader = csv.reader(open('Wood_data.csv', newline=''), delimiter=',', quotechar='|')
-        for row in reader:
-           pass
-           #print(', '.join(row))
+    
     model = Model_new()
     view = View_new(SCREEN_WIDTH, SCREEN_HEIGHT, model)
     controller = Controller_new(model, view)
