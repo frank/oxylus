@@ -1,16 +1,26 @@
+Are you looking to make furniture?,0,1,Furniture,0
+Are you looking to make joinery elements?,0,1,Joinery,0
+Are you looking to make decorative objects?,0,2,Decorative,!BetheProcess,0
+Are you looking to make objects with musical properties?,0,1,Musical,0
+Are you looking to make wooden sportive equipment that require high flexibility such as hockey sticks; golf clubs; and pool cues?,0,1,Sportive,0
+Are you looking to make models and mockups?,0,1,Mockup,0
+
 Does the wooden object require resistance to humidity?,0,1,HumidityResist,0
 Is the wooden object meant for exterior use?,0,1,Exterior,1,!Exterior
-Do you have access to a preservation treatment involving the Full-cell (Bethell) process?,0,1,BethellProcess,0
-Is the weight of the wood type relevant to the project?,0,1,WeightRel,1,!WeightRel
-Does the wood require the ability to be bent?,0,1,Bent,0
+Would you accept woods that have undergone chemical treatments internally to improve durability in exterior environments?,0,1,BethellProcess,0
+
 Does the wood require high mechanical resistance?,0,1,,1,,
-Is the wood required to be easily glued?,0,1,,1,,
+Does the wood require the ability to be bent into shape?,0,1,Bent,0
+Is the weight of the wood type relevant to the project?,0,1,WeightRel,1,!WeightRel
 Is the wood required to have properties to allow fastenings? (Ex: screws or nails),0,2,,,1,,
+
+Is the wood required to be easily glued?,0,1,,1,,
+Does the wood require varnishing?,0,1,,1,,
+Is the wooden object meant to be painted?,0,1,,1,,
+
 Do you have access to industrial machinery?,0,1,,1,,
 Do want the wood to have easy machining properties?,0,1,,1,,
 Does the wood require to be carved or moulded into shape?,0,1,,1,,
-Is the wooden object meant to be painted?,0,1,,1,,
-Does the wood require varnishing?,0,1,,1,,
 Do you have a preference on the color of the wood?,0,1,,1,,
-In which price range is you project?,1,1,,1,,
+Do you want to prefer cheaper wood types for your project?,0,1,,1,,
 Do you mind how accessible the type of wood is?,0,1,,1,,
