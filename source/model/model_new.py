@@ -54,17 +54,25 @@ class Model_new():
     # In the case of YES/NO question, fact data structure looks like following:
     # Number of YES facts, yes fact1,..., yes fact n, number of NO facts, no fact 1, ..., no fact n
     readCSV = csv.reader(open('Questions.csv', 'rt'), delimiter=",")
-    for wood in readCSV:
-      if(len(wood)>0):
-        if int(wood[1]) == 0:
+    for question in readCSV:
+      if(len(question)>0):
+        #Change ';' into ',' by changing the string into a list, then back into a string
+        questionText = list(question[0])
+        for i in range(len(questionText)):
+          if questionText[i] == ';':
+            questionText[i] = ','
+        question[0] = ''.join(questionText)
+        print(question[0])
+        #If YES/NO question, creates a list for YES facts and for NO facts
+        if int(question[1]) == 0:
           YESfacts = []
-          for i in range(int(wood[2])):
-            YESfacts.append(wood[3+i])
+          for i in range(int(question[2])):
+            YESfacts.append(question[3+i])
           NOfacts = []
-          for i in range(int(wood[2+int(wood[2])+1])):
-            NOfacts.append(wood[2+int(wood[2])+2+i])
+          for i in range(int(question[2+int(question[2])+1])):
+            NOfacts.append(question[2+int(question[2])+2+i])
           facts = [YESfacts, NOfacts]
-          newQuestion = Question(wood[0], wood[1], facts)
+          newQuestion = Question(question[0], question[1], facts)
           self.questions.append(newQuestion)
 
   def getNextQuestion(self):
