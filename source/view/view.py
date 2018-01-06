@@ -43,7 +43,7 @@ def popup(event, master, model, frame1, woodDisplay, woodLabel, woodNumber):
     woodDisplay.pack_propagate(False) #Force woodDisplay to not change size as things are packed in it
     master.update_idletasks()
     # Insert wood picture
-    file_path = os.getcwd() + r"\view\pictures\eyy.png"
+    file_path = os.getcwd() + r"\view\pictures\Olivo.jpg"
     photo = Image.open(file_path)
     pWidth, pHeight = photo.size
     print(pWidth, pHeight)
