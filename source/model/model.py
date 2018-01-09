@@ -22,6 +22,10 @@ class Model():
     self.readWoods()
 
 
+  def update(self):
+    self.forwardChain()
+    self.fireRules()
+
   def fireRules(self):
     i = 0
     while i < len(rules):
@@ -29,6 +33,28 @@ class Model():
         rules[i].fire()
         i = 0
   
+  def forwardChain(self):
+    for rule in self.rules:
+      ruleCount = 0
+      currentPremises = []
+      if( rule.isAvailable() ):
+        for premise in rule.getPremises():
+          if( premise.getValue() == UNKOWN ):
+            ruleCount += 1
+            currentPremises.append(premise)
+      # Make a list of all the rules with the minimum number of unknown facts 
+      if( ruleCount < minRuleCount ):
+        minRuleCount = ruleCount
+        minRules = []
+        minRules.append(rule)
+      else if( ruleCount == minRuleCount ):
+        minrules.append(rule)
+
+    for rule
+        
+          
+    
+
   def readWoods(self):
     readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
     propertyNames = next(readCSV)
@@ -61,6 +87,8 @@ class Model():
     for fact in self.facts:
       fact.print()
 
+  
+
   def readRules(self):
     # Rules in CSV file are arranged such that conclusion is the last element in list.
     # Every item before the conclusion is a fact, which can be negated by adding a 
@@ -74,6 +102,8 @@ class Model():
         else:
           newRule.addPremise(rule[item], True)
       self.addRule(newRule)
+
+  
 
   def getWoods(self):
     return self.woods

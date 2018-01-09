@@ -13,10 +13,14 @@ class Fact():
   def __init__(self, name):
     self.value = factValue.UNKNOWN # Possible values: UNKNOWN, TRUE, FALSE, MAYBE
     self.name = name
+    self.isConclusion = False
+
+  def isConclusion(boolean):
+    self.isConclusion = boolean
 
   def print(self):
     print("This is the fact named: ", self.name)
-	
+  	
 
 # if a decisive fact is set to TRUE it will trigger the elimination of certain wood types
 class decisiveFact(Fact):
