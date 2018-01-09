@@ -16,7 +16,7 @@ COLORS = (BLACK, PURPLE, GREEN, BLUE)
 
 BG_COLOR = BLACK
 
-class View_new():
+class View():
     '''
     The view currently initializes the frame and "packs" it,
     which means that it arranges the objects in it so as to fill

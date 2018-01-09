@@ -11,7 +11,7 @@ class comparisonType(Enum): # needed for the decisive facts
   EQUAL = 3
 
 
-class Model_new():
+class Model():
     
   def __init__(self):
     #Listener for model events
