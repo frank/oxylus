@@ -36,6 +36,9 @@ class WoodType():
   def addProperty(self, name, value):
     self.properties.append([name, value, True])
 
+  def addAppliedFilterInfo(self, string):
+    self.appliedFilterInfo.append(string)
+
   def updatePropertyAdmission(self, name, value, comparisonType ):
     for prop in self.properties:
       # We need to add the enum type that encompasses HIGHER, LOWER and EQUAL.
