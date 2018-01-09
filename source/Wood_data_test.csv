@@ -1,4 +1,4 @@
-Especie,Species,Latin name,DensityMin,DensityMax,Wood movement (Nerviosidad),Dilatation %,Hardness,Price,Ease of supply,Decorative plates,Exterior Carpentry,Bethell process,Painting properties,Interior carpentry,Furniture and cabinet making,Malleability (Uniformity),Sportive elements and tool handles (Flexibility and resistance),Musical Instruments,Saunas,Mock-ups
+Especie,Species,Latin name,DensityMin,DensityMax,Wood movement (Nerviosidad),Dilation %,Hardness,Price,Ease of supply,Decorative plates,Exterior Carpentry,Bethell process,Painting properties,Interior carpentry,Furniture and cabinet making,Malleability (Uniformity),Sportive elements and tool handles (Flexibility and resistance),Musical Instruments,Saunas,Mock-ups
 Abedul,Birch,Betula alba,640,670,2,11.4-17,3,1,1,TRUE,0,0,2,TRUE,TRUE,TRUE,TRUE,TRUE,FALSE,FALSE
 Abeto,Whitewood/Fir,Abies alba,440,480,2,12-15,2,1,1,TRUE,1,3,2,TRUE,TRUE,FALSE,FALSE,TRUE,TRUE,FALSE
 Abeto rojo,Spruce,Picea abies,440,470,2,13-14,3,1,1,TRUE,1,3,2,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE

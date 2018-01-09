@@ -74,6 +74,8 @@ class Model_new():
           facts = [YESfacts, NOfacts]
           newQuestion = Question(question[0], question[1], facts)
           self.questions.append(newQuestion)
+        if int(question[1]) == 1:
+          pass
 
   def getNextQuestion(self):
     return self.nextQuestion
