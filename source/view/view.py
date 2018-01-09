@@ -1,6 +1,4 @@
 import pygame
-import PIL
-from PIL import ImageTk, Image
 import os
 
 FRAMERATE = 60
@@ -10,9 +8,11 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 220, 0)
-BLUE = (0, 0, 220)
+BLUE = (100, 100, 255)
 PURPLE = (220, 0, 220)
-COLORS = (BLACK, PURPLE, GREEN, BLUE)
+ORANGE = (249, 210, 184)
+YELLOW = (249, 249, 185)
+COLORS = (BLACK, PURPLE, GREEN, BLUE, ORANGE, YELLOW)
 
 BG_COLOR = BLACK
 
@@ -53,8 +53,8 @@ class View():
         self.NObutton_pos = [self.questionFrame_size[0]*5/8, self.questionFrame_size[1]*5/8]
         #Currently selected wood Popup
         self.woodPopup_selection = None
-        self.woodPopup_size = [600, 300]
-        self.woodPopup_pos = [pixel_width * 2/3 - self.woodPopup_size[0] - 1, 0]
+        self.woodPopup_size = [160*3 + 2, 90*3 + 1 + 200]
+        self.woodPopup_pos = [pixel_width * 2/3 - self.woodPopup_size[0] - 2, 0]
         self.woodPopup_surf = pygame.Surface(self.woodPopup_size)
         self.woodPopup_surf.set_colorkey(TRANSPARENT)
 
@@ -69,7 +69,7 @@ class View():
         self.questionText_pos = [int(self.questionFrame_size[0]/8), int(self.questionFrame_size[1]/8)]
         self.woodLabelEnglishFont = pygame.font.SysFont(None, 24)
         self.woodLabelLatinFont = pygame.font.SysFont(None, 24, italic=True)
-        self.questionText = None        
+        self.questionText = None    
         self.buttonFont = pygame.font.SysFont(None, 40, italic=True)
 
     def getSideBar_pos_and_size(self):
@@ -119,8 +119,8 @@ class View():
                 self.woodLabelRectList.append(newLabel)
                 
     def __draw_woodPopup(self):
-        self.woodPopup_surf.fill(WHITE)
-    
+        self.woodPopup_surf.fill(YELLOW)
+
     def redraw(self):
         self.__draw_questionFrame()
         self.__draw_sideBar()
@@ -143,6 +143,7 @@ class View():
     def blit_popUpContent(self):
         file_name = ""
         if self.woodPopup_selection != None:
+            #Picture
             for char in self.woodPopup_selection.getSpanishName():
                 if char == " ":
                     file_name = file_name + "_"
@@ -151,8 +152,17 @@ class View():
             file_name = file_name + ".jpg"
             file_path = os.getcwd() + r"\view\pictures\\" + file_name
             image = pygame.image.load(file_path).convert()
-            pygame.transform.scale(image, (300,200))
-            self.woodPopup_surf.blit(image, (2,2))
+            image_size = 160*3, 90*3
+            image = pygame.transform.scale(image, image_size)
+            self.woodPopup_surf.blit(image, (1,1))
+            #Text
+            y_displacement = 0
+            for item in self.woodPopup_selection.getInfo_from_appliedFilters():
+                text_surface = self.woodLabelEnglishFont.render("- " + item, True, BLACK)
+                y_displacement = y_displacement + text_surface.get_size()[1]
+                self.screen.blit(text_surface, (self.woodPopup_pos[0] + 15,\
+                    self.woodPopup_pos[1] + (1 + image_size[1] + 3 + y_displacement)))
+
 
     def blit_questionText(self):
         words = [word.split(' ') for word in self.questionText.splitlines()] # 2D array where each row is a list of words.

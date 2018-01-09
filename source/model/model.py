@@ -83,7 +83,6 @@ class Model():
                     if questionText[i] == ';':
                         questionText[i] = ','
                 question[0] = ''.join(questionText)
-                print(question[0])
                 # If YES/NO question, creates a list for YES facts and for NO facts
                 if int(question[1]) == 0:
                     YESfacts = []

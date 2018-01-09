@@ -14,7 +14,9 @@ class WoodType():
                          #each property has a value and a boolean to indicate if that property 
                          #still fulfills the criteria set by the user
                          # a property also has a name
-    
+    self.appliedFilterInfo = ["Test", "Test2"] #Applying filters will cause the wood to have non-matching
+                                #properties to the model's prototype. These are represented 
+                                #as strings and are listed in this variable
     self.admissible  = True
     WoodType.count           += 1
     WoodType.admissibleWoods += 1
@@ -27,6 +29,9 @@ class WoodType():
 
   def getLatinName(self):
     return self.latinName
+
+  def getInfo_from_appliedFilters(self):
+    return self.appliedFilterInfo
   
   def addProperty(self, name, value):
     self.properties.append([name, value, True])
