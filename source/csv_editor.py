@@ -1,6 +1,6 @@
 import csv
 
-readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
+readCSV = csv.reader(open('Wood_data_old.csv', 'rt'), delimiter=",")
 with open('data.csv', 'w') as writeFile:
 	writer = csv.writer(writeFile)
 	out = readCSV

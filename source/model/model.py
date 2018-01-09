@@ -105,7 +105,7 @@ class Model():
         readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
         propertyNames = next(readCSV)
         for wood in readCSV:
-            if (len(wood) > 0):
+            if (len(wood)>0):
                 newWood = WoodType(wood[1], wood[2])
                 for prop in range(3, 18):
                     newWood.addProperty(propertyNames[prop], wood[prop])
