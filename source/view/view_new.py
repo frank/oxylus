@@ -32,29 +32,29 @@ class View_new():
     #Frame sizes, positions, and surface initializations
         self.screen_size = pixel_width, pixel_height
         #Question frame
-        self.questionFrame_size = pixel_width *2/3, pixel_height
-        self.questionFrame_pos = 0,0
+        self.questionFrame_size = [pixel_width *2/3, pixel_height]
+        self.questionFrame_pos = [0,0]
         self.questionFrame_surf = pygame.Surface(self.questionFrame_size)
         self.questionFrame_surf.set_colorkey(TRANSPARENT)
         #SideBar frame
-        self.sideBar_size = pixel_width / 3, pixel_height
-        self.sideBar_pos = pixel_width * 2/3, 0
+        self.sideBar_size = [pixel_width / 3, pixel_height]
+        self.sideBar_pos = [pixel_width * 2/3, 0]
         self.sideBar_surf = pygame.Surface(self.sideBar_size)
         self.sideBar_surf.set_colorkey(TRANSPARENT)
         #Wood label rectangles
         self.woodLabelRectList = []
         if int(pixel_height / len(model.getWoods())) < 26:
-            self.woodLabel_size = pixel_width / 3, 26
+            self.woodLabel_size = [pixel_width / 3, 26]
         else:
-            self.woodLabel_size = pixel_width / 3, pixel_height / len(model.getWoods())
+            self.woodLabel_size = [pixel_width / 3, pixel_height / len(model.getWoods())]
         #YES/NO Question Response buttons
-        self.button_size = self.questionFrame_size[0]/4, self.questionFrame_size[1]/8
-        self.YESbutton_pos = self.questionFrame_size[0]/8, self.questionFrame_size[1]*5/8
-        self.NObutton_pos = self.questionFrame_size[0]*5/8, self.questionFrame_size[1]*5/8
+        self.button_size = [self.questionFrame_size[0]/4, self.questionFrame_size[1]/8]
+        self.YESbutton_pos = [self.questionFrame_size[0]/8, self.questionFrame_size[1]*5/8]
+        self.NObutton_pos = [self.questionFrame_size[0]*5/8, self.questionFrame_size[1]*5/8]
         #Currently selected wood Popup
         self.woodPopup_selection = None
-        self.woodPopup_size = 400, 300
-        self.woodPopup_pos = pixel_width * 2/3 - self.woodPopup_size[0], 0        
+        self.woodPopup_size = [600, 300]
+        self.woodPopup_pos = [pixel_width * 2/3 - self.woodPopup_size[0] - 1, 0]
         self.woodPopup_surf = pygame.Surface(self.woodPopup_size)
         self.woodPopup_surf.set_colorkey(TRANSPARENT)
 
@@ -66,7 +66,7 @@ class View_new():
 
         #Initiate texts, text positions, and text fonts
         self.questionFont = pygame.font.SysFont(None, 40)
-        self.questionText_pos = int(self.questionFrame_size[0]/8), int(self.questionFrame_size[1]/8)
+        self.questionText_pos = [int(self.questionFrame_size[0]/8), int(self.questionFrame_size[1]/8)]
         self.woodLabelEnglishFont = pygame.font.SysFont(None, 24)
         self.woodLabelLatinFont = pygame.font.SysFont(None, 24, italic=True)
         self.questionText = None        
@@ -82,10 +82,21 @@ class View_new():
     	return (self.NObutton_pos, self.button_size)
 
     def mouseInsideSideBar(self, mousePos):
-        pass
+        wv = self.model.getWoods()
+        for wood in range(len(wv)):
+            #Current Y_displacement on list
+            list_disp = wood*self.woodLabel_size[1]
+            #label_Ydimensions: [Y_top, Y_bottom]
+            lb = [self.sideBar_pos[1] + list_disp, self.sideBar_pos[1] + self.woodLabel_size[1] + list_disp]
+            #If cursor currently in woodLabel
+            if (mousePos > lb[0] and mousePos < lb[1]):
+                self.woodPopup_update(lb[0], wv[wood])
 
-    def woodPopup_update(pos, woodSelection):
-        self.woodPopup_pos[1] = woodLabel_size[1] * int(pos[1] / woodLabel_size[1])
+    def woodPopup_update(self, Ypos, woodSelection):
+        if self.screen_size[1] - (Ypos + self.woodPopup_size[1]) > 0:
+            self.woodPopup_pos[1] = Ypos
+        else:
+            self.woodPopup_pos[1] = self.screen_size[1] - self.woodPopup_size[1]
         self.woodPopup_selection = woodSelection
 
     def __draw_questionFrame(self):
@@ -108,37 +119,7 @@ class View_new():
                 self.woodLabelRectList.append(newLabel)
                 
     def __draw_woodPopup(self):
-        pass
-        # deleteContents(event, woodDisplay)
-        # #print(event.y, woodLabel.winfo_height(), master.winfo_y())
-        # woodDisplay.place(x = frame1.winfo_width() - woodDisplay.winfo_width(),\
-        #  y = event.y_root - master.winfo_y() -  event.y)
-        # woodDisplay.pack_propagate(False) #Force woodDisplay to not change size as things are packed in it
-        # master.update_idletasks()
-        # # Insert wood picture
-        # file_path = os.getcwd() + r"\view\pictures\Olivo.jpg"
-        # photo = Image.open(file_path)
-        # pWidth, pHeight = photo.size
-        # print(pWidth, pHeight)
-        # ratio = pWidth/pHeight
-        # print(woodDisplay.winfo_height(), ratio, (woodDisplay.winfo_height()-25)*ratio)
-        # photo = photo.resize((int((woodDisplay.winfo_height()-25)*ratio), woodDisplay.winfo_height()-25), Image.ANTIALIAS)
-        # photo = ImageTk.PhotoImage(photo)
-        # woodPicture = tk.Label(woodDisplay, image = photo)
-        # woodPicture.image = photo
-        # woodPicture.pack(side = tk.LEFT)
-        # #Create Text box
-        # textBox = tk.Frame(woodDisplay)
-        # textBox.pack(side = tk.RIGHT, fill = tk.BOTH)
-        # # Inser Wood Name
-        # print(woodNumber)
-        # woodText = tk.Label(textBox, text = str(model.getWoods()[woodNumber].getEnglishName()), fg = "black")
-        # woodText.grid(row = 1)
-        # # Insert Text
-        # woodText = tk.Label(textBox, text = "Something Something", fg = "black")
-        # woodText.grid(row = 4)
-
-        # master.update_idletasks()
+        self.woodPopup_surf.fill(WHITE)
     
     def redraw(self):
         self.__draw_questionFrame()
@@ -154,9 +135,24 @@ class View_new():
         self.blit_labelText()
         self.blit_buttonText()
         if self.woodPopup_selection:
-            self.screen.blit(self.select_surf, self.woodPopup_pos)
+            self.screen.blit(self.woodPopup_surf, self.woodPopup_pos)
+            self.blit_popUpContent()
         pygame.display.flip()
         self.clock.tick(FRAMERATE)
+
+    def blit_popUpContent(self):
+        file_name = ""
+        if self.woodPopup_selection != None:
+            for char in self.woodPopup_selection.getSpanishName():
+                if char == " ":
+                    file_name = file_name + "_"
+                else:
+                    file_name = file_name + char
+            file_name = file_name + ".jpg"
+            file_path = os.getcwd() + r"\view\pictures\\" + file_name
+            image = pygame.image.load(file_path).convert()
+            pygame.transform.scale(image, (300,200))
+            self.woodPopup_surf.blit(image, (2,2))
 
     def blit_questionText(self):
         words = [word.split(' ') for word in self.questionText.splitlines()] # 2D array where each row is a list of words.

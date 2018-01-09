@@ -43,7 +43,9 @@ class Controller_new():
                 pygame.mouse.get_pos()[0] < self.view.getSideBar_pos_and_size()[0][0] + self.view.getSideBar_pos_and_size()[1][0] and \
                 pygame.mouse.get_pos()[1] < self.view.getSideBar_pos_and_size()[0][1] + self.view.getSideBar_pos_and_size()[1][1]:
 
-                    self.view.mouseInsideSideBar(pygame.mouse.get_pos())
+                    self.view.mouseInsideSideBar(pygame.mouse.get_pos()[1])
+                else:
+                    self.view.woodPopup_update(0, None)
 
                     
 
