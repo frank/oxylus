@@ -29,6 +29,10 @@ class Model():
         self.readQuestions()
         self.__next_question()
 
+    def update(self):
+      self.forwardChain()
+      self.fireRules()
+
     def fireRules(self):
       i = 0
       while i < len(rules):
@@ -50,7 +54,7 @@ class Model():
           minRuleCount = ruleCount
           minRules = []
           minRules.append(rule)
-        else if( ruleCount == minRuleCount ):
+        if( ruleCount == minRuleCount ):
           minrules.append(rule)
 
 
