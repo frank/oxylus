@@ -1,4 +1,5 @@
 import tkinter as tk
+import pygame
 from model.model import Model
 from view.view import *
 
@@ -6,18 +7,48 @@ class Controller():
     '''
     Initializing the 'root' main container, the model, the view,
     '''
-    def __init__(self):
-        self.root = tk.Tk()
-        self.model = Model()
-        self.view = View(self.root, self.model)
-        # self.view.sidepanel.plotBut.bind("<Button>", self.my_plot)
-        # self.view.sidepanel.clearButton.bind("<Button>", self.clear)
+    def __init__(self, model, view):
 
-    def run(self):
-        self.root.title("Oxylus")
-        self.root.geometry('1200x600')
-        #self.root.iconbitmap(default = 'icons\o24.ico')
-        self.root.mainloop()
+        self.model = model
+        self.view = view
+        self.running = True
+
+    def process_input(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == K_ESCAPE:
+                    self.running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.mouse.get_pressed()[0] == True:
+                    #if YES button was clicked
+                    if pygame.mouse.get_pos()[0] > self.view.getYESbutton_pos_and_size()[0][0] and \
+                    pygame.mouse.get_pos()[1] > self.view.getYESbutton_pos_and_size()[0][1] and \
+                    pygame.mouse.get_pos()[0] < self.view.getYESbutton_pos_and_size()[0][0] + self.view.getYESbutton_pos_and_size()[1][0] and \
+                    pygame.mouse.get_pos()[1] < self.view.getYESbutton_pos_and_size()[0][1] + self.view.getYESbutton_pos_and_size()[1][1]:
+                        print("Yes!")
+                        pass
+                    #if NO button was clicked
+                    if pygame.mouse.get_pos()[0] > self.view.getNObutton_pos_and_size()[0][0] and \
+                    pygame.mouse.get_pos()[1] > self.view.getNObutton_pos_and_size()[0][1] and \
+                    pygame.mouse.get_pos()[0] < self.view.getNObutton_pos_and_size()[0][0] + self.view.getNObutton_pos_and_size()[1][0] and \
+                    pygame.mouse.get_pos()[1] < self.view.getNObutton_pos_and_size()[0][1] + self.view.getNObutton_pos_and_size()[1][1]:
+                        print("Nope")
+                        pass
+            elif event.type == pygame.MOUSEMOTION:
+                #if in sidebar
+                if pygame.mouse.get_pos()[0] > self.view.getSideBar_pos_and_size()[0][0] and \
+                pygame.mouse.get_pos()[1] > self.view.getSideBar_pos_and_size()[0][1] and \
+                pygame.mouse.get_pos()[0] < self.view.getSideBar_pos_and_size()[0][0] + self.view.getSideBar_pos_and_size()[1][0] and \
+                pygame.mouse.get_pos()[1] < self.view.getSideBar_pos_and_size()[0][1] + self.view.getSideBar_pos_and_size()[1][1]:
+
+                    self.view.mouseInsideSideBar(pygame.mouse.get_pos()[1])
+                else:
+                    self.view.woodPopup_update(0, None)
+
+                    
+
 
     # I removed internal objects that required extra packages.
     def clear(self,event):

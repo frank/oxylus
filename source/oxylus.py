@@ -1,6 +1,6 @@
-from controller.controller_new import Controller_new
-from model.model_new import *
-from view.view_new import View_new
+from controller.controller import Controller
+from model.model import *
+from view.view import View
 import csv
 
 # Main function. It initalizes the controller.
@@ -9,9 +9,9 @@ if __name__ == '__main__':
     SCREEN_WIDTH = 1200
     SCREEN_HEIGHT = 600
     
-    model = Model_new()
-    view = View_new(SCREEN_WIDTH, SCREEN_HEIGHT, model)
-    controller = Controller_new(model, view)
+    model = Model()
+    view = View(SCREEN_WIDTH, SCREEN_HEIGHT, model)
+    controller = Controller(model, view)
     view.redraw()
 
     while controller.running:

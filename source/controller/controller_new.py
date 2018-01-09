@@ -3,7 +3,7 @@ import pygame
 from model.model import Model
 from view.view import *
 
-class Controller_new():
+class Controller():
     '''
     Initializing the 'root' main container, the model, the view,
     '''

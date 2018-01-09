@@ -29,7 +29,7 @@ class WoodType():
     return self.latinName
   
   def addProperty(self, name, value):
-    self.properties.append([name,value,True])
+    self.properties.append([name, value, True])
 
   def updatePropertyAdmission(self, name, value, comparisonType ):
     for prop in self.properties:
