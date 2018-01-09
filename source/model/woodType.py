@@ -5,7 +5,8 @@ class WoodType():
   admissibleWoods = 0
   dismissedWoods = 0
 
-  def __init__(self, englishName, latinName):
+  def __init__(self, spanishName, englishName, latinName):
+    self.spanishName = spanishName
     self.englishName = englishName # name of the wood 
     self.latinName = latinName # name of wood in latin
     #self.image = loadImage..
@@ -17,6 +18,9 @@ class WoodType():
     self.admissible  = True
     WoodType.count           += 1
     WoodType.admissibleWoods += 1
+
+  def getSpanishName(self):
+    return self.spanishName
 
   def getEnglishName(self):
     return self.englishName
