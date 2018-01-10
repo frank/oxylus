@@ -1,7 +1,3 @@
-UseOutside, DensityMin, HIGHER, 400
-Chair
-Table
-BuildDeck
-ToolsAvailable
-ElectricTools
-StrongPerson
+normal,Furniture
+filter,Name,property,boolean
+order,Name,property,weight
