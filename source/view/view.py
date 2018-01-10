@@ -223,9 +223,10 @@ class View():
             if(wv[wood]):
                 englishText = self.woodLabelEnglishFont.render(wv[wood].getEnglishName(), True, RED)
                 latinText = self.woodLabelLatinFont.render(" (" + wv[wood].getLatinName() + ") ", True, RED)
-                self.screen.blit(englishText, (self.sideBar_pos[0]+10, wood*self.woodLabel_size[1]+2))
+                textStartYPos = (self.woodLabel_size[1] - englishText.get_size()[1])/2
+                self.screen.blit(englishText, (self.sideBar_pos[0]+10, wood*self.woodLabel_size[1]+textStartYPos))
                 self.screen.blit(latinText, ((self.sideBar_pos[0]+10) + \
-                (englishText.get_width() + 2), wood*self.woodLabel_size[1]+2))
+                (englishText.get_width() + 2), wood*self.woodLabel_size[1]+textStartYPos))
 
     def blit_buttonText(self):
         YEStext = self.buttonFont.render("YES", True, BLACK)
