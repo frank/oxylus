@@ -92,13 +92,13 @@ class Model():
 
     def readQuestions(self):
         # The Question csv file is structured like such:
-        # Question text, question type, questiontype dependent fact data strcture
+        # Question text, question type, questiontype dependent fact data structure
         # Question type is a number that determines what kind of question it is (eg: 0 == YES/NO question)
         # In the case of YES/NO question, fact data structure looks like following:
         # Number of YES facts, yes fact1,..., yes fact n, number of NO facts, no fact 1, ..., no fact n
         readCSV = csv.reader(open('Questions.csv', 'rt'), delimiter=",")
         for question in readCSV:
-            if (len(question) > 0):
+            if len(question) > 0:
                 # Change ';' into ',' by changing the string into a list, then back into a string
                 questionText = list(question[0])
                 for i in range(len(questionText)):
