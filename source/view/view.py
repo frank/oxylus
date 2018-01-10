@@ -154,13 +154,27 @@ class View():
         self.clock.tick(FRAMERATE)
 
     def blit_askedQuestionsText(self):
-        y_displacement = 0
+        space = self.questionFont.size(' ')[0]  # The width of a space.
+        max_width = self.questionFrame_size[0] - 10
+        x, y = self.askedFrame_pos
         if self.model.getQuestions() != None:
             for question in self.model.getQuestions():
+                words = [word.split(' ') for word in question.getText().splitlines()] # 2D array where each row is a list of words.
                 if question.getAskedStatus() == True:
-                    text_surface = self.woodLabelEnglishFont.render("- " + question.getText(), True, BLACK)
-                    y_displacement = y_displacement + text_surface.get_size()[1]
-                    self.screen.blit(text_surface, (0, self.askedFrame_pos[1] + 3 + y_displacement))
+                    word_surface = self.woodLabelEnglishFont.render(" -", True, BLACK)
+                    self.screen.blit(word_surface, (x, y))
+                    x += word_surface.get_size()[0] + space
+                    for line in words:
+                        for word in line:
+                            word_surface = self.woodLabelEnglishFont.render(word, True, BLACK)
+                            word_width, word_height = word_surface.get_size()
+                            if x + word_width >= max_width:
+                                x = self.askedFrame_pos[0] + 30  # Reset the x.
+                                y += word_height  # Start on new row.
+                            self.screen.blit(word_surface, (x, y))
+                            x += word_width + space
+                        x = self.askedFrame_pos[0]  # Reset the x.
+                        y += word_height  # Start on new row.
 
     def blit_popUpContent(self):
         file_name = ""
@@ -181,9 +195,9 @@ class View():
             y_displacement = 0
             for item in self.woodPopup_selection.getInfo_from_appliedFilters():
                 text_surface = self.woodLabelEnglishFont.render("- " + item, True, BLACK)
-                y_displacement = y_displacement + text_surface.get_size()[1]
                 self.screen.blit(text_surface, (self.woodPopup_pos[0] + 15,\
                     self.woodPopup_pos[1] + (1 + image_size[1] + 3 + y_displacement)))
+                y_displacement = y_displacement + text_surface.get_size()[1]
 
 
     def blit_questionText(self):
@@ -209,9 +223,10 @@ class View():
             if(wv[wood]):
                 englishText = self.woodLabelEnglishFont.render(wv[wood].getEnglishName(), True, RED)
                 latinText = self.woodLabelLatinFont.render(" (" + wv[wood].getLatinName() + ") ", True, RED)
-                self.screen.blit(englishText, (self.sideBar_pos[0]+10, wood*self.woodLabel_size[1]+2))
+                textStartYPos = (self.woodLabel_size[1] - englishText.get_size()[1])/2
+                self.screen.blit(englishText, (self.sideBar_pos[0]+10, wood*self.woodLabel_size[1]+textStartYPos))
                 self.screen.blit(latinText, ((self.sideBar_pos[0]+10) + \
-                (englishText.get_width() + 2), wood*self.woodLabel_size[1]+2))
+                (englishText.get_width() + 2), wood*self.woodLabel_size[1]+textStartYPos))
 
     def blit_buttonText(self):
         YEStext = self.buttonFont.render("YES", True, BLACK)
