@@ -153,14 +153,12 @@ class Model():
         readCSV = csv.reader(open('Facts.csv', 'rt'), delimiter=",")
         for fact in readCSV:
             if len(fact) > 0:
-                if fact[0] == "normal":
-                    newfact = fact(fact[1], self)
-                elif fact[0] == "order":
+                if fact[0] == "order":
                     newfact = orderingFact(fact[1], fact[2], fact[3], self)
                 elif fact[0] == "filter":
                     newfact = filteringFact(fact[1], fact[2], fact[3], self)
                 else:
-                    print("Fact" + fact[1] + "incorrectly formatted.")
+                    newfact = Fact(fact[1], self)
                 self.facts.append(newfact)
 
     def printFacts(self):

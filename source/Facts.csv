@@ -1,7 +1,3 @@
-UseOutside, DensityMin, HIGHER, 400
-Chair
-Table
-BuildDeck
-ToolsAvailable
-ElectricTools
-StrongPerson
+normal,Furniture
+filter,SaunaMaking,Saunas,0
+order,BoatMaking,DensityAvg,3
