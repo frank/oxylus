@@ -13,6 +13,11 @@ PURPLE = (220, 0, 220)
 ORANGE = (249, 210, 184)
 YELLOW = (249, 249, 185)
 COLORS = (BLACK, PURPLE, GREEN, BLUE, ORANGE, YELLOW)
+GRAYx1 = (200, 200, 200)
+GRAYx2 = (150, 150, 150)
+GRAYx3 = (100, 100, 100)
+GRAYx4 = (50, 50, 50)
+GRAY_scale = (WHITE, GRAYx1, GRAYx2, GRAYx3, GRAYx4, BLACK)
 
 BG_COLOR = BLACK
 
@@ -36,6 +41,11 @@ class View():
         self.questionFrame_pos = [0,0]
         self.questionFrame_surf = pygame.Surface(self.questionFrame_size)
         self.questionFrame_surf.set_colorkey(TRANSPARENT)
+        #Asked questions list frame
+        self.askedFrame_size = [pixel_width *2/3 -2, pixel_height*1/3]
+        self.askedFrame_pos = [0,pixel_height*2/3]
+        self.askedFrame_surf = pygame.Surface(self.askedFrame_size)
+        self.askedFrame_surf.set_colorkey(TRANSPARENT)
         #SideBar frame
         self.sideBar_size = [pixel_width / 3, pixel_height]
         self.sideBar_pos = [pixel_width * 2/3, 0]
@@ -49,8 +59,8 @@ class View():
             self.woodLabel_size = [pixel_width / 3, pixel_height / len(model.getWoods())]
         #YES/NO Question Response buttons
         self.button_size = [self.questionFrame_size[0]/4, self.questionFrame_size[1]/8]
-        self.YESbutton_pos = [self.questionFrame_size[0]/8, self.questionFrame_size[1]*5/8]
-        self.NObutton_pos = [self.questionFrame_size[0]*5/8, self.questionFrame_size[1]*5/8]
+        self.YESbutton_pos = [self.questionFrame_size[0]/8, (self.questionFrame_size[1]*2/3)*5/8]
+        self.NObutton_pos = [self.questionFrame_size[0]*5/8, (self.questionFrame_size[1]*2/3)*5/8]
         #Currently selected wood Popup
         self.woodPopup_selection = None
         self.woodPopup_size = [160*3 + 2, 90*3 + 1 + 200]
@@ -106,6 +116,7 @@ class View():
         NObutton = pygame.Rect(self.NObutton_pos, self.button_size)
         self.questionFrame_surf.fill(WHITE, YESbutton)
         self.questionFrame_surf.fill(WHITE, NObutton)
+        self.askedFrame_surf.fill(WHITE)
 
     def __draw_sideBar(self):
         self.sideBar_surf.fill(TRANSPARENT)
@@ -130,15 +141,26 @@ class View():
         #Blank the screen, draw background later
         self.screen.fill(BG_COLOR)
         self.screen.blit(self.questionFrame_surf, self.questionFrame_pos)
-        self.screen.blit(self.sideBar_surf, self.sideBar_pos)
-        self.blit_questionText()
-        self.blit_labelText()
         self.blit_buttonText()
+        self.blit_questionText()
+        self.screen.blit(self.askedFrame_surf, self.askedFrame_pos)
+        self.blit_askedQuestionsText()
+        self.screen.blit(self.sideBar_surf, self.sideBar_pos)
+        self.blit_labelText()
         if self.woodPopup_selection:
             self.screen.blit(self.woodPopup_surf, self.woodPopup_pos)
             self.blit_popUpContent()
         pygame.display.flip()
         self.clock.tick(FRAMERATE)
+
+    def blit_askedQuestionsText(self):
+        y_displacement = 0
+        if self.model.getQuestions() != None:
+            for question in self.model.getQuestions():
+                if question.getAskedStatus() == True:
+                    text_surface = self.woodLabelEnglishFont.render("- " + question.getText(), True, BLACK)
+                    y_displacement = y_displacement + text_surface.get_size()[1]
+                    self.screen.blit(text_surface, (0, self.askedFrame_pos[1] + 3 + y_displacement))
 
     def blit_popUpContent(self):
         file_name = ""
