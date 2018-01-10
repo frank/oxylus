@@ -29,6 +29,7 @@ class Fact():
     def activate(self):
         pass
 
+
 '''
 # if a decisive fact is set to TRUE it will trigger the elimination of a wood type
 class decisiveFact(Fact):
@@ -43,7 +44,8 @@ class decisiveFact(Fact):
 '''
 
 
-# gives the ordering criterion column with the name prop a weight
+# gives the ordering criterion column with the name prop a weight 
+# prop can be: density, price, supply, outsideUse, hardness
 class orderingFact(Fact):
     def __init__(self, name, prop, weight, model):
         super().__init__(name, model)
@@ -51,14 +53,21 @@ class orderingFact(Fact):
         self.weight = weight
 
     def activate(self):
-        for wood in self.model.getWoods():
-            weights = self.model.getWeights()
+        self.model.adjustWeight(self.prop, self.weight)
 
 
 # filters out all the wood types with the specified prop(erty) set to the specified boolean
 class filteringFact(Fact):
-
     def __init__(self, name, prop, boolean, model):
         super().__init__(name, model)
         self.prop = prop
         self.boolean = boolean
+
+    def activate(self):
+        for wood in self.model.getWoods():
+            for prop in wood.getProperties():
+                if (prop[0] == prop):
+                    if (prop[1] == boolean):
+                        wood.filterOut()
+                    else:
+                        break
