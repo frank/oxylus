@@ -1,6 +1,7 @@
 from enum import Enum
 from .model import Model
 
+
 class factValue(Enum):
     UNKNOWN = 1,
     TRUE = 2,
@@ -34,10 +35,12 @@ class decisiveFact(Fact):
     def __init__(self, name, woodName, model):
         super().__init__(name, model)
         self.woodName = woodName
+
     def activate(self):
         for wood in self.model.getWoods():
-             if( wood.englishName == self.woodName ):
-                 wood.filterOut()
+            if (wood.englishName == self.woodName):
+                wood.filterOut()
+
 
 # gives the ordering criterion column with the name prop a weight 
 # prop can be: density, price, supply, outsideUse, hardness
@@ -46,6 +49,7 @@ class orderingFact(Fact):
         super().__init__(name, model)
         self.prop = prop
         self.weight = weight
+
     def activate(self):
          model.adjustWeight(prop, weight)
               
@@ -64,10 +68,6 @@ class filteringFact(Fact):
                       wood.filterOut()
                   else: 
                       break
-
-
-
-
 
 
 
