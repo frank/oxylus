@@ -5,13 +5,6 @@ from .rule import Rule
 from .fact import *
 from .question import Question
 
-
-class comparisonType(Enum):  # needed for the decisive facts
-    HIGHER = 1
-    LOWER = 2
-    EQUAL = 3
-
-
 class Model():
     def __init__(self):
         # Listener for model events
@@ -21,6 +14,7 @@ class Model():
         self.facts = []  # list of all facts
         self.rules = []  # list of all rules
         self.questions = []  # list of all questions
+        self.orderingWeights = [density : 0, price : 0,   0, 0, 0] # density, price, easy of supply, outside use, hardness
         self.nextQuestion = None
 
         self.readFacts()
@@ -32,6 +26,12 @@ class Model():
     def update(self):
         self.forwardChain()
         self.fireRules()
+        self.updateWoodTypes()
+
+    def updateWoodTypes():
+        for fact in self.facts:
+            if( fact.value == factValue.TRUE ):
+                fact.activate()
 
     def fireRules(self):
       i = 0
@@ -49,13 +49,13 @@ class Model():
         origList.append(factToAdd)
         origList.append(1)
 
-    def findQuestion(self):
+    def findFact(self):
       for rule in self.rules:
         ruleCount = 0
         currentPremises = []
         if( rule.isAvailable() ):
           for premise in rule.getPremises():
-            if( premise.getValue() == UNKOWN ):
+            if( premise.getValue() == UNKNOWN ):
               ruleCount += 1
               currentPremises.append(premise)
 
@@ -145,9 +145,9 @@ class Model():
                 propName = fact[1]
                 propCompType = fact[2]
                 propVal = fact[3]
-                newFact = decisiveFact(factName, propName, propCompType, propVal)
+                newFact = decisiveFact(factName, propName, propCompType, propVal,self)
             else:
-                newFact = Fact(factName)
+                newFact = Fact(factName,self)
             self.facts.append(newFact)
 
     def printFacts(self):
