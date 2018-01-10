@@ -7,7 +7,7 @@ import csv
 if __name__ == '__main__':
 
     SCREEN_WIDTH = 1200
-    SCREEN_HEIGHT = 600
+    SCREEN_HEIGHT = 900
     
     model = Model()
     view = View(SCREEN_WIDTH, SCREEN_HEIGHT, model)

@@ -59,8 +59,8 @@ class WoodType():
     def setDismissed(self):
         if self.admissible:
             self.admissible = False
-            self.dismissedWoods += 1
-            self.admissibleWoods -= 1
+            WoodType.dismissedWoods += 1
+            WoodType.admissibleWoods -= 1
 
     def print(self):
         print("This is the wood named ", self.englishName, " with the following property values:", end='')

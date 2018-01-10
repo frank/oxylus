@@ -34,28 +34,43 @@ class Model():
         self.fireRules()
 
     def fireRules(self):
+      i = 0
+      while i < len(rules):
+        if rules[i].canFire():
+          rules[i].fire()
+          i = 0
+  
+    def addToListWithCount(self, origList, factToAdd):
         i = 0
-        while i < len(rules):
-            if rules[i].canFire():
-                rules[i].fire()
-                i = 0
+        for i in range(len(origList)):
+             if( origList[i] == factToAdd ):
+                 origList[i+1] += 1
+                 return
+        origList.append(factToAdd)
+        origList.append(1)
 
-    def forwardChain(self):
-        for rule in self.rules:
-            ruleCount = 0
-            currentPremises = []
-            if (rule.isAvailable()):
-                for premise in rule.getPremises():
-                    if (premise.getValue() == UNKOWN):
-                        ruleCount += 1
-                        currentPremises.append(premise)
-            # Make a list of all the rules with the minimum number of unknown facts
-            if (ruleCount < minRuleCount):
-                minRuleCount = ruleCount
-                minRules = []
-                minRules.append(rule)
-            if (ruleCount == minRuleCount):
-                minrules.append(rule)
+    def findQuestion(self):
+      for rule in self.rules:
+        ruleCount = 0
+        currentPremises = []
+        if( rule.isAvailable() ):
+          for premise in rule.getPremises():
+            if( premise.getValue() == UNKOWN ):
+              ruleCount += 1
+              currentPremises.append(premise)
+
+        # Make a list of all the rules with the minimum number of unknown facts 
+        if( ruleCount < minRuleCount ):
+          minRuleCount = ruleCount
+          minPremises = []
+          for premise in minPremises:
+              addToListWithCount(premise)
+        if( ruleCount == minRuleCount ):
+          for premise in minPremises:
+              addToListWithCount(premise)
+      countsOfList = minIndex[range(1,2,len(minPremises))]
+      minIndex = countsOflist.index(min(countsOfList))
+      factToAskFor = minPremises[minIndex-1]
 
     # Model changing methods (remember to notify()!! )
     # Examples of notifying:
@@ -95,6 +110,9 @@ class Model():
                     self.questions.append(newQuestion)
                 if int(question[1]) == 1:
                     pass
+
+    def getQuestions(self):
+        return self.questions
 
     def getNextQuestion(self):
         return self.nextQuestion
