@@ -15,6 +15,14 @@ class Question():
     elif self.type == 2:  #Implement another question type if needed
       pass
 
+    self.askedStatus = True
+
+  def setAskedStatus(self):
+    self.askedStatus = True
+
+  def getAskedStatus(self):
+    return self.askedStatus
+
   def getText(self):
   	return self.text
 

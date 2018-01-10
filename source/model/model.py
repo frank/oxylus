@@ -97,6 +97,9 @@ class Model():
                 if int(question[1]) == 1:
                     pass
 
+    def getQuestions(self):
+        return self.questions
+
     def getNextQuestion(self):
         return self.nextQuestion
 
