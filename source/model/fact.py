@@ -25,11 +25,25 @@ class Fact():
         print("This is the fact named: ", self.name)
 
 
-# if a decisive fact is set to TRUE it will trigger the elimination of certain wood types
+# if a decisive fact is set to TRUE it will trigger the elimination of a wood type
 class decisiveFact(Fact):
-    def __init__(self, name, prop, compType, value):
+    def __init__(self, name, woodName):
         super().__init__(name)
-        self.compType = compType  # HIGHER, LOWER or EQUAL
-        self.property = prop  # name of the property of woods that will be affected
-        self.numValue = value
+        self.woodName = woodName
         pass
+
+# gives the ordering criterion column with the name prop a weight 
+class orderingFact(Fact):
+  
+    def __init__(self, name, prop, weight):
+        super().__init__(name)
+        self.prop = prop
+        self.weight = weight
+
+# filters out all the wood types with the specified prop(erty) set to the specified boolean
+class filteringFact(Fact):
+
+    def __init__(self, name, prop, boolean):
+        super().__init__(name)
+        self.prop = prop
+        self.boolean = boolean
