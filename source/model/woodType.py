@@ -1,7 +1,4 @@
 class WoodType():
-    count = 0
-    admissibleWoods = 0
-    dismissedWoods = 0
 
     def __init__(self, spanishName, englishName, latinName):
         self.englishName = englishName  # name of the wood
@@ -14,14 +11,12 @@ class WoodType():
         # a property also has a name
         # The fourth boolean in a property indicates whether the property
         # is represented by a boolean value itself
-        self.appliedFilterInfo = ["Test", "Test2"]  # Applying filters will cause the wood to have non-matching
+        self.appliedFilterInfo = ["My pubes are growing", "PLease stop, it hurts"]  # Applying filters will cause the wood to have non-matching
         # properties to the model's prototype. These are represented
         # as strings and are listed in this variable
         self.admissible = True
         self.orderValue = 0
-        self.filteredCount = 0
-        WoodType.count += 1
-        WoodType.admissibleWoods += 1
+ 
 
     def getEnglishName(self):
         return self.englishName
@@ -39,19 +34,23 @@ class WoodType():
         self.admissible = False
         self.filteredCount += 1
 
+    def getProperties(self):
+        return self.properties
+
     def addProperty(self, name, value):
         if value == "TRUE":
-            self.properties.append([name, 1, True, True])
+            self.properties.append([name, 1, True])
         elif value == "FALSE":
-            self.properties.append([name, 0, True, True])
+            self.properties.append([name, 0, True])
         elif value == "":
-            self.properties.append([name, None, True, False])
+            self.properties.append([name, None, False])
         else:
-            self.properties.append([name, float(value), True, False])
+            self.properties.append([name, float(value), False])
 
     def addAppliedFilterInfo(self, string):
         self.appliedFilterInfo.append(string)
 
+# not needed anymore:
     def updatePropertyAdmission(self, name, value, comparisonType):
         for prop in self.properties:
             # We need to add the enum type that encompasses HIGHER, LOWER and EQUAL.
@@ -61,12 +60,6 @@ class WoodType():
                      comparisonType == EQUAL and prop[1] != value)):
                 prop[2] = False
                 self.setDismissed()
-
-    def setDismissed(self):
-        if self.admissible:
-            self.admissible = False
-            WoodType.dismissedWoods += 1
-            WoodType.admissibleWoods -= 1
 
     def print(self):
         print("This is the wood named ", self.englishName, " with the following property values:", end='')

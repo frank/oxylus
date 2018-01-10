@@ -14,7 +14,7 @@ class Model():
         self.facts = []  # list of all facts
         self.rules = []  # list of all rules
         self.questions = []  # list of all questions
-        self.orderingWeights = [density : 0, price : 0,   0, 0, 0] # density, price, easy of supply, outside use, hardness
+        self.orderingWeights = [density : 0, price : 0, supply : 0, outsideUse : 0, hardness: 0] # density, price, easy of supply, outside use, hardness
         self.nextQuestion = None
 
         self.readFacts()
@@ -27,11 +27,20 @@ class Model():
         self.forwardChain()
         self.fireRules()
         self.updateWoodTypes()
+        self.reorderWoods()
+        self.findFact()
+        self.__next_question()
 
     def updateWoodTypes():
         for fact in self.facts:
             if( fact.value == factValue.TRUE ):
                 fact.activate()
+
+# reorders the woods list according to the weights and filters
+    def reorderWoods():
+        pass
+
+  
 
     def fireRules(self):
       i = 0
@@ -136,6 +145,9 @@ class Model():
 
     def addWood(self, wood):
         self.woods.append(wood)
+
+    def adjustWeight(self,weightName, weightVal):
+        self.weights[weightName] = weightVal
 
     def readFacts(self):
         readCSV = csv.reader(open('Facts.csv', 'rt'), delimiter=",")
