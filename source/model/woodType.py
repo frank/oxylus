@@ -6,6 +6,7 @@ class WoodType():
     def __init__(self, spanishName, englishName, latinName):
         self.englishName = englishName  # name of the wood
         self.latinName = latinName  # name of wood in latin
+        self.spanishName
         # self.image = loadImage..
         self.properties = []  # list of properties associated to the wood type
         # each property has a value and a boolean to indicate if that property
@@ -26,6 +27,9 @@ class WoodType():
     def getLatinName(self):
         return self.latinName
 
+    def getSpanishNAme(self):
+        return self.spanishName
+        
     def getInfo_from_appliedFilters(self):
         return self.appliedFilterInfo
 
