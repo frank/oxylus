@@ -30,8 +30,8 @@ class Model():
         self.__next_question()
 
     def update(self):
-      self.forwardChain()
-      self.fireRules()
+        self.forwardChain()
+        self.fireRules()
 
     def fireRules(self):
       i = 0
@@ -40,7 +40,16 @@ class Model():
           rules[i].fire()
           i = 0
   
-    def forwardChain(self):
+    def addToListWithCount(self, origList, factToAdd):
+        i = 0
+        for i in range(len(origList)):
+             if( origList[i] == factToAdd ):
+                 origList[i+1] += 1
+                 return
+        origList.append(factToAdd)
+        origList.append(1)
+
+    def findQuestion(self):
       for rule in self.rules:
         ruleCount = 0
         currentPremises = []
@@ -49,14 +58,19 @@ class Model():
             if( premise.getValue() == UNKOWN ):
               ruleCount += 1
               currentPremises.append(premise)
+
         # Make a list of all the rules with the minimum number of unknown facts 
         if( ruleCount < minRuleCount ):
           minRuleCount = ruleCount
-          minRules = []
-          minRules.append(rule)
+          minPremises = []
+          for premise in minPremises:
+              addToListWithCount(premise)
         if( ruleCount == minRuleCount ):
-          minrules.append(rule)
-
+          for premise in minPremises:
+              addToListWithCount(premise)
+      countsOfList = minIndex[range(1,2,len(minPremises))]
+      minIndex = countsOflist.index(min(countsOfList))
+      factToAskFor = minPremises[minIndex-1]
 
     # Model changing methods (remember to notify()!! )
     # Examples of notifying:
