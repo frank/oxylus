@@ -1,7 +1,6 @@
 from controller.controller import Controller
 from model.model import *
 from view.view import View
-import csv
 
 # Main function. It initalizes the controller.
 if __name__ == '__main__':
