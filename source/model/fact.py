@@ -1,6 +1,7 @@
 from enum import Enum
 from .model import Model
 
+
 class factValue(Enum):
     UNKNOWN = 1,
     TRUE = 2,
@@ -34,21 +35,24 @@ class decisiveFact(Fact):
     def __init__(self, name, woodName, model):
         super().__init__(name, model)
         self.woodName = woodName
+
     def activate(self):
         for wood in self.model.getWoods():
-             if( wood.englishName == self.woodName ):
-                 wood.filterOut()
+            if (wood.englishName == self.woodName):
+                wood.filterOut()
 
-# gives the ordering criterion column with the name prop a weight 
+
+# gives the ordering criterion column with the name prop a weight
 class orderingFact(Fact):
     def __init__(self, name, prop, weight, model):
         super().__init__(name, model)
         self.prop = prop
         self.weight = weight
+
     def activate(self):
-         for wood in self.model.getWoods():
-              weights = model.getWeights()
-              
+        for wood in self.model.getWoods():
+            weights = model.getWeights()
+
 
 # filters out all the wood types with the specified prop(erty) set to the specified boolean
 class filteringFact(Fact):
@@ -57,10 +61,3 @@ class filteringFact(Fact):
         super().__init__(name, model)
         self.prop = prop
         self.boolean = boolean
-
-
-
-
-
-
-
