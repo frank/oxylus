@@ -152,15 +152,16 @@ class Model():
     def readFacts(self):
         readCSV = csv.reader(open('Facts.csv', 'rt'), delimiter=",")
         for fact in readCSV:
-            factName = fact[0]
-            if len(fact) > 1:
-                propName = fact[1]
-                propCompType = fact[2]
-                propVal = fact[3]
-                newFact = decisiveFact(factName, propName, propCompType, propVal,self)
-            else:
-                newFact = Fact(factName,self)
-            self.facts.append(newFact)
+            if len(fact) > 0:
+                if fact[0] == "normal":
+                    newfact = fact(fact[1], self)
+                elif fact[0] == "order":
+                    newfact = orderingFact(fact[1], fact[2], fact[3], self)
+                elif fact[0] == "filter":
+                    newfact = filteringFact(fact[1], fact[2], fact[3], self)
+                else:
+                    print("Fact" + fact[1] + "incorrectly formatted.")
+                self.facts.append(newfact)
 
     def printFacts(self):
         for fact in self.facts:

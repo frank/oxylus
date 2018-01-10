@@ -9,9 +9,9 @@ class factValue(Enum):
 
 
 class Fact():
-    '''
+    """
     This class should represent the facts which are contained in rules.
-    '''
+    """
 
     def __init__(self, name, model):
         self.value = factValue.UNKNOWN  # Possible values: UNKNOWN, TRUE, FALSE, MAYBE
@@ -19,7 +19,7 @@ class Fact():
         self.isConclusion = False
         self.model = model
 
-    def isConclusion(boolean):
+    def isConclusion(self, boolean):
         self.isConclusion = boolean
 
     def print(self):
@@ -29,6 +29,7 @@ class Fact():
         pass
 
 
+'''
 # if a decisive fact is set to TRUE it will trigger the elimination of a wood type
 class decisiveFact(Fact):
     def __init__(self, name, woodName, model):
@@ -39,6 +40,7 @@ class decisiveFact(Fact):
         for wood in self.model.getWoods():
             if (wood.englishName == self.woodName):
                 wood.filterOut()
+'''
 
 
 # gives the ordering criterion column with the name prop a weight 
@@ -50,8 +52,8 @@ class orderingFact(Fact):
         self.weight = weight
 
     def activate(self):
-         model.adjustWeight(prop, weight)
-              
+        self.model.adjustWeight(self.prop, self.weight)
+
 
 # filters out all the wood types with the specified prop(erty) set to the specified boolean
 class filteringFact(Fact):
@@ -59,14 +61,12 @@ class filteringFact(Fact):
         super().__init__(name, model)
         self.prop = prop
         self.boolean = boolean
+
     def activate(self):
         for wood in self.model.getWoods():
             for prop in wood.getProperties():
-                if( prop[0] == prop ):
-                  if( prop[1] == boolean ):
-                      wood.filterOut()
-                  else: 
-                      break
-
-
-
+                if (prop[0] == prop):
+                    if (prop[1] == boolean):
+                        wood.filterOut()
+                    else:
+                        break
