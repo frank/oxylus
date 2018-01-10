@@ -30,33 +30,32 @@ class Model():
         self.__next_question()
 
     def update(self):
-      self.forwardChain()
-      self.fireRules()
+        self.forwardChain()
+        self.fireRules()
 
     def fireRules(self):
-      i = 0
-      while i < len(rules):
-        if rules[i].canFire():
-          rules[i].fire()
-          i = 0
-  
-    def forwardChain(self):
-      for rule in self.rules:
-        ruleCount = 0
-        currentPremises = []
-        if( rule.isAvailable() ):
-          for premise in rule.getPremises():
-            if( premise.getValue() == UNKOWN ):
-              ruleCount += 1
-              currentPremises.append(premise)
-        # Make a list of all the rules with the minimum number of unknown facts 
-        if( ruleCount < minRuleCount ):
-          minRuleCount = ruleCount
-          minRules = []
-          minRules.append(rule)
-        if( ruleCount == minRuleCount ):
-          minrules.append(rule)
+        i = 0
+        while i < len(rules):
+            if rules[i].canFire():
+                rules[i].fire()
+                i = 0
 
+    def forwardChain(self):
+        for rule in self.rules:
+            ruleCount = 0
+            currentPremises = []
+            if (rule.isAvailable()):
+                for premise in rule.getPremises():
+                    if (premise.getValue() == UNKOWN):
+                        ruleCount += 1
+                        currentPremises.append(premise)
+            # Make a list of all the rules with the minimum number of unknown facts
+            if (ruleCount < minRuleCount):
+                minRuleCount = ruleCount
+                minRules = []
+                minRules.append(rule)
+            if (ruleCount == minRuleCount):
+                minrules.append(rule)
 
     # Model changing methods (remember to notify()!! )
     # Examples of notifying:
