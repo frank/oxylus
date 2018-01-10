@@ -30,8 +30,8 @@ class Model():
         self.__next_question()
 
     def update(self):
-      self.forwardChain()
-      self.fireRules()
+        self.forwardChain()
+        self.fireRules()
 
     def fireRules(self):
       i = 0
@@ -97,7 +97,6 @@ class Model():
                     if questionText[i] == ';':
                         questionText[i] = ','
                 question[0] = ''.join(questionText)
-                print(question[0])
                 # If YES/NO question, creates a list for YES facts and for NO facts
                 if int(question[1]) == 0:
                     YESfacts = []
@@ -120,7 +119,7 @@ class Model():
         propertyNames = next(readCSV)
         for wood in readCSV:
             if (len(wood) > 0):
-                newWood = WoodType(wood[1], wood[2])
+                newWood = WoodType(wood[0], wood[1], wood[2])
                 for prop in range(3, 18):
                     newWood.addProperty(propertyNames[prop], wood[prop])
                 self.addWood(newWood)
