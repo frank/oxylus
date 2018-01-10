@@ -5,6 +5,7 @@ from .rule import Rule
 from .fact import *
 from .question import Question
 
+
 class Model():
     def __init__(self):
         # Listener for model events
@@ -14,7 +15,7 @@ class Model():
         self.facts = []  # list of all facts
         self.rules = []  # list of all rules
         self.questions = []  # list of all questions
-        self.orderingWeights = [density : 0, price : 0,   0, 0, 0] # density, price, easy of supply, outside use, hardness
+        self.orderingWeights = {"density": 0, "price": 0, "supply": 0, "outsideUse": 0, "hardness": 0}
         self.nextQuestion = None
 
         self.readFacts()
@@ -27,50 +28,57 @@ class Model():
         self.forwardChain()
         self.fireRules()
         self.updateWoodTypes()
+        self.reorderWoods()
+        self.findFact()
+        self.__next_question()
 
     def updateWoodTypes():
         for fact in self.facts:
-            if( fact.value == factValue.TRUE ):
+            if (fact.value == factValue.TRUE):
                 fact.activate()
 
+    # reorders the woods list according to the weights and filters
+    def reorderWoods():
+        pass
+
     def fireRules(self):
-      i = 0
-      while i < len(rules):
-        if rules[i].canFire():
-          rules[i].fire()
-          i = 0
-  
+        i = 0
+        while i < len(rules):
+            if rules[i].canFire():
+                rules[i].fire()
+                i = 0
+
     def addToListWithCount(self, origList, factToAdd):
         i = 0
         for i in range(len(origList)):
-             if( origList[i] == factToAdd ):
-                 origList[i+1] += 1
-                 return
+            if (origList[i] == factToAdd):
+                origList[i + 1] += 1
+                return
         origList.append(factToAdd)
         origList.append(1)
 
     def findFact(self):
-      for rule in self.rules:
-        ruleCount = 0
-        currentPremises = []
-        if( rule.isAvailable() ):
-          for premise in rule.getPremises():
-            if( premise.getValue() == UNKNOWN ):
-              ruleCount += 1
-              currentPremises.append(premise)
+        for rule in self.rules:
+            ruleCount = 0
+            currentPremises = []
+            if (rule.isAvailable()):
+                for premise in rule.getPremises():
+                    if (premise.getValue() == UNKNOWN):
+                        ruleCount += 1
+                        currentPremises.append(premise)
 
-        # Make a list of all the rules with the minimum number of unknown facts 
-        if( ruleCount < minRuleCount ):
-          minRuleCount = ruleCount
-          minPremises = []
-          for premise in minPremises:
-              addToListWithCount(premise)
-        if( ruleCount == minRuleCount ):
-          for premise in minPremises:
-              addToListWithCount(premise)
-      countsOfList = minIndex[range(1,2,len(minPremises))]
-      minIndex = countsOflist.index(min(countsOfList))
-      factToAskFor = minPremises[minIndex-1]
+            # Make a list of all the rules with the minimum number of unknown facts
+            if (ruleCount < minRuleCount):
+                minRuleCount = ruleCount
+                minPremises = []
+                for premise in minPremises:
+                    addToListWithCount(premise)
+            if (ruleCount == minRuleCount):
+                for premise in minPremises:
+                    addToListWithCount(premise)
+        countsOfList = minIndex[range(1, 2, len(minPremises))]
+        minIndex = countsOflist.index(min(countsOfList))
+        factToAskFor = minPremises[minIndex - 1]
 
     # Model changing methods (remember to notify()!! )
     # Examples of notifying:
@@ -137,18 +145,24 @@ class Model():
     def addWood(self, wood):
         self.woods.append(wood)
 
+    def adjustWeight(self, weightName, weightVal):
+        self.weights[weightName] = weightVal
+
     def readFacts(self):
+        # Facts need to be formatted in this fashion:
+        # normal facts:     normal,factName
+        # ordering facts:   order,factName,property,weight(-4 to 4
+        # filtering facts:  filter,factName,property,boolean(1 or 0)
         readCSV = csv.reader(open('Facts.csv', 'rt'), delimiter=",")
         for fact in readCSV:
-            factName = fact[0]
-            if len(fact) > 1:
-                propName = fact[1]
-                propCompType = fact[2]
-                propVal = fact[3]
-                newFact = decisiveFact(factName, propName, propCompType, propVal,self)
-            else:
-                newFact = Fact(factName,self)
-            self.facts.append(newFact)
+            if len(fact) > 0:
+                if fact[0] == "order":
+                    newfact = orderingFact(fact[1], fact[2], fact[3], self)
+                elif fact[0] == "filter":
+                    newfact = filteringFact(fact[1], fact[2], fact[3], self)
+                else:
+                    newfact = Fact(fact[1], self)
+                self.facts.append(newfact)
 
     def printFacts(self):
         for fact in self.facts:

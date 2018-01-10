@@ -1,5 +1,5 @@
 from enum import Enum
-from .model import Model
+import model
 
 class factValue(Enum):
     UNKNOWN = 1,
@@ -9,9 +9,9 @@ class factValue(Enum):
 
 
 class Fact():
-    '''
+    """
     This class should represent the facts which are contained in rules.
-    '''
+    """
 
     def __init__(self, name, model):
         self.value = factValue.UNKNOWN  # Possible values: UNKNOWN, TRUE, FALSE, MAYBE
@@ -19,7 +19,7 @@ class Fact():
         self.isConclusion = False
         self.model = model
 
-    def isConclusion(boolean):
+    def isConclusion(self, boolean):
         self.isConclusion = boolean
 
     def print(self):
@@ -29,38 +29,44 @@ class Fact():
         pass
 
 
+'''
 # if a decisive fact is set to TRUE it will trigger the elimination of a wood type
 class decisiveFact(Fact):
     def __init__(self, name, woodName, model):
         super().__init__(name, model)
         self.woodName = woodName
+
     def activate(self):
         for wood in self.model.getWoods():
-             if( wood.englishName == self.woodName ):
-                 wood.filterOut()
+            if (wood.englishName == self.woodName):
+                wood.filterOut()
+'''
+
 
 # gives the ordering criterion column with the name prop a weight 
+# prop can be: density, price, supply, outsideUse, hardness
 class orderingFact(Fact):
     def __init__(self, name, prop, weight, model):
         super().__init__(name, model)
         self.prop = prop
         self.weight = weight
+
     def activate(self):
-         for wood in self.model.getWoods():
-              weights = model.getWeights()
-              
+        self.model.adjustWeight(self.prop, self.weight)
+
 
 # filters out all the wood types with the specified prop(erty) set to the specified boolean
 class filteringFact(Fact):
-
     def __init__(self, name, prop, boolean, model):
         super().__init__(name, model)
         self.prop = prop
         self.boolean = boolean
 
-
-
-
-
-
-
+    def activate(self):
+        for wood in self.model.getWoods():
+            for prop in wood.getProperties():
+                if (prop[0] == prop):
+                    if (prop[1] == boolean):
+                        wood.filterOut()
+                    else:
+                        break
