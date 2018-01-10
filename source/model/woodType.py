@@ -18,6 +18,8 @@ class WoodType():
         # properties to the model's prototype. These are represented
         # as strings and are listed in this variable
         self.admissible = True
+        self.orderValue = 0
+        self.filteredCount = 0
         WoodType.count += 1
         WoodType.admissibleWoods += 1
 
@@ -32,6 +34,10 @@ class WoodType():
 
     def getInfo_from_appliedFilters(self):
         return self.appliedFilterInfo
+
+    def filterOut(self):
+        self.admissible = False
+        self.filteredCount += 1
 
     def addProperty(self, name, value):
         if value == "TRUE":
