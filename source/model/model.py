@@ -5,6 +5,7 @@ from .rule import Rule
 from .fact import *
 from .question import Question
 
+
 class Model():
     def __init__(self):
         # Listener for model events
@@ -14,7 +15,7 @@ class Model():
         self.facts = []  # list of all facts
         self.rules = []  # list of all rules
         self.questions = []  # list of all questions
-        self.orderingWeights = {"density" : 0, "price" : 0, "supply" : 0, "outsideUse" : 0, "hardness" : 0}
+        self.orderingWeights = {"density": 0, "price": 0, "supply": 0, "outsideUse": 0, "hardness": 0}
         self.nextQuestion = None
 
         self.readFacts()
@@ -33,53 +34,51 @@ class Model():
 
     def updateWoodTypes():
         for fact in self.facts:
-            if( fact.value == factValue.TRUE ):
+            if (fact.value == factValue.TRUE):
                 fact.activate()
 
-# reorders the woods list according to the weights and filters
+    # reorders the woods list according to the weights and filters
     def reorderWoods():
         pass
 
-  
-
     def fireRules(self):
-      i = 0
-      while i < len(rules):
-        if rules[i].canFire():
-          rules[i].fire()
-          i = 0
-  
+        i = 0
+        while i < len(rules):
+            if rules[i].canFire():
+                rules[i].fire()
+                i = 0
+
     def addToListWithCount(self, origList, factToAdd):
         i = 0
         for i in range(len(origList)):
-             if( origList[i] == factToAdd ):
-                 origList[i+1] += 1
-                 return
+            if (origList[i] == factToAdd):
+                origList[i + 1] += 1
+                return
         origList.append(factToAdd)
         origList.append(1)
 
     def findFact(self):
-      for rule in self.rules:
-        ruleCount = 0
-        currentPremises = []
-        if( rule.isAvailable() ):
-          for premise in rule.getPremises():
-            if( premise.getValue() == UNKNOWN ):
-              ruleCount += 1
-              currentPremises.append(premise)
+        for rule in self.rules:
+            ruleCount = 0
+            currentPremises = []
+            if (rule.isAvailable()):
+                for premise in rule.getPremises():
+                    if (premise.getValue() == UNKNOWN):
+                        ruleCount += 1
+                        currentPremises.append(premise)
 
-        # Make a list of all the rules with the minimum number of unknown facts 
-        if( ruleCount < minRuleCount ):
-          minRuleCount = ruleCount
-          minPremises = []
-          for premise in minPremises:
-              addToListWithCount(premise)
-        if( ruleCount == minRuleCount ):
-          for premise in minPremises:
-              addToListWithCount(premise)
-      countsOfList = minIndex[range(1,2,len(minPremises))]
-      minIndex = countsOflist.index(min(countsOfList))
-      factToAskFor = minPremises[minIndex-1]
+            # Make a list of all the rules with the minimum number of unknown facts
+            if (ruleCount < minRuleCount):
+                minRuleCount = ruleCount
+                minPremises = []
+                for premise in minPremises:
+                    addToListWithCount(premise)
+            if (ruleCount == minRuleCount):
+                for premise in minPremises:
+                    addToListWithCount(premise)
+        countsOfList = minIndex[range(1, 2, len(minPremises))]
+        minIndex = countsOflist.index(min(countsOfList))
+        factToAskFor = minPremises[minIndex - 1]
 
     # Model changing methods (remember to notify()!! )
     # Examples of notifying:
@@ -146,7 +145,7 @@ class Model():
     def addWood(self, wood):
         self.woods.append(wood)
 
-    def adjustWeight(self,weightName, weightVal):
+    def adjustWeight(self, weightName, weightVal):
         self.weights[weightName] = weightVal
 
     def readFacts(self):
