@@ -1,19 +1,12 @@
 import csv
 
-readCSV = csv.reader(open('Wood_data_old.csv', 'rt'), delimiter=",")
+readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
 with open('data.csv', 'w') as writeFile:
-	writer = csv.writer(writeFile)
-	out = readCSV
-	for row in out:
-		if row[8] == 'E':
-			row[8] = 1
-		if row[8] == 'M':
-			row[8] = 2
-		if row[8] == 'D':
-			row[8] = 3
-		for x in range(9):
-			if row[9+x] == '':
-				row[9+x] = False
-			if row[9+x] == 'X':
-				row[9+x] = True
-		writer.writerow(row)
+    writer = csv.writer(writeFile)
+    out = readCSV
+    for row in out:
+        if row[3] != "DensityMin":
+            row[3] = str((float(row[3]) + float(row[4])) / 2)
+            if row[6] != "":
+                row[6] = str((float(row[6]) + float(row[7])) / 2)
+        writer.writerow(row)
