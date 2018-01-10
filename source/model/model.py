@@ -14,7 +14,7 @@ class Model():
         self.facts = []  # list of all facts
         self.rules = []  # list of all rules
         self.questions = []  # list of all questions
-        self.orderingWeights = [density : 0, price : 0, supply : 0, outsideUse : 0, hardness: 0] # density, price, easy of supply, outside use, hardness
+        self.orderingWeights = {"density" : 0, "price" : 0, "supply" : 0, "outsideUse" : 0, "hardness" : 0}
         self.nextQuestion = None
 
         self.readFacts()

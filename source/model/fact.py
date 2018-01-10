@@ -1,6 +1,5 @@
 from enum import Enum
-from .model import Model
-
+import model
 
 class factValue(Enum):
     UNKNOWN = 1,
