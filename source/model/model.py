@@ -150,6 +150,10 @@ class Model():
         self.weights[weightName] = weightVal
 
     def readFacts(self):
+        # Facts need to be formatted in this fashion:
+        # normal facts:     normal,factName
+        # ordering facts:   order,factName,property,weight(-4 to 4
+        # filtering facts:  filter,factName,property,boolean(1 or 0)
         readCSV = csv.reader(open('Facts.csv', 'rt'), delimiter=",")
         for fact in readCSV:
             if len(fact) > 0:
