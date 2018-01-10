@@ -105,7 +105,7 @@ class Model():
         for wood in readCSV:
             if (len(wood) > 0):
                 newWood = WoodType(wood[0], wood[1], wood[2])
-                for prop in range(3, 18):
+                for prop in range(3, 19):
                     newWood.addProperty(propertyNames[prop], wood[prop])
                 self.addWood(newWood)
 
