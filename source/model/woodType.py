@@ -3,7 +3,7 @@ class WoodType():
     admissibleWoods = 0
     dismissedWoods = 0
 
-    def __init__(self, englishName, latinName):
+    def __init__(self, spanishName, englishName, latinName):
         self.englishName = englishName  # name of the wood
         self.latinName = latinName  # name of wood in latin
         # self.image = loadImage..
