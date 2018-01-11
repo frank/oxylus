@@ -155,7 +155,6 @@ class Model():
         # filtering facts:  filter,factName,property,boolean(1 or 0)
         readCSV = csv.reader(open('Facts.csv', 'rt'), delimiter=",")
         for fact in readCSV:
-            print(fact)
             if len(fact) > 0 and fact[0] != "#":
                 if fact[0] == "order":
                     newfact = orderingFact(fact[1], fact[2], fact[3], self)
@@ -188,7 +187,8 @@ class Model():
         # "!" character in front of it
         readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
         for rule in readCSV:
-            if len(rule) > 0 and rule[0] != "#":
+            print(rule[0][0])
+            if len(rule) > 0 and rule[0][0] != "#":
                 # Create rule with conclusion
                 if( rule[0][0] == "!" ):
                     conclusionFact = self.findFact(rule[0][range(1,len(rule[0]))])
