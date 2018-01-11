@@ -89,7 +89,7 @@ class Model():
     def setAnswerToQuestion(self, answer):
         if(self.currentQuestion.getAskedStatus() == False):
             if(answer == "YES"):
-                for yesFact in self.currentQuestion.getFacts():
+                for yesFact in self.currentQuestion.getFacts()[0]:
                     yesFact.setValue()
             self.currentQuestion.setAskedStatus()
 
