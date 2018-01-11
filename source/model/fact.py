@@ -7,6 +7,7 @@ class factValue(Enum):
     FALSE = 3,
     MAYBE = 4
 
+
 class Fact():
     """
     This class should represent the facts which are contained in rules.
@@ -18,7 +19,9 @@ class Fact():
         self.isConclusion = False
         self.model = model
 
-    
+    def getName(self):
+        return self.name
+
     def setValue(self, val):
         self.value = val
 

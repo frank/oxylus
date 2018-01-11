@@ -16,6 +16,9 @@ class Question():
 
     self.askedStatus = False
 
+  def getType(self):
+    return self.type
+
   def setAskedStatus(self):
       self.askedStatus = True
 

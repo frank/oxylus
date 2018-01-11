@@ -19,13 +19,21 @@ class WoodType():
     def setRanking(self, weights):
         self.ranking = 0
         for weightName in weights:
-             for prop in properties:
+             for prop in self.properties:
+                if( prop[1] == None):
+                    print(prop[0])
+                    continue
                 if( weightName == prop[0] ):
                     self.ranking += weights[weightName] * prop[1]
 
     def getRanking(self):
         return self.ranking
 
+    def isAdmissible(self):
+        return self.admissible
+
+    def setAdmissible(self, value):
+        self.admissible = value
 
     def getEnglishName(self):
         return self.englishName

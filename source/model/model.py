@@ -1,9 +1,10 @@
 from enum import Enum
 import csv
 from .woodType import WoodType
-from .rule import Rule
 from .fact import *
+from .rule import Rule
 from .question import Question
+
 
 
 class Model():
@@ -15,51 +16,56 @@ class Model():
         self.rules = []  # list of all rules
         self.questions = []  # list of all questions
         self.filteredWoods = []
-        self.orderingWeights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0}
+        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0}
         self.currentQuestion = None
 
         self.readFacts()
         self.readRules()
         self.readWoods()
         self.readQuestions()
-        self.next_question(self.questions[0])
+        print("Before update")
+        self.update()
+        print("Kek")
 
     def update(self):
-        self.forwardChain()
         self.fireRules()
-        self.updateWoodTypes()
+        self.fireFacts()
+        print("Fired Facts")
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
-        self.findQuestionToAskFor(nextFact)
+        self.currentQuestion = self.findQuestionToAskFor(nextFact)
 
-    def updateWoodTypes():
+    def fireFacts(self):
         for fact in self.facts:
             if (fact.value == factValue.TRUE):
                 fact.activate()
 
     # reorders the woods list according to the weights and filters
-    def reorderWoods():
+    def reorderWoods(self):
         # filter woods first:
         for wood in self.woods:
-            if( wood.isAvailable() == False ):
+            if( wood.isAdmissible() == False ):
                 self.filteredWoods.append(wood)
                 self.woods.remove(wood)
             else:
-                wood.setRanking(weights)
+                wood.setRanking(self.weights)
         # order woods according to ranking:
-        woods = sorted(woods, key=lambda wood: wood.getRanking()) 
+        self.woods = sorted(self.woods, key=lambda wood: wood.getRanking()) 
 
         
 
     def fireRules(self):
         i = 0
-        while i < len(self.rules):
-            if self.rules[i].canFire():
-                self.rules[i].fire()
-                i = 0
+        numRules = len(self.rules)
+        while i < numRules:
+            if( self.rules[i].isAvailable() ):
+                if( self.rules[i].canFire() ):
+                    self.rules[i].fire()
+                    i = 0
+            i += 1
+
 
     def addToListWithCount(self, origList, factToAdd):
-        i = 0
         for i in range(len(origList)):
             if (origList[i] == factToAdd):
                 origList[i + 1] += 1
@@ -73,7 +79,7 @@ class Model():
             currentPremises = []
             if (rule.isAvailable()):
                 for premise in rule.getPremises():
-                    if (premise.getValue() == UNKNOWN and not premise.isConclusion() ):
+                    if (premise.getValue() == factValue.UNKNOWN and not premise.isConclusion() ):
                         ruleCount += 1
                         currentPremises.append(premise)
 
@@ -103,14 +109,15 @@ class Model():
                     yesFact.setValue()
             self.currentQuestion.setAskedStatus()
 
-    def findQuestionToAskFor(self, fact):
+    def findQuestionToAskFor(self, nextFact):
         for question in self.questions:
             # Yes/No question:
-            if( question[1] == 0):
-                factRange = range(3,question[2]).extend(range())
-            for yesIdx in range(3,question[2]):
-                if( question[yesIdx] == fact.name ):
-                    return 
+            if( question.getType() == 0):
+                for factType in question.getFacts():
+                    for fact in factType:
+                        if( fact.getName() == nextFact.getName() ):
+                            return question
+
 
 
     def readQuestions(self):
@@ -135,7 +142,7 @@ class Model():
                         yesFacts.append(question[3 + i])
                     noFacts = []
                     for i in range(int(question[2 + int(question[2]) + 1])):
-                        noFactsacts.append(question[2 + int(question[2]) + 2 + i])
+                        noFacts.append(question[2 + int(question[2]) + 2 + i])
                     facts = [noFacts, yesFacts]
                     newQuestion = Question(question[0], question[1], facts)
                     self.questions.append(newQuestion)
@@ -212,27 +219,35 @@ class Model():
         readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
         for rule in readCSV:
             if len(rule) > 0 and rule[0][0] != "#":
-                # Create rule with conclusion
+                # Create rule
+                newRule = Rule()
+                conclusionFact = None
                 if( rule[0][0] == "!" ):
                     conclusionFact = self.findFact(rule[0][1:])
+                    newRule.addConclusion(conclusionFact, factValue.FALSE)
                 else:
                     conclusionFact = self.findFact(rule[0])
+                    newRule.addConclusion(conclusionFact, factValue.TRUE)
+
                 if( conclusionFact == None ):
+                    print(" ")
+                    print("Error while reading rule ", rule , " . No conclusion readable!")
+                    print(" ")
                     return
-                newRule = Rule(conclusionFact)
+                
                 # Add premises to rule
                 for idx in range(len(rule) - 1):
                     premiseString = rule[idx]
                     if rule[idx][0] == "!":
                         newPremise = self.findFact(premiseString[1:])
                         if( newPremise != None ):
-                             newRule.addPremise(newPremise, False)
+                             newRule.addPremise(newPremise, factValue.FALSE)
                         else:
                             return
                     else:
                         newPremise = self.findFact(premiseString)
                         if( newPremise != None ):
-                             newRule.addPremise(newPremise, True)
+                             newRule.addPremise(newPremise, factValue.TRUE)
                         else:
                             return
                 self.addRule(newRule)

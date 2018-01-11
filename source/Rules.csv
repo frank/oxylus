@@ -51,7 +51,7 @@ WeightRel_path,Sportive
 !Musical,Mockup
 !Sportive,Mockup
 !Sauna,Mockup
-Mockup_filter,Mockup
+#,Mockup_filter,Mockup
 
 #Sauna
 !Furniture,Sauna
@@ -64,7 +64,7 @@ Sauna_filter,Sauna
 
 
 Exterior_path,HumidityResist,HumidityResist_path
-!,!HumidityResist,HumidityResist_path
+#,!,!HumidityResist,HumidityResist_path
 Exterior_order,Exterior,Exterior_path
 BethellProcess_path,Exterior_order
 BethellProcess_order,BethellProcess,BethellProcess_path,!Joinery
