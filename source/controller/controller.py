@@ -26,15 +26,14 @@ class Controller():
                     pygame.mouse.get_pos()[1] > self.view.getYESbutton_pos_and_size()[0][1] and \
                     pygame.mouse.get_pos()[0] < self.view.getYESbutton_pos_and_size()[0][0] + self.view.getYESbutton_pos_and_size()[1][0] and \
                     pygame.mouse.get_pos()[1] < self.view.getYESbutton_pos_and_size()[0][1] + self.view.getYESbutton_pos_and_size()[1][1]:
-                        print("Yes!")
-                        pass
+                        self.model.setAnswerToQuestion("YES")
                     #if NO button was clicked
                     if pygame.mouse.get_pos()[0] > self.view.getNObutton_pos_and_size()[0][0] and \
                     pygame.mouse.get_pos()[1] > self.view.getNObutton_pos_and_size()[0][1] and \
                     pygame.mouse.get_pos()[0] < self.view.getNObutton_pos_and_size()[0][0] + self.view.getNObutton_pos_and_size()[1][0] and \
                     pygame.mouse.get_pos()[1] < self.view.getNObutton_pos_and_size()[0][1] + self.view.getNObutton_pos_and_size()[1][1]:
-                        print("Nope")
-                        pass
+                        self.model.setAnswerToQuestion("YES")
+                        
             elif event.type == pygame.MOUSEMOTION:
                 #if in sidebar
                 if pygame.mouse.get_pos()[0] > self.view.getSideBar_pos_and_size()[0][0] and \

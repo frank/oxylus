@@ -14,7 +14,7 @@ class Question():
     elif self.type == 2:  #Implement another question type if needed
       pass
 
-    self.askedStatus = True
+    self.askedStatus = False
 
   def setAskedStatus(self):
       self.askedStatus = True

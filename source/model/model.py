@@ -16,13 +16,13 @@ class Model():
         self.questions = []  # list of all questions
         self.filteredWoods = []
         self.orderingWeights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0}
-        self.nextQuestion = None
+        self.currentQuestion = None
 
         self.readFacts()
         self.readRules()
         self.readWoods()
         self.readQuestions()
-        self.__next_question()
+        self.next_question(self.questions[0])
 
     def update(self):
         self.forwardChain()
@@ -30,7 +30,7 @@ class Model():
         self.updateWoodTypes()
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
-        self.__next_question()
+        #self.next_question()
 
     def updateWoodTypes():
         for fact in self.facts:
@@ -96,8 +96,15 @@ class Model():
     def __woodTypes_rearranged(self):
         self.notify('woodTypes_rearranged', None)
 
-    def __next_question(self):
-        self.nextQuestion = self.questions[0]
+    def setAnswerToQuestion(self, answer):
+        if(self.currentQuestion.getAskedStatus() == False):
+            if(answer == "YES"):
+                for yesFact in self.currentQuestion.getFacts():
+                    yesFact.setValue()
+            self.currentQuestion.setAskedStatus()
+
+    def next_question(self, question):
+        self.currentQuestion = self.questions[0]
         self.notify(None, None)
 
     def readQuestions(self):
@@ -133,7 +140,7 @@ class Model():
         return self.questions
 
     def getNextQuestion(self):
-        return self.nextQuestion
+        return self.currentQuestion
 
     def readWoods(self):
         readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
@@ -198,7 +205,7 @@ class Model():
         # "!" character in front of it
         readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
         for rule in readCSV:
-            if len(rule) > 0 and rule[0] != "#":
+            if len(rule) > 0 and rule[0][0] != "#":
                 # Create rule with conclusion
                 if( rule[0][0] == "!" ):
                     conclusionFact = self.findFact(rule[0][1:])
