@@ -29,7 +29,7 @@ class Model():
         self.fireRules()
         self.updateWoodTypes()
         self.reorderWoods()
-        self.findFact()
+        nextFact = self.nextFactToAskFor()
         self.__next_question()
 
     def updateWoodTypes():
@@ -57,7 +57,7 @@ class Model():
         origList.append(factToAdd)
         origList.append(1)
 
-    def findFact(self):
+    def nextFactToAskFor(self):
         for rule in self.rules:
             ruleCount = 0
             currentPremises = []
@@ -79,11 +79,11 @@ class Model():
         countsOfList = minIndex[range(1, 2, len(minPremises))]
         minIndex = countsOflist.index(min(countsOfList))
         factToAskFor = minPremises[minIndex - 1]
+        return factToAskFor
 
     # Model changing methods (remember to notify()!! )
     # Examples of notifying:
     def __woodTypes_rearranged(self):
-        pass
         self.notify('woodTypes_rearranged', None)
 
     def __next_question(self):
@@ -171,18 +171,33 @@ class Model():
     def addFact(self, fact):
         self.facts.append(fact)
 
+    def findFact(self, name):
+        for fact in self.facts:
+            if( fact.name == name):
+                return fact  
+        print("Error: No fact found with name: ", name)
+
     def readRules(self):
         # Rules in CSV file are arranged such that conclusion is the last element in list.
         # Every item before the conclusion is a fact, which can be negated by adding a
         # "!" character in front of it
         readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
         for rule in readCSV:
-            newRule = Rule(rule[len(rule) - 1])
-            for item in range(len(rule) - 1):
-                if rule[item][0] == "!":
-                    newRule.addPremise(rule[item], False)
+            # Create rule with conclusion
+            if( rule[0][0] == "!" ):
+                conclusionFact = findFact(rule[0][range(1,len(rule[0]))])
+            else:
+                conclusionFact = findFact(rule[0])
+            newRule = Rule(conclusionFact)
+            # Add premises to rule
+            for idx in range(len(rule) - 1):
+                premiseString = rule[idx]
+                if rule[idx][0] == "!":
+                    newPremise = findFact(premiseString[range(1,len(premiseString))])
+                    newRule.addPremise(newPremise, False)
                 else:
-                    newRule.addPremise(rule[item], True)
+                    newPremise = findFact(premiseString)
+                    newRule.addPremise(newPremise, True)
             self.addRule(newRule)
 
     def addRule(self, rule):

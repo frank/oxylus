@@ -1,5 +1,4 @@
 class WoodType():
-
     def __init__(self, spanishName, englishName, latinName):
         self.englishName = englishName  # name of the wood
         self.latinName = latinName  # name of wood in latin
@@ -61,7 +60,7 @@ class WoodType():
                 prop[2] = False
                 self.setDismissed()
 
-    def print(self):
+    def __repr__(self):
         print("This is the wood named ", self.englishName, " with the following property values:", end='')
         for prop in self.properties:
             print(" ", prop[1], end='')
