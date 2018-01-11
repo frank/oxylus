@@ -155,7 +155,7 @@ class Model():
         # filtering facts:  filter,factName,property,boolean(1 or 0)
         readCSV = csv.reader(open('Facts.csv', 'rt'), delimiter=",")
         for fact in readCSV:
-            if len(fact) > 0:
+            if len(fact) > 0 and fact[0] != "#":
                 if fact[0] == "order":
                     newfact = orderingFact(fact[1], fact[2], fact[3], self)
                 elif fact[0] == "filter":
@@ -175,7 +175,11 @@ class Model():
         for fact in self.facts:
             if( fact.name == name):
                 return fact  
-        print("Error: No fact found with name: ", name)
+        print(" ")
+        print("ERROR while reading Rules: No fact found with name: ", name)
+        print("Rule was dismissed. Please check your Database.")
+        print(" ")
+
 
     def readRules(self):
         # Rules in CSV file are arranged such that conclusion is the last element in list.
@@ -185,19 +189,27 @@ class Model():
         for rule in readCSV:
             # Create rule with conclusion
             if( rule[0][0] == "!" ):
-                conclusionFact = findFact(rule[0][range(1,len(rule[0]))])
+                conclusionFact = self.findFact(rule[0][range(1,len(rule[0]))])
             else:
-                conclusionFact = findFact(rule[0])
+                conclusionFact = self.findFact(rule[0])
+            if( conclusionFact == None ):
+                return
             newRule = Rule(conclusionFact)
             # Add premises to rule
             for idx in range(len(rule) - 1):
                 premiseString = rule[idx]
                 if rule[idx][0] == "!":
-                    newPremise = findFact(premiseString[range(1,len(premiseString))])
-                    newRule.addPremise(newPremise, False)
+                    newPremise = self.findFact(premiseString[range(1,len(premiseString))])
+                    if( newPremise != None ):
+                         newRule.addPremise(newPremise, False)
+                    else:
+                        return
                 else:
-                    newPremise = findFact(premiseString)
-                    newRule.addPremise(newPremise, True)
+                    newPremise = self.findFact(premiseString)
+                    if( newPremise != None ):
+                         newRule.addPremise(newPremise, True)
+                    else:
+                        return
             self.addRule(newRule)
 
     def addRule(self, rule):

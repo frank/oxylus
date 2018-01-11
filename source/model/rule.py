@@ -1,8 +1,7 @@
 class Rule():
-
     def __init__(self, conclusion):
         self.conclusion = conclusion
-        self.conclusion.isConclusion(True)
+        self.conclusion.setIsConclusion(True)
         self.premises = []  # list of all the facts that need to be true
         self.truthValues = []  # list of truth values associated to list of facts
         self.available = True
