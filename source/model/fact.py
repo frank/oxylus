@@ -7,7 +7,6 @@ class factValue(Enum):
     FALSE = 3,
     MAYBE = 4
 
-
 class Fact():
     """
     This class should represent the facts which are contained in rules.
@@ -19,15 +18,17 @@ class Fact():
         self.isConclusion = False
         self.model = model
 
-    def isConclusion(self, boolean):
+    def setIsConclusion(self, boolean):
         self.isConclusion = boolean
+    def isConclusion(self):
+        return self.isConclusion
 
-    def print(self):
-        print("This is the fact named: ", self.name)
+
+    def __repr__(self):
+        return "This is the fact named: " + self.name
 
     def activate(self):
         pass
-
 
 '''
 # if a decisive fact is set to TRUE it will trigger the elimination of a wood type
@@ -41,7 +42,6 @@ class decisiveFact(Fact):
             if (wood.englishName == self.woodName):
                 wood.filterOut()
 '''
-
 
 # gives the ordering criterion column with the name prop a weight 
 # prop can be: density, price, supply, outsideUse, hardness
