@@ -186,7 +186,7 @@ class View():
                 else:
                     file_name = file_name + char
             file_name = file_name + ".jpg"
-            file_path = os.getcwd() + r"\view\pictures\\" + file_name
+            file_path = os.path.join(os.getcwd(), "view", "pictures", file_name)
             image = pygame.image.load(file_path).convert()
             image_size = 160*3, 90*3
             image = pygame.transform.scale(image, image_size)
