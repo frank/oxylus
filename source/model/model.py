@@ -177,13 +177,15 @@ class Model():
         # "!" character in front of it
         readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
         for rule in readCSV:
-            newRule = Rule(rule[len(rule) - 1])
-            for item in range(len(rule) - 1):
-                if rule[item][0] == "!":
-                    newRule.addPremise(rule[item], False)
-                else:
-                    newRule.addPremise(rule[item], True)
-            self.addRule(newRule)
+            if rule != None and rule[0] != "#":
+                print(rule)
+                newRule = Rule(rule[len(rule) - 1])
+                for item in range(len(rule) - 1):
+                    if rule[item][0] == "!":
+                        newRule.addPremise(rule[item], False)
+                    else:
+                        newRule.addPremise(rule[item], True)
+                self.addRule(newRule)
 
     def addRule(self, rule):
         self.rules.append(rule)
