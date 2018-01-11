@@ -43,9 +43,9 @@ class Model():
 
     def fireRules(self):
         i = 0
-        while i < len(rules):
-            if rules[i].canFire():
-                rules[i].fire()
+        while i < len(self.rules):
+            if self.rules[i].canFire():
+                self.rules[i].fire()
                 i = 0
 
     def addToListWithCount(self, origList, factToAdd):
