@@ -4,6 +4,7 @@ class Question():
     self.text = text # the question text
     self.type = int(QUESTIONTYPE) # QUESTIONTYPE is enum
     self.facts = [] # the fact associated to the question (only one?)
+    self.factNegations = [] # the negations associated with the read facts
     self.options = None
     if self.type == 0: #YES/NO question
       self.options = 2 #FactList will have 2 lists

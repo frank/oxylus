@@ -100,7 +100,14 @@ class Model():
         if(self.currentQuestion.getAskedStatus() == False):
             if(answer == "YES"):
                 for yesFact in self.currentQuestion.getFacts()[0]:
-                    yesFact.setValue()
+                    yesFact.setValue(2)
+            elif(answer == "NO"):
+                for noFact in self.currentQuestion.getFacts()[1]:
+                    noFact.setValue(2)
+            #For non-YES/NO question with more than 2 answers
+            elif(anser == "ANSWER_3"):
+                for fact3 in self.currentQuestion.getFacts()[2]:
+                    fact3.setValue(2)
             self.currentQuestion.setAskedStatus()
 
     def next_question(self, question):
