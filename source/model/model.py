@@ -30,7 +30,7 @@ class Model():
         self.updateWoodTypes()
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
-        #self.next_question()
+        self.findQuestionToAskFor(nextFact)
 
     def updateWoodTypes():
         for fact in self.facts:
@@ -103,9 +103,15 @@ class Model():
                     yesFact.setValue()
             self.currentQuestion.setAskedStatus()
 
-    def next_question(self, question):
-        self.currentQuestion = self.questions[0]
-        self.notify(None, None)
+    def findQuestionToAskFor(self, fact):
+        for question in self.questions:
+            # Yes/No question:
+            if( question[1] == 0):
+                factRange = range(3,question[2]).extend(range())
+            for yesIdx in range(3,question[2]):
+                if( question[yesIdx] == fact.name ):
+                    return 
+
 
     def readQuestions(self):
         # The Question csv file is structured like such:
@@ -124,13 +130,13 @@ class Model():
                 question[0] = ''.join(questionText)
                 # If YES/NO question, creates a list for YES facts and for NO facts
                 if int(question[1]) == 0:
-                    YESfacts = []
+                    yesFacts = []
                     for i in range(int(question[2])):
-                        YESfacts.append(question[3 + i])
-                    NOfacts = []
+                        yesFacts.append(question[3 + i])
+                    noFacts = []
                     for i in range(int(question[2 + int(question[2]) + 1])):
-                        NOfacts.append(question[2 + int(question[2]) + 2 + i])
-                    facts = [YESfacts, NOfacts]
+                        noFactsacts.append(question[2 + int(question[2]) + 2 + i])
+                    facts = [noFacts, yesFacts]
                     newQuestion = Question(question[0], question[1], facts)
                     self.questions.append(newQuestion)
                 if int(question[1]) == 1:
