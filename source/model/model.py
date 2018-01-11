@@ -75,25 +75,31 @@ class Model():
         origList.append(1)
 
     def nextFactToAskFor(self):
+        minRuleCount = 0
+        minPremises = []
+        # for all rules that require a minimum number of premises to be fulfilled,
+        # collect the facts that they still require to know
         for rule in self.rules:
             ruleCount = 0
             currentPremises = []
-            if (rule.isAvailable()):
+            print(rule)
+            if ( rule.isAvailable() ):
+                print(" One available rule!")
                 for premise in rule.getPremises():
                     if (premise.getValue() == factValue.UNKNOWN and not premise.isConclusion() ):
                         ruleCount += 1
                         currentPremises.append(premise)
+                        print(" We found one boys!")
 
             # Make a list of all the rules with the minimum number of unknown facts
             if (ruleCount < minRuleCount):
                 minRuleCount = ruleCount
-                minPremises = []
                 for premise in minPremises:
-                    addToListWithCount(premise)
+                    addToListWithCount(minPremises, premise)
             if (ruleCount == minRuleCount):
                 for premise in minPremises:
-                    addToListWithCount(premise)
-        countsOfList = minIndex[range(1, 2, len(minPremises))]
+                    addToListWithCount(minPremises, premise)
+        countsOfList = minPremises[range(1, 2, len(minPremises))]
         minIndex = countsOflist.index(min(countsOfList))
         factToAskFor = minPremises[minIndex - 1]
         return factToAskFor

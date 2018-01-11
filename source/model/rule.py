@@ -5,6 +5,11 @@ class Rule():
         self.premises = []  # list of all the facts that need to be true
         self.truthValues = []  # list of truth values associated to list of facts
         self.available = True
+        self.conclusion = None
+
+    def __repr__(self):
+        return "This is a rule with the following conclusion "+ self.conclusion.__repr__()
+
 
     def addPremise(self, fact, truthValue):
         self.premises.append(fact)
