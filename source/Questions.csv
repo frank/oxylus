@@ -4,23 +4,24 @@ Are you looking to make decorative objects?,0,2,Decorative,!BetheProcess,1,!Deco
 Are you looking to make objects with musical properties?,0,1,Musical,1,!Musical
 Are you looking to make wooden sportive equipment that require high flexibility such as hockey sticks; golf clubs; and pool cues?,0,1,Sportive,1,!Sportive
 Are you looking to make models and mockups?,0,1,Mockup,1,!Mockup
+Are you looking to make saunas?,0,1,Sauna,1,!Sauna
 
 Does the wooden object require resistance to humidity?,0,1,HumidityResist,0
 Is the wooden object meant for exterior use?,0,1,Exterior,1,!Exterior
+
 Would you accept woods that have undergone chemical treatments internally to improve durability in exterior environments?,0,1,BethellProcess,1,!BethellProcess
 
-Does the wood require high mechanical resistance?,0,1,MechResist,1,!MechResist
-Does the wood require the ability to be bent into shape?,0,1,Bent,1,!Bent
+Does the wood require high mechanical resistance?,0,1,MechResist,0
+Does the wood require the ability to be bent into shape?,0,1,Bent,0
 Is the weight of the wood type relevant to the project?,0,1,WeightRel,0
-Is the wood required to have properties to allow fastenings? (Ex: screws or nails),0,2,,,1,,
+Is the wood required to have properties to allow fastenings? (Ex: screws; nails; etc.),0,1,AllowFastenings,0
 
-Is the wood required to be easily glued?,0,1,,1,,
-Does the wood require varnishing?,0,1,,1,,
-Is the wooden object meant to be painted?,0,1,,1,,
+Is the wood required to be easily glued?,0,1,Glued,0
+Does the wood require varnishing?,0,1,Varnish,0
+Is the wooden object meant to be painted?,0,1,Painted,0
 
-Do you have access to industrial machinery?,0,1,,1,,
-Do want the wood to have easy machining properties?,0,1,,1,,
-Does the wood require to be carved or moulded into shape?,0,1,,1,,
-Do you have a preference on the color of the wood?,0,1,,1,,
-Do you want to prefer cheaper wood types for your project?,0,1,,1,,
-Do you mind how accessible the type of wood is?,0,1,,1,,
+Do want the wood to have easy machining properties?,0,1,EasyMachining,0
+Do you have access to industrial machinery?,0,1,IndMachAccess,1,!IndMachAccess
+Does the wood require to be carved or moulded into shape?,0,1,Malleable,0
+Do you want to prefer cheaper wood types for your project?,0,1,Cheaper,0
+Do you mind how accessible the type of wood is?,0,1,Accessible,0
