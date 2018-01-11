@@ -21,6 +21,6 @@ order,WeightRel_order,DensityAvg,1
 
 
 
-filter,SaunaMaking,Saunas,0
+filter,Sauna_filter,Saunas,FALSE
 order,BoatMaking,DensityAvg,3
 

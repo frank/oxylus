@@ -49,7 +49,7 @@ class orderingFact(Fact):
     def __init__(self, name, prop, weight, model):
         super().__init__(name, model)
         self.prop = prop
-        self.weight = weight
+        self.weight = int(weight)
 
     def activate(self):
         self.model.adjustWeight(self.prop, self.weight)

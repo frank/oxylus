@@ -1,4 +1,4 @@
-#, Furniture
+#Furniture
 !Joinery,Furniture
 !Decorative,Furniture
 !Musical,Furniture
@@ -7,7 +7,7 @@
 !Sauna,Furniture
 HumidityResist_path,Furniture
 
-#, Joinery
+#Joinery
 !Furniture,Joinery
 !Decorative,Joinery
 !Musical,Joinery
@@ -16,57 +16,64 @@ HumidityResist_path,Furniture
 !Sauna,Joinery
 HumidityResist_path,Joinery
 
-#, Decorative
+#Decorative
 !Furniture,Decorative
 !Joinery,Decorative
 !Musical,Decorative
 !Sportive,Decorative
 !Mockup,Decorative
 !Sauna,Decorative
+!HumidityResist,Decorative
 
-#, Musical
+#Musical
 !Furniture,Musical
 !Joinery,Musical
 !Decorative,Musical
 !Sportive,Musical
 !Mockup,Musical
 !Sauna,Musical
+!HumidityResist,Musical
 
-#, Sportive
+#Sportive
 !Furniture,Sportive
 !Joinery,Sportive
 !Decorative,Sportive
 !Musical,Sportive
 !Mockup,Sportive
 !Sauna,Sportive
-Sportive_path,Sportive
+WeightRel_path,Sportive
+!HumidityResist,Sportive
 
-#, Mockup
+#Mockup
 !Furniture,Mockup
 !Joinery,Mockup
 !Decorative,Mockup
 !Musical,Mockup
 !Sportive,Mockup
 !Sauna,Mockup
+Mockup_filter,Mockup
 
-#, Sauna
+#Sauna
 !Furniture,Sauna
 !Joinery,Sauna
 !Decorative,Sauna
 !Musical,Sauna
 !Sportive,Sauna
 !Mockup,Sauna
+Sauna_filter,Sauna
 
 
 Exterior_path,HumidityResist,HumidityResist_path
-BethellProcess_path,Exterior,Exterior_path
+!,!HumidityResist,HumidityResist_path
+Exterior_order,Exterior,Exterior_path
+BethellProcess_path,Exterior_order
 BethellProcess_order,BethellProcess,BethellProcess_path,!Joinery
 
-WeightRel_order,WightRel,Sportive_path
+WeightRel_order,WeightRel,WeightRel_path
 
-LowWoodMovement,!Exterior
-HighDensity,Furniture
-LowDensity,Joinery
-LowPrice,Paint
-HighMechResist,Paint
-PaintFilter, Paint
+#LowWoodMovement,Interior_path
+#HighDensity,Furniture
+#LowDensity,Joinery
+#LowPrice,Paint
+#HighMechResist,Paint
+#PaintFilter, Paint
