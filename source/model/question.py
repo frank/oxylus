@@ -1,13 +1,15 @@
 class Question():
   
-  def __init__(self,text, QUESTIONTYPE, factList):
+  def __init__(self,text, QUESTIONTYPE, factList, factValueList):
     self.text = text # the question text
     self.type = int(QUESTIONTYPE) # QUESTIONTYPE is enum
     self.facts = [] # the fact associated to the question (only one?)
+    self.factTruthValues = [] # the negations associated with the read facts
     self.options = None
     if self.type == 0: #YES/NO question
       self.options = 2 #FactList will have 2 lists
       self.facts = factList
+      self.factTruthValues = factValueList
     elif self.type == 1: #3Choice question
       self.options = 3#FactList will have 3 lists
       self.facts = factList
@@ -30,6 +32,9 @@ class Question():
 
   def getFacts(self):
       return self.facts
+
+  def getFactTruthValues(self):
+    return self.factTruthValues
 
   def getOptions(self):
       return self.options

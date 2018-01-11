@@ -28,7 +28,6 @@ class Fact():
     def getValue(self):
         return self.value
 
-
     def setIsConclusion(self, boolean):
         self.isConclusion = boolean
 
