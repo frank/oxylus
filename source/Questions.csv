@@ -8,7 +8,6 @@ Are you looking to make saunas?,0,1,Sauna,1,!Sauna
 
 Does the wooden object require resistance to humidity?,0,1,HumidityResist,0
 Is the wooden object meant for exterior use?,0,1,Exterior,1,!Exterior
-
 Would you accept woods that have undergone chemical treatments internally to improve durability in exterior environments?,0,1,BethellProcess,1,!BethellProcess
 
 Does the wood require high mechanical resistance?,0,1,MechResist,0
@@ -17,6 +16,7 @@ Is the weight of the wood type relevant to the project?,0,1,WeightRel,0
 Is the wood required to have properties to allow fastenings? (Ex: screws; nails; etc.),0,1,AllowFastenings,0
 
 Is the wood required to be easily glued?,0,1,Glued,0
+Is the wood's natural color and feel something you want to keep in the final product?,0,2,!Paint,!Varnish,0
 Does the wood require varnishing?,0,1,Varnish,0
 Is the wooden object meant to be painted?,0,1,Painted,0
 
