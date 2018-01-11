@@ -1,4 +1,4 @@
-#Furniture
+#, Furniture
 !Joinery,Furniture
 !Decorative,Furniture
 !Musical,Furniture
@@ -7,7 +7,7 @@
 !Sauna,Furniture
 HumidityResist_path,Furniture
 
-#Joinery
+#, Joinery
 !Furniture,Joinery
 !Decorative,Joinery
 !Musical,Joinery
@@ -16,7 +16,7 @@ HumidityResist_path,Furniture
 !Sauna,Joinery
 HumidityResist_path,Joinery
 
-#Decorative
+#, Decorative
 !Furniture,Decorative
 !Joinery,Decorative
 !Musical,Decorative
@@ -24,7 +24,7 @@ HumidityResist_path,Joinery
 !Mockup,Decorative
 !Sauna,Decorative
 
-#Musical
+#, Musical
 !Furniture,Musical
 !Joinery,Musical
 !Decorative,Musical
@@ -32,7 +32,7 @@ HumidityResist_path,Joinery
 !Mockup,Musical
 !Sauna,Musical
 
-#Sportive
+#, Sportive
 !Furniture,Sportive
 !Joinery,Sportive
 !Decorative,Sportive
@@ -41,7 +41,7 @@ HumidityResist_path,Joinery
 !Sauna,Sportive
 Sportive_path,Sportive
 
-#Mockup
+#, Mockup
 !Furniture,Mockup
 !Joinery,Mockup
 !Decorative,Mockup
@@ -49,7 +49,7 @@ Sportive_path,Sportive
 !Sportive,Mockup
 !Sauna,Mockup
 
-#Sauna
+#, Sauna
 !Furniture,Sauna
 !Joinery,Sauna
 !Decorative,Sauna
