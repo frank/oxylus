@@ -10,10 +10,10 @@ normal,HumidityResist_path
 normal,HumidityResist
 normal,Exterior_path
 normal,Exterior
-order,Exterior_order
+order,Exterior_order,Exterior Carpentry,1
 normal,BethellProcess_path
 normal,BethellProcess
-order,BethellProcess_order
+order,BethellProcess_order,Bethell process,1
 
 normal,WeightRel_path
 normal,WeightRel
