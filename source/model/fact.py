@@ -18,13 +18,14 @@ class Fact():
         self.isConclusion = False
         self.model = model
 
+    def getName(self):
+        return self.name
     
     def setValue(self, val):
         self.value = val
 
     def getValue(self):
         return self.value
-
 
     def setIsConclusion(self, boolean):
         self.isConclusion = boolean

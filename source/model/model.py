@@ -22,7 +22,8 @@ class Model():
         self.readRules()
         self.readWoods()
         self.readQuestions()
-        self.next_question(self.questions[0])
+        self.currentQuestion = self.questions[0]
+        #self.next_question(self.questions[0])
 
     def update(self):
         self.forwardChain()
@@ -99,16 +100,23 @@ class Model():
     def setAnswerToQuestion(self, answer):
         if(self.currentQuestion.getAskedStatus() == False):
             if(answer == "YES"):
-                for yesFact in self.currentQuestion.getFacts()[0]:
-                    yesFact.setValue(2)
+                yesFacts = self.currentQuestion.getFacts()[0]
+                yesFactValues = self.currentQuestion.getFactTruthValues()[0]
+                for i in range(len(yesFacts)):
+                    yesFacts[i].setValue(yesFactValues[i])
             elif(answer == "NO"):
-                for noFact in self.currentQuestion.getFacts()[1]:
-                    noFact.setValue(2)
+                noFacts = self.currentQuestion.getFacts()[1]
+                noFactValues = self.currentQuestion.getFactTruthValues()[1]
+                for i in range(len(noFacts)):
+                    noFacts[i].setValue(yesFactValues[i])
             #For non-YES/NO question with more than 2 answers
             elif(anser == "ANSWER_3"):
-                for fact3 in self.currentQuestion.getFacts()[2]:
-                    fact3.setValue(2)
+                answer3Facts = self.currentQuestion.getFacts()[2]
+                answer3FactValues = self.currentQuestion.getFactTruthValues()[2]
+                for i in range(len(answer3Facts)):
+                    answer3Facts[i].setValue(answer3FactValues[i])
             self.currentQuestion.setAskedStatus()
+            self.update()
 
     def findQuestionToAskFor(self, fact):
         for question in self.questions:
@@ -118,7 +126,6 @@ class Model():
             for yesIdx in range(3,question[2]):
                 if( question[yesIdx] == fact.name ):
                     return 
-
 
     def readQuestions(self):
         # The Question csv file is structured like such:
@@ -138,15 +145,30 @@ class Model():
                 # If YES/NO question, creates a list for YES facts and for NO facts
                 if int(question[1]) == 0:
                     yesFacts = []
+                    yesFactValues = []
                     for i in range(int(question[2])):
-                        yesFacts.append(question[3 + i])
+                        for fact in self.facts:
+                            if(fact.getName() == question[3 + i]):
+                                yesFacts.append(fact)
+                            if question[3+i][0] == "!":
+                                yesFactValues.append(factValue.FALSE)
+                            else:
+                                yesFactValues.append(factValue.TRUE)
                     noFacts = []
+                    noFactValues = []
                     for i in range(int(question[2 + int(question[2]) + 1])):
-                        noFactsacts.append(question[2 + int(question[2]) + 2 + i])
-                    facts = [noFacts, yesFacts]
-                    newQuestion = Question(question[0], question[1], facts)
+                        for fact in self.facts:
+                            if(fact.getName() == question[3 + i]):
+                                noFacts.append(fact)
+                            if question[2 + int(question[2]) + 2 + i][0] == "!":
+                                noFactValues.append(factValue.FALSE)
+                            else:
+                                noFactValues.append(factValue.TRUE)
+                    facts = [yesFacts, noFacts]
+                    factValues = [yesFactValues, noFactValues]
+                    newQuestion = Question(question[0], question[1], facts, factValues)
                     self.questions.append(newQuestion)
-                if int(question[1]) == 1:
+                elif int(question[1]) == 1:
                     pass
 
     def getQuestions(self):
