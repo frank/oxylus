@@ -10,12 +10,12 @@ class Model():
     def __init__(self):
         # Listener for model events
         self.listeners = []
-
         self.woods = []  # list of all the woodtypes
         self.facts = []  # list of all facts
         self.rules = []  # list of all rules
         self.questions = []  # list of all questions
-        self.orderingWeights = {"density": 0, "price": 0, "supply": 0, "outsideUse": 0, "hardness": 0}
+        self.filteredWoods = []
+        self.orderingWeights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0}
         self.nextQuestion = None
 
         self.readFacts()
@@ -39,7 +39,17 @@ class Model():
 
     # reorders the woods list according to the weights and filters
     def reorderWoods():
-        pass
+        # filter woods first:
+        for wood in self.woods:
+            if( wood.isAvailable() == False ):
+                self.filteredWoods.append(wood)
+                self.woods.remove(wood)
+            else:
+                wood.setRanking(weights)
+        # order woods according to ranking:
+        woods = sorted(woods, key=lambda wood: wood.getRanking()) 
+
+        
 
     def fireRules(self):
         i = 0
@@ -63,7 +73,7 @@ class Model():
             currentPremises = []
             if (rule.isAvailable()):
                 for premise in rule.getPremises():
-                    if (premise.getValue() == UNKNOWN):
+                    if (premise.getValue() == UNKNOWN and not premise.isConclusion() ):
                         ruleCount += 1
                         currentPremises.append(premise)
 
@@ -173,7 +183,7 @@ class Model():
 
     def findFact(self, name):
         for fact in self.facts:
-            if( fact.name == name):
+            if( fact.name == name ):
                 return fact  
 
         print(" ")

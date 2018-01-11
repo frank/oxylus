@@ -17,19 +17,19 @@ class Question():
     self.askedStatus = True
 
   def setAskedStatus(self):
-    self.askedStatus = True
+      self.askedStatus = True
 
   def getAskedStatus(self):
-    return self.askedStatus
+      return self.askedStatus
 
   def getText(self):
-  	return self.text
+      return self.text
 
   def getFacts(self):
-  	return self.facts
+      return self.facts
 
   def getOptions(self):
-  	return self.options
+      return self.options
 
   def getType(self):
-  	return self.type
+      return self.type

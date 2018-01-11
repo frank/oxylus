@@ -10,12 +10,22 @@ class WoodType():
         # a property also has a name
         # The fourth boolean in a property indicates whether the property
         # is represented by a boolean value itself
-        self.appliedFilterInfo = ["My pubes are growing", "PLease stop, it hurts"]  # Applying filters will cause the wood to have non-matching
+        self.appliedFilterInfo = [ "Kiss me if you can", "8============D"]  # Applying filters will cause the wood to have non-matching
         # properties to the model's prototype. These are represented
         # as strings and are listed in this variable
         self.admissible = True
-        self.orderValue = 0
+        self.ranking = 0
  
+    def setRanking(self, weights):
+        self.ranking = 0
+        for weightName in weights:
+             for prop in properties:
+                if( weightName == prop[0] ):
+                    self.ranking += weights[weightName] * prop[1]
+
+    def getRanking(self):
+        return self.ranking
+
 
     def getEnglishName(self):
         return self.englishName
@@ -29,9 +39,10 @@ class WoodType():
     def getInfo_from_appliedFilters(self):
         return self.appliedFilterInfo
 
-    def filterOut(self):
+    
+    def filterOut(self, prop):
         self.admissible = False
-        self.filteredCount += 1
+        self.addAppliedFilterInfo("Filtered out because the ", prop, " of the wood did not fit your preferences.")
 
     def getProperties(self):
         return self.properties
