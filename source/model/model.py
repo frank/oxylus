@@ -175,6 +175,7 @@ class Model():
         for fact in self.facts:
             if( fact.name == name):
                 return fact  
+
         print(" ")
         print("ERROR while reading Rules: No fact found with name: ", name)
         print("Rule was dismissed. Please check your Database.")
@@ -191,7 +192,7 @@ class Model():
             if len(rule) > 0 and rule[0][0] != "#":
                 # Create rule with conclusion
                 if( rule[0][0] == "!" ):
-                    conclusionFact = self.findFact(rule[0][range(1,len(rule[0]))])
+                    conclusionFact = self.findFact(rule[0][1:])
                 else:
                     conclusionFact = self.findFact(rule[0])
                 if( conclusionFact == None ):
@@ -201,7 +202,7 @@ class Model():
                 for idx in range(len(rule) - 1):
                     premiseString = rule[idx]
                     if rule[idx][0] == "!":
-                        newPremise = self.findFact(premiseString[range(1,len(premiseString))])
+                        newPremise = self.findFact(premiseString[1:])
                         if( newPremise != None ):
                              newRule.addPremise(newPremise, False)
                         else:
