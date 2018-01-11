@@ -155,6 +155,7 @@ class Model():
         # filtering facts:  filter,factName,property,boolean(1 or 0)
         readCSV = csv.reader(open('Facts.csv', 'rt'), delimiter=",")
         for fact in readCSV:
+            print(fact)
             if len(fact) > 0 and fact[0] != "#":
                 if fact[0] == "order":
                     newfact = orderingFact(fact[1], fact[2], fact[3], self)
