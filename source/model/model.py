@@ -187,7 +187,7 @@ class Model():
         # "!" character in front of it
         readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
         for rule in readCSV:
-            if rule != None and rule[0] != "#":
+            if len(rule) > 0 and rule[0] != "#":
                 # Create rule with conclusion
                 if( rule[0][0] == "!" ):
                     conclusionFact = self.findFact(rule[0][range(1,len(rule[0]))])
