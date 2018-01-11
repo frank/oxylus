@@ -18,11 +18,19 @@ class Fact():
         self.isConclusion = False
         self.model = model
 
+    
+    def setValue(self, val):
+        self.value = val
+
+    def getValue(self):
+        return self.value
+
+
     def setIsConclusion(self, boolean):
         self.isConclusion = boolean
+
     def isConclusion(self):
         return self.isConclusion
-
 
     def __repr__(self):
         return "This is the fact named: " + self.name
@@ -67,6 +75,6 @@ class filteringFact(Fact):
             for prop in wood.getProperties():
                 if (prop[0] == prop):
                     if (prop[1] == boolean):
-                        wood.filterOut()
+                        wood.filterOut(self.prop)
                     else:
                         break
