@@ -151,7 +151,7 @@ class Model():
         # Number of YES facts, yes fact1,..., yes fact n, number of NO facts, no fact 1, ..., no fact n
         readCSV = csv.reader(open('Questions.csv', 'rt'), delimiter=",")
         for question in readCSV:
-            if len(question) > 0:
+            if len(question) > 0 or question[0] == "#":
                 # Change ';' into ',' by changing the string into a list, then back into a string
                 questionText = list(question[0])
                 for i in range(len(questionText)):
@@ -187,6 +187,8 @@ class Model():
                     self.questions.append(newQuestion)
                 elif int(question[1]) == 1:
                     pass
+        for quesiton in self.questions:
+            print(question.getText())
 
     def getQuestions(self):
         return self.questions

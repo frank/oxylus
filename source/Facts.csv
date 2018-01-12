@@ -21,18 +21,19 @@ order,BethellProcess_order,Bethell process,1
 
 normal,Glued_path
 normal,Glued
-order,Glued_order,Paint properties,1
+order,Glued_order,Paint properties,10
 normal,NaturalColor_path
 normal,NaturalColor
 normal,Paint
 normal,Varnish
-order,Paint_order,Painting properties,1
-order,Varnish_order,Painting properties,1
+order,Paint_order,Painting properties,10
+order,Varnish_order,Painting properties,10
 
 normal,WeightRel_path
 normal,WeightRel
 order,WeightRel_order,DensityAvg,1
 order,Hardness_order,Hardness,1
+order,Dilation_order,DilationAvg,3
 
 normal,Price
 normal,Supply
