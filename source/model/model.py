@@ -153,6 +153,7 @@ class Model():
         readCSV = csv.reader(open('Questions.csv', 'rt'), delimiter=",")
         for question in readCSV:
             if len(question) > 0 and question[0] == "#":
+                print(question[0])
                 # Change ';' into ',' by changing the string into a list, then back into a string
                 questionText = list(question[0])
                 for i in range(len(questionText)):
