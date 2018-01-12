@@ -111,12 +111,13 @@ class View():
 
     def __draw_questionFrame(self):
         self.questionFrame_surf.fill(BLACK)
-        self.questionText = self.model.getNextQuestion().getText()
-        YESbutton = pygame.Rect(self.YESbutton_pos, self.button_size)
-        NObutton = pygame.Rect(self.NObutton_pos, self.button_size)
-        self.questionFrame_surf.fill(WHITE, YESbutton)
-        self.questionFrame_surf.fill(WHITE, NObutton)
-        self.askedFrame_surf.fill(WHITE)
+        if self.model.getNextQuestion() != None:
+            self.questionText = self.model.getNextQuestion().getText()
+            YESbutton = pygame.Rect(self.YESbutton_pos, self.button_size)
+            NObutton = pygame.Rect(self.NObutton_pos, self.button_size)
+            self.questionFrame_surf.fill(WHITE, YESbutton)
+            self.questionFrame_surf.fill(WHITE, NObutton)
+            self.askedFrame_surf.fill(WHITE)
 
     def __draw_sideBar(self):
         self.sideBar_surf.fill(TRANSPARENT)
