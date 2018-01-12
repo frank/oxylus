@@ -68,7 +68,6 @@ class Model():
         while i < numRules:
             if( self.rules[i].canFire() ):
                 self.rules[i].fire()
-                self.rulges.remove(rules[i])
                 i = 0
             i += 1
 
@@ -86,6 +85,8 @@ class Model():
         minPremises = []
         # for all rules that require a minimum number of premises to be fulfilled,
         # collect the facts that they still require to know
+        print("")
+        print("Available rules:")
         for rule in self.rules:
             unknownFactsInRule = 0
             currentPremises = []
@@ -117,19 +118,24 @@ class Model():
 
     def setAnswerToQuestion(self, answer):
         if(self.currentQuestion.getAskedStatus() == False):
-            self.currentQuestion.setTruthValuesToAnsweredFacts()
+            self.currentQuestion.setTruthValuesToAnsweredFacts(answer)
             self.update()
 
     def findQuestionToAskFor(self, nextFact):
         for question in self.questions:
+            #print("")
+            #print(question)
+            #print("question type: " ,question.getType())
             # Yes/No question:
-            if( question.getType() == 0):
+            if( question.getType() == 0) :
                 #print(question.getText() , " with the facts: " ,question.getAllFacts())
+                #print("number of facts in this question: ", len(question.getAllFacts()))
                 for fact in question.getAllFacts():
                     nextFact.getName()
-                    fact.getName()
+                    print(fact.getName())
                     if( fact.getName() == nextFact.getName() ):
                         return question
+            #print("")
 
 
     def readQuestions(self):
@@ -140,36 +146,44 @@ class Model():
         # Number of YES facts, yes fact1,..., yes fact n, number of NO facts, no fact 1, ..., no fact n
         readCSV = csv.reader(open('Questions.csv', 'rt'), delimiter=",")
         for question in readCSV:
-            if len(question) > 0 and question[0] == "#":
-                print(question[0])
+            if len(question) > 0 and question[0][0] != "#":
+                questionText = question[0]
+                questionType = int(question[1])
+                #print(questionText)
                 # Change ';' into ',' by changing the string into a list, then back into a string
-                questionText = list(question[0])
+                questionText = list(questionText)
                 for i in range(len(questionText)):
                     if questionText[i] == ';':
                         questionText[i] = ','
-                question[0] = ''.join(questionText)
+                questionText = ''.join(questionText)
                 # If YES/NO question, creates a list for YES facts and for NO facts
-                newQuestion = Question(question[0], question[1])
-                if int(question[1]) == 0:
-                    for i in range(int(question[2])):
+                newQuestion = Question(questionText, questionType)
+                if questionType == 0:
+                    numPositives = int(question[2])
+                    for i in range(numPositives):
                         factExists = False
                         for fact in self.facts:
-                            if(fact.getName() == question[3 + i][1:]):
-                                factExists = True
-                                if question[3+i][0] == "!":
+                            factString = question[3+i]
+                            if factString[0] == "!":
+                                if(fact.getName() == question[3 + i][1:]):
+                                    factExists = True
                                     newQuestion.addFact(fact,factValue.FALSE,0)
-                                else:
+                            else:
+                                if(fact.getName() == question[3 + i]):
+                                    factExists = True
                                     newQuestion.addFact(fact,factValue.TRUE,0)
                         if not factExists:
                             print("Fact '" + str(question[3 + i]) + "' failed to be added to Question '" +str(question[0]))
-                    for i in range(int(question[2 + int(question[2]) + 1])):
+                    for i in range(int(question[2 + numPositives + 1])):
                         factExists = False
                         for fact in self.facts:
-                            if(fact.getName() == question[2 + int(question[2]) + 2 + i][1:]):
-                                factExists = True
-                                if question[2 + int(question[2]) + 2 + i][0] == "!":
+                            if question[2 + int(question[2]) + 2 + i][0] == "!":
+                                if(fact.getName() == question[2 + int(question[2]) + 2 + i][1:]):
+                                    factExists = True
                                     newQuestion.addFact(fact,factValue.FALSE,1)
-                                else:
+                            else:
+                                if(fact.getName() == question[2 + int(question[2]) + 2 + i]):
+                                    factExists = True
                                     newQuestion.addFact(fact,factValue.TRUE,1)
                         if not factExists:
                             print("Fact '" + str(question[2 + int(question[2]) + 2 + i]) + "' failed to be added to Question '" +str(question[0]))
@@ -177,8 +191,8 @@ class Model():
                     self.questions.append(newQuestion)
                 elif int(question[1]) == 1:
                     pass
-        for quesiton in self.questions:
-            print(question.getText())
+        #for question in self.questions:
+           # print(question.getText())
 
     def getQuestions(self):
         return self.questions

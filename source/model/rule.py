@@ -41,7 +41,7 @@ class Rule():
                 print(self, " can never be fired again!")
                 self.available = False
                 return False
-            if( factVal == factValue.UNKNOWN or factval == factValue.MAYBE):
+            if( factVal == factValue.UNKNOWN or factVal == factValue.MAYBE):
                 return False
 
         return True
