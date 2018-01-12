@@ -6,6 +6,7 @@ class Rule():
         self.truthValues = []  # list of truth values associated to list of facts
         self.available = True
         self.conclusion = None
+        self.conclusionTruthValue = None
 
     def __repr__(self):
         return "This is a rule with the following conclusion "+ self.conclusion.__repr__()
@@ -17,7 +18,7 @@ class Rule():
 
     def addConclusion(self, fact, truthValue):
         self.conclusion = fact
-        self.truthValues.append(truthValue)
+        self.conclusionTruthValue = truthValue
 
     def getPremises(self):
         return self.premises
@@ -26,7 +27,7 @@ class Rule():
         if self.available is False:
             return False
         # the first truthvalue belongs to the conclusion:
-        for i in range(1, len(self.premises)):
+        for i in range(0, len(self.premises)):
             # if a premise has an incorrect truth value, the rule can't fire anymore
             factVal = self.premises[i].getValue()
             if( factVal == factValue.TRUE and self.truthValues[i] == factValue.FALSE 
