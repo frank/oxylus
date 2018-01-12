@@ -35,6 +35,7 @@ class Model():
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
+        print("Current Question: ",self.currentQuestion)
         self.notify(None)
 
     def fireFacts(self):
@@ -76,34 +77,41 @@ class Model():
         origList.append(1)
 
     def nextFactToAskFor(self):
-        minRuleCount = 0
+        minRuleCount = 99999
         minPremises = []
         # for all rules that require a minimum number of premises to be fulfilled,
         # collect the facts that they still require to know
         for rule in self.rules:
-            ruleCount = 0
+            unknownFactsInRule = 0
             currentPremises = []
-            print(rule, " is available: ", rule.isAvailable() )
-
             if ( rule.isAvailable() ):
                 print(" One available rule!")
                 for premise in rule.getPremises():
-                    if (premise.getValue() == factValue.UNKNOWN and not premise.getIsConclusion() ):
-                        ruleCount += 1
+                    if (premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor() ):
+                        unknownFactsInRule += 1
                         currentPremises.append(premise)
                         print(" We found one boys!")
+            
+            if( unknownFactsInRule == 0 ):
+                continue
 
             # Make a list of all the rules with the minimum number of unknown facts
-            if (ruleCount < minRuleCount):
-                minRuleCount = ruleCount
-                for premise in minPremises:
-                    addToListWithCount(minPremises, premise)
-            if (ruleCount == minRuleCount):
-                for premise in minPremises:
-                    addToListWithCount(minPremises, premise)
-        countsOfList = minPremises[list(range(1, len(minPremises), 2))]
-        minIndex = countsOflist.index(min(countsOfList))
-        factToAskFor = minPremises[minIndex - 1]
+            if (unknownFactsInRule < minRuleCount):
+                minRuleCount = unknownFactsInRule
+                print("New rule with a minimum number of unkown premises!")
+                minPremises = []
+                for premise in currentPremises:
+                    self.addToListWithCount(minPremises, premise)
+            if (unknownFactsInRule == minRuleCount):
+                for premise in currentPremises:
+                    self.addToListWithCount(minPremises, premise)
+        countsOfList = minPremises[1:2:len(minPremises)]
+        print(minPremises)
+
+        mostAppearingFactIdx = countsOfList.index(max(countsOfList))
+        print(" idx:", mostAppearingFactIdx)
+        factToAskFor = minPremises[mostAppearingFactIdx]
+        print(factToAskFor)
         return factToAskFor
 
     def setAnswerToQuestion(self, answer):
@@ -131,10 +139,12 @@ class Model():
         for question in self.questions:
             # Yes/No question:
             if( question.getType() == 0):
-                for factType in question.getFacts():
-                    for fact in factType:
-                        if( fact.getName() == nextFact.getName() ):
-                            return question
+                #print(question.getText() , " with the facts: " ,question.getAllFacts())
+                for fact in question.getAllFacts():
+                    nextFact.getName()
+                    fact.getName()
+                    if( fact.getName() == nextFact.getName() ):
+                        return question
 
 
     def readQuestions(self):
@@ -263,7 +273,7 @@ class Model():
 
                 if( conclusionFact == None ):
                     print(" ")
-                    print("Error while reading rule ", rule , " . No conclusion readable!")
+                    print("Error while reading rule ", rule , ". No conclusion readable!")
                     print(" ")
                     return
                 
@@ -272,16 +282,12 @@ class Model():
                     premiseString = rule[idx]
                     if rule[idx][0] == "!":
                         newPremise = self.findFact(premiseString[1:])
-                        if( newPremise != None ):
-                             newRule.addPremise(newPremise, factValue.FALSE)
-                        else:
-                            return
+                        newRule.addPremise(newPremise, factValue.FALSE)
+                       
                     else:
                         newPremise = self.findFact(premiseString)
-                        if( newPremise != None ):
-                             newRule.addPremise(newPremise, factValue.TRUE)
-                        else:
-                            return
+                        newRule.addPremise(newPremise, factValue.TRUE)
+                      
                 self.addRule(newRule)
 
     def addRule(self, rule):

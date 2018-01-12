@@ -16,7 +16,7 @@ class Fact():
     def __init__(self, name, model):
         self.value = factValue.UNKNOWN  # Possible values: UNKNOWN, TRUE, FALSE, MAYBE
         self.name = name
-        self.isConclusion = False
+        self.numQuestions = 1
         self.model = model
 
     def getName(self):
@@ -28,14 +28,14 @@ class Fact():
     def getValue(self):
         return self.value
 
-    def setIsConclusion(self, boolean):
-        self.isConclusion = boolean
+    def addQuestion(self):
+        self.numQuestions += 1
 
-    def getIsConclusion(self):
-        return self.isConclusion
+    def canBeAskedFor(self):
+        return self.numQuestions > 0
 
     def __repr__(self):
-        return "This is the fact named: " + self.name
+        return "FactName: " + self.name + " FactVal: " + repr(self.value)
 
     def activate(self):
         pass
@@ -52,6 +52,7 @@ class decisiveFact(Fact):
             if (wood.englishName == self.woodName):
                 wood.filterOut()
 '''
+
 
 # gives the ordering criterion column with the name prop a weight 
 # prop can be: density, price, supply, outsideUse, hardness

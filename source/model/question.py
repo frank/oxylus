@@ -18,8 +18,11 @@ class Question():
 
     self.askedStatus = False
 
+  def __repr__(self):
+    return self.text
+
   def getType(self):
-    return self.type
+      return self.type
 
   def setAskedStatus(self):
       self.askedStatus = True
@@ -30,11 +33,15 @@ class Question():
   def getText(self):
       return self.text
 
+  def getAllFacts(self):
+    if( self.type == 0 ):
+        return self.facts[0] + self.facts[1]
+
   def getFacts(self):
       return self.facts
 
   def getFactTruthValues(self):
-    return self.factTruthValues
+      return self.factTruthValues
 
   def getOptions(self):
       return self.options
