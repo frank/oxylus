@@ -9,7 +9,7 @@ class Rule():
         self.conclusionTruthValue = None
 
     def __repr__(self):
-        return "This is a rule with the following conclusion "+ self.conclusion.__repr__()
+        return "rule with concl: "+ self.conclusion.__repr__()
 
 
     def addPremise(self, fact, truthValue):
@@ -32,9 +32,11 @@ class Rule():
             factVal = self.premises[i].getValue()
             truthVal = self.truthValues[i]
             if( factVal == factValue.TRUE and truthVal == factValue.FALSE 
-                or factVal == factValue.FALSE and truthVal == factValue.TRUE):
+                or factVal == factValue.FALSE and truthVal == factValue.TRUE ):
                 print("Rule can't fire yo!")
-                #self.available = False
+                self.available = False
+                return False
+            if( factVal == factValue.UNKNOWN or factval == factValue.MAYBE):
                 return False
         return True
 
@@ -42,6 +44,7 @@ class Rule():
         return self.available
 
     def fire(self):
+        print(self, " just fired!")
         self.available = False
         if( self.truthValues[0] == True ):
             self.conclusion.setValue(factValue.TRUE)
