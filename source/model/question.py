@@ -30,8 +30,14 @@ class Question():
   def getText(self):
       return self.text
 
-  def getFacts(self):
-      return self.facts
+  def getAllFacts(self):
+    print(self.facts)
+    print("inter")
+    print(self.facts[0])
+    print("merged:")
+    print(self.facts[0].extend(self.facts[1]))
+    if( self.type == 0 ):
+        return self.facts[0].extend(self.facts[1])
 
   def getFactTruthValues(self):
     return self.factTruthValues

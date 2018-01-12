@@ -30,9 +30,10 @@ class Rule():
         for i in range(0, len(self.premises)):
             # if a premise has an incorrect truth value, the rule can't fire anymore
             factVal = self.premises[i].getValue()
-            if( factVal == factValue.TRUE and self.truthValues[i] == factValue.FALSE 
-                or factVal == factValue.FALSE and self.truthValues[i] == factValue.TRUE):
-                print("eyy")
+            truthVal = self.truthValues[i]
+            if( factVal == factValue.TRUE and truthVal == factValue.FALSE 
+                or factVal == factValue.FALSE and truthVal == factValue.TRUE):
+                print("Rule can't fire yo!")
                 #self.available = False
                 return False
         return True

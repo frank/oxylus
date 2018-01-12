@@ -75,12 +75,12 @@ class Model():
         origList.append(1)
 
     def nextFactToAskFor(self):
-        minRuleCount = 0
+        minRuleCount = 99999
         minPremises = []
         # for all rules that require a minimum number of premises to be fulfilled,
         # collect the facts that they still require to know
         for rule in self.rules:
-            ruleCount = 0
+            unknownFactsInRule = 0
             currentPremises = []
             print(rule, " is available: ", rule.isAvailable() )
 
@@ -88,21 +88,25 @@ class Model():
                 print(" One available rule!")
                 for premise in rule.getPremises():
                     if (premise.getValue() == factValue.UNKNOWN and not premise.getIsConclusion() ):
-                        ruleCount += 1
+                        unknownFactsInRule += 1
                         currentPremises.append(premise)
                         print(" We found one boys!")
-
+            
+            if( unknownFactsInRule == 0 ):
+                continue
             # Make a list of all the rules with the minimum number of unknown facts
-            if (ruleCount < minRuleCount):
-                minRuleCount = ruleCount
-                for premise in minPremises:
-                    addToListWithCount(minPremises, premise)
-            if (ruleCount == minRuleCount):
-                for premise in minPremises:
-                    addToListWithCount(minPremises, premise)
-        countsOfList = minPremises[list(range(1, len(minPremises), 2))]
-        minIndex = countsOflist.index(min(countsOfList))
-        factToAskFor = minPremises[minIndex - 1]
+            if (unknownFactsInRule < minRuleCount):
+                minRuleCount = unknownFactsInRule
+                print("New rule with a minimum number of unkown premises!")
+                minPremises = []
+                for premise in currentPremises:
+                    self.addToListWithCount(minPremises, premise)
+            if (unknownFactsInRule == minRuleCount):
+                for premise in currentPremises:
+                    self.addToListWithCount(minPremises, premise)
+        countsOfList = minPremises[1:2:len(minPremises)]
+        mostAppearingFactIdx = countsOfList.index(max(countsOfList))
+        factToAskFor = minPremises[mostAppearingFactIdx - 1]
         return factToAskFor
 
     # Model changing methods (remember to notify()!! )
@@ -135,10 +139,10 @@ class Model():
         for question in self.questions:
             # Yes/No question:
             if( question.getType() == 0):
-                for factType in question.getFacts():
-                    for fact in factType:
-                        if( fact.getName() == nextFact.getName() ):
-                            return question
+                print(question.getText() , " with the facts: " ,question.getAllFacts())
+                for fact in question.getAllFacts():
+                    if( fact == nextFact.getName() ):
+                        return question
 
 
     def readQuestions(self):
