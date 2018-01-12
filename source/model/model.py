@@ -114,11 +114,6 @@ class Model():
         print(factToAskFor)
         return factToAskFor
 
-    # Model changing methods (remember to notify()!! )
-    # Examples of notifying:
-    def __woodTypes_rearranged(self):
-        self.notify('woodTypes_rearranged', None)
-
     def setAnswerToQuestion(self, answer):
         if(self.currentQuestion.getAskedStatus() == False):
             if(answer == "YES"):

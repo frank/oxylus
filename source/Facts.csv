@@ -6,6 +6,10 @@ normal,Sportive
 normal,Mockup
 normal,Sauna
 
+filter,Sportive_filter,Sportive elements and tool handles,FALSE
+filter,Mockup_filter,Mock-ups,FALSE
+filter,Sauna_filter,Saunas,FALSE
+
 normal,HumidityResist_path
 normal,HumidityResist
 normal,Exterior_path
@@ -15,12 +19,23 @@ normal,BethellProcess_path
 normal,BethellProcess
 order,BethellProcess_order,Bethell process,1
 
+normal,Glued
+order,Glued_order,Paint properties,1
+normal,NaturalColor_path
+normal,NaturalColor
+normal,Paint
+normal,Varnish
+order,Paint_order,Painting properties,1
+order,Varnish_order,Painting properties,1
+
 normal,WeightRel_path
 normal,WeightRel
 order,WeightRel_order,DensityAvg,1
+order,Hardness_order,Hardness,1
 
-
-
-filter,Sauna_filter,Saunas,FALSE
-order,BoatMaking,DensityAvg,3
+normal,Price
+normal,Supply
+order,Price_order,Price,-1
+order,Supply_order,Ease of supply,-1
+order,LowWoodMovement_order,WoodMovement,-1
 
