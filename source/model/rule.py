@@ -24,24 +24,18 @@ class Rule():
         return self.premises
 
     def canFire(self):
-        '''
+        
         if( self.available is False ):
             return False
         if( self.conclusion.getValue() != factValue.UNKNOWN ):
             self.available = False
             return False
-        '''
-     
-        print(" ")
-        print("RULE:")
-        print(self)
-        print("has facts:")
         
+
         for i in range(len(self.premises)):
             # if a premise has an incorrect truth value, the rule can't fire anymore
             factVal = self.premises[i].getValue()
             truthVal = self.truthValues[i]
-            print("Fact:", self.premises[i].getName() ," val:",factVal, " desiredVal:", truthVal)
             if( factVal == factValue.TRUE and truthVal == factValue.FALSE 
                 or factVal == factValue.FALSE and truthVal == factValue.TRUE ):
                 print(self, " can never be fired again!")

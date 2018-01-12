@@ -132,7 +132,6 @@ class Model():
                 answer3FactValues = self.currentQuestion.getFactTruthValues()[2]
                 for i in range(len(answer3Facts)):
                     answer3Facts[i].setValue(answer3FactValues[i])
-            print("ee")
             self.currentQuestion.setAskedStatus()
             self.update()
 
