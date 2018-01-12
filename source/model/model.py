@@ -35,6 +35,7 @@ class Model():
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
+        self.notify(None)
 
     def fireFacts(self):
         for fact in self.facts:
@@ -103,11 +104,6 @@ class Model():
         minIndex = countsOflist.index(min(countsOfList))
         factToAskFor = minPremises[minIndex - 1]
         return factToAskFor
-
-    # Model changing methods (remember to notify()!! )
-    # Examples of notifying:
-    def __woodTypes_rearranged(self):
-        self.notify('woodTypes_rearranged', None)
 
     def setAnswerToQuestion(self, answer):
         if(self.currentQuestion.getAskedStatus() == False):

@@ -238,7 +238,7 @@ class View():
         self.screen.blit(NOtext, (self.NObutton_pos[0] + (self.button_size[0]-NOtext_size[0])/2,\
             self.NObutton_pos[1] + (self.button_size[1]-NOtext_size[1])/2))
 
-    def model_event(self, event_name, data):
+    def model_event(self, event_name):
         #In case you want to redraw only part of the screen use the if-statements with event names
         if event_name == "woodTypes_rearranged":
             self.__draw_sideBar()
