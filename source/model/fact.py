@@ -31,7 +31,7 @@ class Fact():
     def setIsConclusion(self, boolean):
         self.isConclusion = boolean
 
-    def isConclusion(self):
+    def getIsConclusion(self):
         return self.isConclusion
 
     def __repr__(self):

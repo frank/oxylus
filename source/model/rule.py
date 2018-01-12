@@ -31,7 +31,8 @@ class Rule():
             factVal = self.premises[i].getValue()
             if( factVal == factValue.TRUE and self.truthValues[i] == factValue.FALSE 
                 or factVal == factValue.FALSE and self.truthValues[i] == factValue.TRUE):
-                self.available = False
+                print("eyy")
+                #self.available = False
                 return False
         return True
 
