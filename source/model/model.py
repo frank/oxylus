@@ -117,24 +117,7 @@ class Model():
 
     def setAnswerToQuestion(self, answer):
         if(self.currentQuestion.getAskedStatus() == False):
-            if(answer == "YES"):
-
-                yesFacts = self.currentQuestion.getFacts()[0]
-                yesFactValues = self.currentQuestion.getFactTruthValues()[0]
-                for i in range(len(yesFacts)):
-                    yesFacts[i].setValue(yesFactValues[i])
-            elif(answer == "NO"):
-                noFacts = self.currentQuestion.getFacts()[1]
-                noFactValues = self.currentQuestion.getFactTruthValues()[1]
-                for i in range(len(noFacts)):
-                    noFacts[i].setValue(yesFactValues[i])
-            #For non-YES/NO question with more than 2 answers
-            elif(anser == "ANSWER_3"):
-                answer3Facts = self.currentQuestion.getFacts()[2]
-                answer3FactValues = self.currentQuestion.getFactTruthValues()[2]
-                for i in range(len(answer3Facts)):
-                    answer3Facts[i].setValue(answer3FactValues[i])
-            self.currentQuestion.setAskedStatus()
+            self.currentQuestion.setTruthValuesToAnsweredFacts()
             self.update()
 
     def findQuestionToAskFor(self, nextFact):
