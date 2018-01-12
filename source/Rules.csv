@@ -9,8 +9,8 @@ HumidityResist_path,Furniture
 WeightRel_path,Furniture
 Glued_path,Furniture
 NaturalColor_path,Furniture
-Bent_path,Furniture
-Fastenings_path,Furniture
+#Bent_path,Furniture
+#Fastenings_path,Furniture
 
 #Joinery
 !Furniture,Joinery
@@ -22,8 +22,8 @@ Fastenings_path,Furniture
 !Exterior_path,Joinery
 Glued_path,Joinery
 NaturalColor_path,Joinery
-Bent_path,Joinery
-Fastenings_path,Joinery
+#Bent_path,Joinery
+#Fastenings_path,Joinery
 
 #Decorative
 !Furniture,Decorative
@@ -35,7 +35,7 @@ Fastenings_path,Joinery
 !HumidityResist_path,Decorative
 Glued_path,Decorative
 NaturalColor_path,Decorative
-Bent_path,Decorative
+#Bent_path,Decorative
 
 #Musical
 !Furniture,Musical
@@ -53,9 +53,7 @@ Bent_path,Decorative
 !Mockup,Sportive
 !Sauna,Sportive
 Sportive_filter,Sportive
-Hardness_path,Sportive
 Glued_path,Sportive
-Bent_path,Sportive
 
 #Mockup
 !Furniture,Mockup
