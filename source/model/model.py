@@ -36,6 +36,7 @@ class Model():
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
         print("Current Question: ",self.currentQuestion)
+        self.notify(None)
 
     def fireFacts(self):
         for fact in self.facts:
