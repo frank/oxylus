@@ -90,6 +90,7 @@ class Model():
             unknownFactsInRule = 0
             currentPremises = []
             if ( rule.isAvailable() ):
+                print(rule)
                 for premise in rule.getPremises():
                     if (premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor() ):
                         unknownFactsInRule += 1
@@ -107,6 +108,7 @@ class Model():
             if (unknownFactsInRule == minRuleCount):
                 for premise in currentPremises:
                     self.addToListWithCount(minPremises, premise)
+        print(" minPremises :" , minPremises)
         countsOfList = minPremises[1:2:len(minPremises)]
         mostAppearingFactIdx = countsOfList.index(max(countsOfList))
         factToAskFor = minPremises[mostAppearingFactIdx]

@@ -32,6 +32,9 @@ class Fact():
     def addQuestion(self):
         self.numQuestions += 1
 
+    def deleteQuestion(self):
+        self.numQuestions -= 1
+
     def canBeAskedFor(self):
         return self.numQuestions > 0
 

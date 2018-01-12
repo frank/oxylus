@@ -27,6 +27,7 @@ class Question():
   def addFact(self, fact, truthValue, button):
       self.facts[button].append(fact)
       self.factTruthValues[button].append(truthValue)
+      fact.addQuestion()
 
   def getType(self):
       return self.type
