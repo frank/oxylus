@@ -82,7 +82,7 @@ class Model():
         for rule in self.rules:
             ruleCount = 0
             currentPremises = []
-            print(rule)
+            print(rule, " is available: ", rule.isAvailable() )
             if ( rule.isAvailable() ):
                 print(" One available rule!")
                 for premise in rule.getPremises():
