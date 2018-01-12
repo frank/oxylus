@@ -163,30 +163,31 @@ class Model():
                         questionText[i] = ','
                 question[0] = ''.join(questionText)
                 # If YES/NO question, creates a list for YES facts and for NO facts
+                newQuestion = Question(question[0], question[1])
                 if int(question[1]) == 0:
-                    yesFacts = []
-                    yesFactValues = []
                     for i in range(int(question[2])):
+                        factExists = False
                         for fact in self.facts:
-                            if(fact.getName() == question[3 + i]):
-                                yesFacts.append(fact)
-                            if question[3+i][0] == "!":
-                                yesFactValues.append(factValue.FALSE)
-                            else:
-                                yesFactValues.append(factValue.TRUE)
-                    noFacts = []
-                    noFactValues = []
+                            if(fact.getName() == question[3 + i][1:]):
+                                factExists = True
+                                if question[3+i][0] == "!":
+                                    newQuestion.addFact(fact,factValue.FALSE,0)
+                                else:
+                                    newQuestion.addFact(fact,factValue.TRUE,0)
+                        if not factExists:
+                            print("Fact '" + str(question[3 + i]) + "' failed to be added to Question '" +str(question[0]))
                     for i in range(int(question[2 + int(question[2]) + 1])):
+                        factExists = False
                         for fact in self.facts:
-                            if(fact.getName() == question[3 + i]):
-                                noFacts.append(fact)
-                            if question[2 + int(question[2]) + 2 + i][0] == "!":
-                                noFactValues.append(factValue.FALSE)
-                            else:
-                                noFactValues.append(factValue.TRUE)
-                    facts = [yesFacts, noFacts]
-                    factValues = [yesFactValues, noFactValues]
-                    newQuestion = Question(question[0], question[1], facts, factValues)
+                            if(fact.getName() == question[2 + int(question[2]) + 2 + i][1:]):
+                                factExists = True
+                                if question[2 + int(question[2]) + 2 + i][0] == "!":
+                                    newQuestion.addFact(fact,factValue.FALSE,1)
+                                else:
+                                    newQuestion.addFact(fact,factValue.TRUE,1)
+                        if not factExists:
+                            print("Fact '" + str(question[2 + int(question[2]) + 2 + i]) + "' failed to be added to Question '" +str(question[0]))
+                    
                     self.questions.append(newQuestion)
                 elif int(question[1]) == 1:
                     pass
@@ -297,6 +298,6 @@ class Model():
     def register_listener(self, listener):
         self.listeners.append(listener)
 
-    def notify(self, event_name, data):
+    def notify(self, event_name):
         for listener in self.listeners:
-            listener(event_name, data)
+            listener(event_name)

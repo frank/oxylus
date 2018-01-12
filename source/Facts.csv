@@ -19,6 +19,7 @@ normal,BethellProcess_path
 normal,BethellProcess
 order,BethellProcess_order,Bethell process,1
 
+normal,Glued_path
 normal,Glued
 order,Glued_order,Paint properties,1
 normal,NaturalColor_path
