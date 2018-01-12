@@ -44,8 +44,30 @@ class Question():
     if( self.type == 0 ):
         return self.facts[0] + self.facts[1]
 
-  def getFacts(self):
+  def getFacts(self, answer):
       return self.facts
+
+  def setTruthValuesToAnsweredFacts(self, answer):
+      if(answer == "YES"):
+        yesFacts = self.facts[0]
+        yesFactValues = self.factTruthValues[0]
+        for i in range(len(yesFacts)):
+            yesFacts[i].setValue(yesFactValues[i])
+            yesFacts[i].deleteQuestion()
+      elif(answer == "NO"):
+        noFacts = self.facts[1]
+        noFactValues = self.factTruthValues[1]
+        for i in range(len(noFacts)):
+            noFacts[i].setValue(noFactValues[i])
+            noFacts[i].deleteQuestion()
+      #For non-YES/NO question with more than 2 answers
+      elif(anser == "ANSWER_3"):
+        answer3Facts = self.facts[2]
+        answer3FactValues = self.factTruthValues[2]
+        for i in range(len(answer3Facts)):
+            answer3Facts[i].setValue(answer3FactValues[i])
+            answer3Facts[i].deleteQuestion()
+      self.setAskedStatus()
 
   def getFactTruthValues(self):
       return self.factTruthValues

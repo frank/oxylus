@@ -34,6 +34,7 @@ order,Varnish_order,Painting properties,10
 normal,WeightRel_path
 normal,WeightRel
 order,WeightRel_order,DensityAvg,1
+normal,Hardness_path
 normal,Hardness
 order,Hardness_order,Hardness,1
 order,Dilation_order,DilationAvg,3
