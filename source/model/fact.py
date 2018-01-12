@@ -76,7 +76,7 @@ class filteringFact(Fact):
         for wood in self.model.getWoods():
             for prop in wood.getProperties():
                 if (prop[0] == prop):
-                    if (prop[1] == boolean):
+                    if (prop[1] == self.boolean):
                         wood.filterOut(self.prop)
                     else:
                         break
