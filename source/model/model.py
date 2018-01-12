@@ -25,17 +25,16 @@ class Model():
         self.readQuestions()
         self.update()
 
-        #self.currentQuestion = self.questions[0]
-
 
     def update(self):
         self.fireRules()
         self.fireFacts()
-        #print("Fired Facts")
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
         print("Current Question: ",self.currentQuestion)
+        print("   ")
+        print("   ")
         self.notify(None)
 
     def fireFacts(self):
@@ -47,24 +46,27 @@ class Model():
     def reorderWoods(self):
         # filter woods first:
         for wood in self.woods:
+            # print(wood.getRanking())
             if( wood.isAdmissible() == False ):
+                print("-")
+                print( wood, " was filtered out.")
+                print("-")
                 self.filteredWoods.append(wood)
                 self.woods.remove(wood)
             else:
                 wood.setRanking(self.weights)
         # order woods according to ranking:
         self.woods = sorted(self.woods, key=lambda wood: wood.getRanking()) 
-
+        
         
 
     def fireRules(self):
         i = 0
         numRules = len(self.rules)
         while i < numRules:
-            if( self.rules[i].isAvailable() ):
-                if( self.rules[i].canFire() ):
-                    self.rules[i].fire()
-                    i = 0
+            if( self.rules[i].canFire() ):
+                self.rules[i].fire()
+                i = 0
             i += 1
 
 
@@ -85,12 +87,10 @@ class Model():
             unknownFactsInRule = 0
             currentPremises = []
             if ( rule.isAvailable() ):
-                print(" One available rule!")
                 for premise in rule.getPremises():
                     if (premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor() ):
                         unknownFactsInRule += 1
                         currentPremises.append(premise)
-                        print(" We found one boys!")
             
             if( unknownFactsInRule == 0 ):
                 continue
@@ -98,7 +98,6 @@ class Model():
             # Make a list of all the rules with the minimum number of unknown facts
             if (unknownFactsInRule < minRuleCount):
                 minRuleCount = unknownFactsInRule
-                print("New rule with a minimum number of unkown premises!")
                 minPremises = []
                 for premise in currentPremises:
                     self.addToListWithCount(minPremises, premise)
@@ -106,12 +105,9 @@ class Model():
                 for premise in currentPremises:
                     self.addToListWithCount(minPremises, premise)
         countsOfList = minPremises[1:2:len(minPremises)]
-        print(minPremises)
-
         mostAppearingFactIdx = countsOfList.index(max(countsOfList))
-        print(" idx:", mostAppearingFactIdx)
         factToAskFor = minPremises[mostAppearingFactIdx]
-        print(factToAskFor)
+        print("fact that we want to know: ", factToAskFor)
         return factToAskFor
 
     def setAnswerToQuestion(self, answer):
