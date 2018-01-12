@@ -27,8 +27,10 @@ class Model():
 
 
     def update(self):
+        print("Starting update meep bop")
         self.fireRules()
         self.fireFacts()
+        print("We fired stuff great")
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
@@ -114,6 +116,7 @@ class Model():
     def setAnswerToQuestion(self, answer):
         if(self.currentQuestion.getAskedStatus() == False):
             if(answer == "YES"):
+
                 yesFacts = self.currentQuestion.getFacts()[0]
                 yesFactValues = self.currentQuestion.getFactTruthValues()[0]
                 for i in range(len(yesFacts)):
@@ -129,6 +132,7 @@ class Model():
                 answer3FactValues = self.currentQuestion.getFactTruthValues()[2]
                 for i in range(len(answer3Facts)):
                     answer3Facts[i].setValue(answer3FactValues[i])
+            print("ee")
             self.currentQuestion.setAskedStatus()
             self.update()
 
@@ -276,7 +280,7 @@ class Model():
                     return
                 
                 # Add premises to rule
-                for idx in range(len(rule) - 1):
+                for idx in range(1, len(rule) ):
                     premiseString = rule[idx]
                     if rule[idx][0] == "!":
                         newPremise = self.findFact(premiseString[1:])

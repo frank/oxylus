@@ -36,6 +36,7 @@ class Rule():
         print("RULE:")
         print(self)
         print("has facts:")
+        
         for i in range(len(self.premises)):
             # if a premise has an incorrect truth value, the rule can't fire anymore
             factVal = self.premises[i].getValue()
