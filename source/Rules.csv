@@ -9,6 +9,8 @@ HumidityResist_path,Furniture
 WeightRel_path,Furniture
 Glued_path,Furniture
 NaturalColor_path,Furniture
+#Bent_path,Furniture
+#Fastenings_path,Furniture
 
 #Joinery
 !Furniture,Joinery
@@ -17,9 +19,11 @@ NaturalColor_path,Furniture
 !Sportive,Joinery
 !Mockup,Joinery
 !Sauna,Joinery
-HumidityResist_path,Joinery
-Glued_path,Furniture
-NaturalColor_path,Furniture
+!Exterior_path,Joinery
+Glued_path,Joinery
+NaturalColor_path,Joinery
+#Bent_path,Joinery
+#Fastenings_path,Joinery
 
 #Decorative
 !Furniture,Decorative
@@ -29,8 +33,9 @@ NaturalColor_path,Furniture
 !Mockup,Decorative
 !Sauna,Decorative
 !HumidityResist_path,Decorative
-Glued_path,Furniture
-NaturalColor_path,Furniture
+Glued_path,Decorative
+NaturalColor_path,Decorative
+#Bent_path,Decorative
 
 #Musical
 !Furniture,Musical
@@ -39,7 +44,6 @@ NaturalColor_path,Furniture
 !Sportive,Musical
 !Mockup,Musical
 !Sauna,Musical
-!!HumidityResist_path,Musical
 
 #Sportive
 !Furniture,Sportive
@@ -49,8 +53,7 @@ NaturalColor_path,Furniture
 !Mockup,Sportive
 !Sauna,Sportive
 Sportive_filter,Sportive
-Hardness_path,Sportive
-Glued_path,Furniture
+Glued_path,Sportive
 
 #Mockup
 !Furniture,Mockup
@@ -86,7 +89,6 @@ Paint_order,Paint,Paint_path
 Varnish_order,Varnish,Varnish_path
 
 #LowWoodMovement,Interior_path
-#LowDensity,Joinery
 Price_order,Paint
 Price_order,Price
 Supply_order,Supply
