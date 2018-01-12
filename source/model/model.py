@@ -31,7 +31,7 @@ class Model():
     def update(self):
         self.fireRules()
         self.fireFacts()
-        print("Fired Facts")
+        #print("Fired Facts")
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
@@ -83,10 +83,11 @@ class Model():
             ruleCount = 0
             currentPremises = []
             print(rule, " is available: ", rule.isAvailable() )
+
             if ( rule.isAvailable() ):
                 print(" One available rule!")
                 for premise in rule.getPremises():
-                    if (premise.getValue() == factValue.UNKNOWN and not premise.isConclusion() ):
+                    if (premise.getValue() == factValue.UNKNOWN and not premise.getIsConclusion() ):
                         ruleCount += 1
                         currentPremises.append(premise)
                         print(" We found one boys!")
@@ -99,7 +100,7 @@ class Model():
             if (ruleCount == minRuleCount):
                 for premise in minPremises:
                     addToListWithCount(minPremises, premise)
-        countsOfList = minPremises[range(1, 2, len(minPremises))]
+        countsOfList = minPremises[list(range(1, len(minPremises), 2))]
         minIndex = countsOflist.index(min(countsOfList))
         factToAskFor = minPremises[minIndex - 1]
         return factToAskFor
