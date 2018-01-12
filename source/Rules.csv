@@ -6,6 +6,9 @@
 !Mockup,Furniture
 !Sauna,Furniture
 HumidityResist_path,Furniture
+WeightRel_path,Furniture
+Glued_path,Furniture
+NaturalColor_path,Furniture
 
 #Joinery
 !Furniture,Joinery
@@ -15,6 +18,8 @@ HumidityResist_path,Furniture
 !Mockup,Joinery
 !Sauna,Joinery
 HumidityResist_path,Joinery
+Glued_path,Furniture
+NaturalColor_path,Furniture
 
 #Decorative
 !Furniture,Decorative
@@ -23,7 +28,9 @@ HumidityResist_path,Joinery
 !Sportive,Decorative
 !Mockup,Decorative
 !Sauna,Decorative
-!HumidityResist,Decorative
+!HumidityResist_path,Decorative
+Glued_path,Furniture
+NaturalColor_path,Furniture
 
 #Musical
 !Furniture,Musical
@@ -32,7 +39,7 @@ HumidityResist_path,Joinery
 !Sportive,Musical
 !Mockup,Musical
 !Sauna,Musical
-!HumidityResist,Musical
+!!HumidityResist_path,Musical
 
 #Sportive
 !Furniture,Sportive
@@ -41,8 +48,9 @@ HumidityResist_path,Joinery
 !Musical,Sportive
 !Mockup,Sportive
 !Sauna,Sportive
-WeightRel_path,Sportive
-!HumidityResist,Sportive
+Sportive_filter,Sportive
+Hardness_path,Sportive
+Glued_path,Furniture
 
 #Mockup
 !Furniture,Mockup
@@ -51,7 +59,7 @@ WeightRel_path,Sportive
 !Musical,Mockup
 !Sportive,Mockup
 !Sauna,Mockup
-#,Mockup_filter,Mockup
+Mockup_filter,Mockup
 
 #Sauna
 !Furniture,Sauna
@@ -64,16 +72,22 @@ Sauna_filter,Sauna
 
 
 Exterior_path,HumidityResist,HumidityResist_path
-#,!,!HumidityResist,HumidityResist_path
 Exterior_order,Exterior,Exterior_path
 BethellProcess_path,Exterior_order
 BethellProcess_order,BethellProcess,BethellProcess_path,!Joinery
 
 WeightRel_order,WeightRel,WeightRel_path
+Hardness_order,Hardness,Hardness_path
+
+Glued_order,Glued,Glued_path
+Paint_path,NaturalColor,NaturalColor_path
+Varnish_path,NaturalColor,NaturalColor_path
+Paint_order,Paint,Paint_path
+Varnish_order,Varnish,Varnish_path
 
 #LowWoodMovement,Interior_path
-#HighDensity,Furniture
 #LowDensity,Joinery
-#LowPrice,Paint
+Price_order,Paint
+Price_order,Price
+Supply_order,Supply
 #HighMechResist,Paint
-#PaintFilter, Paint

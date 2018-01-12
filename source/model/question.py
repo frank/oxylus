@@ -1,6 +1,6 @@
 class Question():
   
-  def __init__(self,text, QUESTIONTYPE, factList, factValueList):
+  def __init__(self,text, QUESTIONTYPE):
     self.text = text # the question text
     self.type = int(QUESTIONTYPE) # QUESTIONTYPE is enum
     self.facts = [] # the fact associated to the question (only one?)
@@ -8,18 +8,28 @@ class Question():
     self.options = None
     if self.type == 0: #YES/NO question
       self.options = 2 #FactList will have 2 lists
-      self.facts = factList
-      self.factTruthValues = factValueList
+      for i in range(2):
+        self.facts.append([])
+        self.factTruthValues.append([])
     elif self.type == 1: #3Choice question
       self.options = 3#FactList will have 3 lists
-      self.facts = factList
+      for i in range(2):
+        self.facts.append([])
+        self.factTruthValues.append([])
     elif self.type == 2:  #Implement another question type if needed
       pass
 
     self.askedStatus = False
 
+  def __repr__(self):
+    return self.text
+
+  def addFact(self, fact, truthValue, button):
+      self.facts[button].append(fact)
+      self.factTruthValues[button].append(truthValue)
+
   def getType(self):
-    return self.type
+      return self.type
 
   def setAskedStatus(self):
       self.askedStatus = True
@@ -30,11 +40,15 @@ class Question():
   def getText(self):
       return self.text
 
+  def getAllFacts(self):
+    if( self.type == 0 ):
+        return self.facts[0] + self.facts[1]
+
   def getFacts(self):
       return self.facts
 
   def getFactTruthValues(self):
-    return self.factTruthValues
+      return self.factTruthValues
 
   def getOptions(self):
       return self.options

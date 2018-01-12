@@ -6,9 +6,10 @@ class Rule():
         self.truthValues = []  # list of truth values associated to list of facts
         self.available = True
         self.conclusion = None
+        self.conclusionTruthValue = None
 
     def __repr__(self):
-        return "This is a rule with the following conclusion "+ self.conclusion.__repr__()
+        return "rule with concl: "+ self.conclusion.__repr__()
 
 
     def addPremise(self, fact, truthValue):
@@ -17,7 +18,7 @@ class Rule():
 
     def addConclusion(self, fact, truthValue):
         self.conclusion = fact
-        self.truthValues.append(truthValue)
+        self.conclusionTruthValue = truthValue
 
     def getPremises(self):
         return self.premises
@@ -26,21 +27,32 @@ class Rule():
         if self.available is False:
             return False
         # the first truthvalue belongs to the conclusion:
-        for i in range(1, len(self.premises)):
+        print(" ")
+        print("RULE:")
+        print(self)
+        print("has facts:")
+        for i in range(0, len(self.premises)):
             # if a premise has an incorrect truth value, the rule can't fire anymore
             factVal = self.premises[i].getValue()
-            if( factVal == factValue.TRUE and self.truthValues[i] == factValue.FALSE 
-                or factVal == factValue.FALSE and self.truthValues[i] == factValue.TRUE):
+            truthVal = self.truthValues[i]
+            print("Fact:", self.premises[i].getName() ," val:",factVal, " desiredVal:", truthVal)
+            if( factVal == factValue.TRUE and truthVal == factValue.FALSE 
+                or factVal == factValue.FALSE and truthVal == factValue.TRUE ):
+                print(self, " can never be fired again!")
                 self.available = False
                 return False
+            if( factVal == factValue.UNKNOWN or factval == factValue.MAYBE):
+                return False
+
         return True
 
     def isAvailable(self):
         return self.available
 
     def fire(self):
+        print(self, " just fired!")
         self.available = False
-        if( self.truthValues[0] == True ):
+        if( self.conclusionTruthValue == True ):
             self.conclusion.setValue(factValue.TRUE)
         else:
             self.conclusion.setValue(factValue.FALSE)

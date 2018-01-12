@@ -25,16 +25,17 @@ class Model():
         self.readQuestions()
         self.update()
 
-        #self.currentQuestion = self.questions[0]
-
 
     def update(self):
         self.fireRules()
         self.fireFacts()
-        print("Fired Facts")
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
+        print("Current Question: ",self.currentQuestion)
+        print("   ")
+        print("   ")
+        self.notify(None)
 
     def fireFacts(self):
         for fact in self.facts:
@@ -45,24 +46,27 @@ class Model():
     def reorderWoods(self):
         # filter woods first:
         for wood in self.woods:
+            # print(wood.getRanking())
             if( wood.isAdmissible() == False ):
+                print("-")
+                print( wood, " was filtered out.")
+                print("-")
                 self.filteredWoods.append(wood)
                 self.woods.remove(wood)
             else:
                 wood.setRanking(self.weights)
         # order woods according to ranking:
         self.woods = sorted(self.woods, key=lambda wood: wood.getRanking()) 
-
+        
         
 
     def fireRules(self):
         i = 0
         numRules = len(self.rules)
         while i < numRules:
-            if( self.rules[i].isAvailable() ):
-                if( self.rules[i].canFire() ):
-                    self.rules[i].fire()
-                    i = 0
+            if( self.rules[i].canFire() ):
+                self.rules[i].fire()
+                i = 0
             i += 1
 
 
@@ -75,39 +79,36 @@ class Model():
         origList.append(1)
 
     def nextFactToAskFor(self):
-        minRuleCount = 0
+        minRuleCount = 99999
         minPremises = []
         # for all rules that require a minimum number of premises to be fulfilled,
         # collect the facts that they still require to know
         for rule in self.rules:
-            ruleCount = 0
+            unknownFactsInRule = 0
             currentPremises = []
-            print(rule)
             if ( rule.isAvailable() ):
-                print(" One available rule!")
                 for premise in rule.getPremises():
-                    if (premise.getValue() == factValue.UNKNOWN and not premise.isConclusion() ):
-                        ruleCount += 1
+                    if (premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor() ):
+                        unknownFactsInRule += 1
                         currentPremises.append(premise)
-                        print(" We found one boys!")
+            
+            if( unknownFactsInRule == 0 ):
+                continue
 
             # Make a list of all the rules with the minimum number of unknown facts
-            if (ruleCount < minRuleCount):
-                minRuleCount = ruleCount
-                for premise in minPremises:
-                    addToListWithCount(minPremises, premise)
-            if (ruleCount == minRuleCount):
-                for premise in minPremises:
-                    addToListWithCount(minPremises, premise)
-        countsOfList = minPremises[range(1, 2, len(minPremises))]
-        minIndex = countsOflist.index(min(countsOfList))
-        factToAskFor = minPremises[minIndex - 1]
+            if (unknownFactsInRule < minRuleCount):
+                minRuleCount = unknownFactsInRule
+                minPremises = []
+                for premise in currentPremises:
+                    self.addToListWithCount(minPremises, premise)
+            if (unknownFactsInRule == minRuleCount):
+                for premise in currentPremises:
+                    self.addToListWithCount(minPremises, premise)
+        countsOfList = minPremises[1:2:len(minPremises)]
+        mostAppearingFactIdx = countsOfList.index(max(countsOfList))
+        factToAskFor = minPremises[mostAppearingFactIdx]
+        print("fact that we want to know: ", factToAskFor)
         return factToAskFor
-
-    # Model changing methods (remember to notify()!! )
-    # Examples of notifying:
-    def __woodTypes_rearranged(self):
-        self.notify('woodTypes_rearranged', None)
 
     def setAnswerToQuestion(self, answer):
         if(self.currentQuestion.getAskedStatus() == False):
@@ -134,10 +135,12 @@ class Model():
         for question in self.questions:
             # Yes/No question:
             if( question.getType() == 0):
-                for factType in question.getFacts():
-                    for fact in factType:
-                        if( fact.getName() == nextFact.getName() ):
-                            return question
+                #print(question.getText() , " with the facts: " ,question.getAllFacts())
+                for fact in question.getAllFacts():
+                    nextFact.getName()
+                    fact.getName()
+                    if( fact.getName() == nextFact.getName() ):
+                        return question
 
 
     def readQuestions(self):
@@ -156,30 +159,31 @@ class Model():
                         questionText[i] = ','
                 question[0] = ''.join(questionText)
                 # If YES/NO question, creates a list for YES facts and for NO facts
+                newQuestion = Question(question[0], question[1])
                 if int(question[1]) == 0:
-                    yesFacts = []
-                    yesFactValues = []
                     for i in range(int(question[2])):
+                        factExists = False
                         for fact in self.facts:
-                            if(fact.getName() == question[3 + i]):
-                                yesFacts.append(fact)
-                            if question[3+i][0] == "!":
-                                yesFactValues.append(factValue.FALSE)
-                            else:
-                                yesFactValues.append(factValue.TRUE)
-                    noFacts = []
-                    noFactValues = []
+                            if(fact.getName() == question[3 + i][1:]):
+                                factExists = True
+                                if question[3+i][0] == "!":
+                                    newQuestion.addFact(fact,factValue.FALSE,0)
+                                else:
+                                    newQuestion.addFact(fact,factValue.TRUE,0)
+                        if not factExists:
+                            print("Fact '" + str(question[3 + i]) + "' failed to be added to Question '" +str(question[0]))
                     for i in range(int(question[2 + int(question[2]) + 1])):
+                        factExists = False
                         for fact in self.facts:
-                            if(fact.getName() == question[3 + i]):
-                                noFacts.append(fact)
-                            if question[2 + int(question[2]) + 2 + i][0] == "!":
-                                noFactValues.append(factValue.FALSE)
-                            else:
-                                noFactValues.append(factValue.TRUE)
-                    facts = [yesFacts, noFacts]
-                    factValues = [yesFactValues, noFactValues]
-                    newQuestion = Question(question[0], question[1], facts, factValues)
+                            if(fact.getName() == question[2 + int(question[2]) + 2 + i][1:]):
+                                factExists = True
+                                if question[2 + int(question[2]) + 2 + i][0] == "!":
+                                    newQuestion.addFact(fact,factValue.FALSE,1)
+                                else:
+                                    newQuestion.addFact(fact,factValue.TRUE,1)
+                        if not factExists:
+                            print("Fact '" + str(question[2 + int(question[2]) + 2 + i]) + "' failed to be added to Question '" +str(question[0]))
+                    
                     self.questions.append(newQuestion)
                 elif int(question[1]) == 1:
                     pass
@@ -266,7 +270,7 @@ class Model():
 
                 if( conclusionFact == None ):
                     print(" ")
-                    print("Error while reading rule ", rule , " . No conclusion readable!")
+                    print("Error while reading rule ", rule , ". No conclusion readable!")
                     print(" ")
                     return
                 
@@ -275,16 +279,12 @@ class Model():
                     premiseString = rule[idx]
                     if rule[idx][0] == "!":
                         newPremise = self.findFact(premiseString[1:])
-                        if( newPremise != None ):
-                             newRule.addPremise(newPremise, factValue.FALSE)
-                        else:
-                            return
+                        newRule.addPremise(newPremise, factValue.FALSE)
+                       
                     else:
                         newPremise = self.findFact(premiseString)
-                        if( newPremise != None ):
-                             newRule.addPremise(newPremise, factValue.TRUE)
-                        else:
-                            return
+                        newRule.addPremise(newPremise, factValue.TRUE)
+                      
                 self.addRule(newRule)
 
     def addRule(self, rule):
@@ -294,6 +294,6 @@ class Model():
     def register_listener(self, listener):
         self.listeners.append(listener)
 
-    def notify(self, event_name, data):
+    def notify(self, event_name):
         for listener in self.listeners:
-            listener(event_name, data)
+            listener(event_name)
