@@ -23,6 +23,7 @@ class Fact():
         return self.name
 
     def setValue(self, val):
+        print(self, " was adjusted to ", val)
         self.value = val
 
     def getValue(self):

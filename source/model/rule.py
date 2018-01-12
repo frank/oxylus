@@ -27,17 +27,23 @@ class Rule():
         if self.available is False:
             return False
         # the first truthvalue belongs to the conclusion:
+        print(" ")
+        print("RULE:")
+        print(self)
+        print("has facts:")
         for i in range(0, len(self.premises)):
             # if a premise has an incorrect truth value, the rule can't fire anymore
             factVal = self.premises[i].getValue()
             truthVal = self.truthValues[i]
+            print("Fact:", self.premises[i].getName() ," val:",factVal, " desiredVal:", truthVal)
             if( factVal == factValue.TRUE and truthVal == factValue.FALSE 
                 or factVal == factValue.FALSE and truthVal == factValue.TRUE ):
-                print("Rule can't fire yo!")
+                print(self, " can never be fired again!")
                 self.available = False
                 return False
             if( factVal == factValue.UNKNOWN or factval == factValue.MAYBE):
                 return False
+
         return True
 
     def isAvailable(self):
@@ -46,7 +52,7 @@ class Rule():
     def fire(self):
         print(self, " just fired!")
         self.available = False
-        if( self.truthValues[0] == True ):
+        if( self.conclusionTruthValue == True ):
             self.conclusion.setValue(factValue.TRUE)
         else:
             self.conclusion.setValue(factValue.FALSE)

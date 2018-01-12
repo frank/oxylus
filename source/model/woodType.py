@@ -80,7 +80,4 @@ class WoodType():
                 self.setDismissed()
 
     def __repr__(self):
-        print("This is the wood named ", self.englishName, " with the following property values:", end='')
-        for prop in self.properties:
-            print(" ", prop[1], end='')
-        print('')
+        return self.name
