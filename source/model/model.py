@@ -66,6 +66,7 @@ class Model():
         while i < numRules:
             if( self.rules[i].canFire() ):
                 self.rules[i].fire()
+                self.rulges.remove(rules[i])
                 i = 0
             i += 1
 
