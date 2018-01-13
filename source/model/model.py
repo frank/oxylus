@@ -145,12 +145,13 @@ class Model():
             if( question.getType() == 0) :
                 #print(question.getText() , " with the facts: " ,question.getAllFacts())
                 #print("number of facts in this question: ", len(question.getAllFacts()))
-                for fact in question.getAllFacts():
-                    if( fact.getName() == nextFact.getName() ):
-                        questionCnt += 1
-                        if( questionCnt > maxQuestionCnt ):
-                            maxQuestionCnt = questionCnt
-                            questionToAskFor = question
+                if( question.getAskedStatus() == False ):
+                    for fact in question.getAllFacts():
+                        if( fact.getName() == nextFact.getName() ):
+                            questionCnt += 1
+                            if( questionCnt > maxQuestionCnt ):
+                                maxQuestionCnt = questionCnt
+                                questionToAskFor = question
         
         return questionToAskFor
 
