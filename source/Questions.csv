@@ -6,10 +6,10 @@ Are you looking to make wooden sportive equipment that require high flexibility 
 Are you looking to make models and mockups?,0,1,Mockup,1,!Mockup
 Are you looking to make saunas?,0,1,Sauna,1,!Sauna
 
-#Does the wooden object require resistance to humidity?,0,1,HumidityResist,0
 Is the wooden object meant for exterior use?,0,1,Exterior,1,!Exterior
 Would you accept woods that have undergone chemical treatments internally to improve durability in exterior environments?,0,1,BethellProcess,1,!BethellProcess
 
+#Interior question for unasked object type?,0,1,Interior,0
 #Does the wood require high mechanical resistance?,0,1,MechResist,0
 Does the wood require the ability to be bent into shape?,0,1,Bent,0
 Is the weight of the wood type relevant to the project?,0,1,WeightRel,0
@@ -20,8 +20,8 @@ Is the wood's natural color and feel something you want to keep in the final pro
 Does the wood require varnishing?,0,1,Varnish,0
 Is the wooden object meant to be painted?,0,1,Painted,0
 
-Do you want the wood to have easy machining properties?,0,1,EasyMachining,0
-Do you have access to industrial machinery?,0,1,IndMachAccess,1,!IndMachAccess
 Does the wood require to be carved or moulded into shape?,0,1,Malleable,0
+Do you want the wood to have easy machining properties?,0,1,!Hard,0
+Do you have access to industrial machinery?,0,1,IndMachAccess,1,!IndMachAccess
 Do you have a preference for cheaper wood types?,0,1,Price,0
 Do you prefer working with easily accessible types of wood for your project?,0,1,Supply,0

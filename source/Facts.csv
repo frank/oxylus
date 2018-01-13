@@ -18,21 +18,10 @@ normal,HumidityResist
 normal,Exterior
 order,Exterior_order,Exterior Carpentry,1
 normal,Interior_path
+normal,Interior
 normal,BethellProcess_path
 normal,BethellProcess
 order,BethellProcess_order,Bethell process,1
-
-normal,Glued_path
-normal,Glued
-order,Glued_order,Painting properties,10
-normal,NaturalColor_path
-normal,NaturalColor
-normal,Paint_path
-normal,Paint
-normal,Varnish_path
-normal,Varnish
-order,Paint_order,Painting properties,10
-order,Varnish_order,Painting properties,10
 
 normal,WeightRel_path
 normal,WeightRel
@@ -47,9 +36,29 @@ order,Bent_order,Flexing Properties,1
 normal,AllowFastenings_path
 normal,AllowFastenings
 filter,AllowFastenings_filter,Fastening properties,FALSE
+normal,Malleable_path
+normal,Malleable
+filter,Malleable_filter,Malleability (Uniformity),FALSE
+normal,Hard_path
+normal,Hard
+order,Hard_order,Hardness,-1
+normal,IndMachAccess
+
+normal,Glued_path
+normal,Glued
+order,Glued_order,Painting properties,10
+normal,NaturalColor_path
+normal,NaturalColor
+normal,Paint_path
+normal,Paint
+normal,Varnish_path
+normal,Varnish
+order,Paint_order,Painting properties,10
+order,Varnish_order,Painting properties,10
 
 normal,Price
 normal,Supply
 order,Price_order,Price,-1
 order,Supply_order,Ease of supply,-1
-order,LowWoodMovement_order,WoodMovement,-2
+normal,LowWoodMovement
+filter,LowWoodMovement_filter,Low wood movement (Nerviosidad),FALSE
