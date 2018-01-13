@@ -265,10 +265,29 @@ class View():
 
     def blit_labelText(self):
         wv = self.model.getWoods()
+
+        maxRankVal = max(wv, key = lambda wood: wood.getRanking()).getRanking()
+        minRankVal = min(wv, key = lambda wood: wood.getRanking()).getRanking()
+        difference = maxRankVal - minRankVal
+      
         for wood in range(len(wv)):
             if(wv[wood]):
-                englishText = self.woodLabelEnglishFont.render(wv[wood].getEnglishName(), True, BLACK)
-                latinText = self.woodLabelLatinFont.render(" (" + wv[wood].getLatinName() + ") ", True, BLACK)
+                currentWoodRankVal = wv[wood].getRanking()
+                
+
+
+                if( currentWoodRankVal == maxRankVal ):
+                    woodNameColor = GREEN
+                elif ( currentWoodRankVal <= 0 ):
+                    woodNameColor = RED
+                else:
+                    x = (maxRankVal - currentWoodRankVal) / difference
+                    redPart = int(x * 255)
+                    greenPart = int((1-x) * 255) 
+                    woodNameColor = [redPart , greenPart ,0]
+
+                englishText = self.woodLabelEnglishFont.render(wv[wood].getEnglishName(), True, woodNameColor)
+                latinText = self.woodLabelLatinFont.render(" (" + wv[wood].getLatinName() + ") ", True, woodNameColor)
                 textStartYPos = (self.woodLabel_size[1] - englishText.get_size()[1])/2
                 self.screen.blit(englishText, (self.sideBar_pos[0]+10, wood*self.woodLabel_size[1]+textStartYPos))
                 self.screen.blit(latinText, ((self.sideBar_pos[0]+10) + \
