@@ -10,7 +10,7 @@ from .question import Question
 class Model():
     def __init__(self):
         self.questionCount = 0 #number of questions posed so far
-
+        self.end = False
         # Listener for model events
         self.listeners = []
         self.woods = []  # list of all the woodtypes
@@ -77,8 +77,6 @@ class Model():
         
         self.woods = sorted(self.woods, key=lambda wood: wood.getRanking(), reverse = True) 
 
-        
-
     def fireRules(self):
         i = 0
         numRules = len(self.rules)
@@ -87,7 +85,6 @@ class Model():
                 self.rules[i].fire()
                 i = 0
             i += 1
-
 
     def addToListWithCount(self, origList, factToAdd):
         for i in range(len(origList)):
@@ -148,8 +145,8 @@ class Model():
 
     def findQuestionToAskFor(self, nextFact):
         if( nextFact == None ):
-            question = self.findQuestion("END")
-            return question
+            self.end = True
+            return None
 
         maxQuestionCnt = 0
         for question in self.questions:
@@ -175,7 +172,9 @@ class Model():
 
             #print("")
 
-    
+    def getEnd(self):
+        return self.end
+
     def addFactsToQuestion(self, newQuestion, questionScan, numFacts, start, button): 
         for i in range(numFacts):
             factString = questionScan[start+i]
