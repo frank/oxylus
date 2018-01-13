@@ -5,7 +5,7 @@
 !Sportive,Furniture
 !Mockup,Furniture
 !Sauna,Furniture
-WeightRel_path,Furniture
+WeightRel_order,Furniture
 Glued_path,Furniture
 NaturalColor_path,Furniture
 #Bent_path,Furniture
@@ -80,9 +80,10 @@ LowWoodMovement_order,Interior_path
 WeightRel_order,WeightRel,WeightRel_path
 Hardness_order,Hardness,Hardness_path
 
+Glued_path,!Furniture,!Joinery,!Decorative,!Musical,!Sportive,!Mockup,!Sauna
 Glued_order,Glued,Glued_path
-Paint_path,NaturalColor,NaturalColor_path
-Varnish_path,NaturalColor,NaturalColor_path
+Paint_path,!NaturalColor,NaturalColor_path
+Varnish_path,!NaturalColor,NaturalColor_path
 Paint_order,Paint,Paint_path
 Varnish_order,Varnish,Varnish_path
 
