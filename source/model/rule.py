@@ -30,6 +30,7 @@ class Rule():
             self.available = False
             return False
         
+        canFire = True
         for i in range(len(self.premises)):
             # if a premise has an incorrect truth value, the rule can't fire anymore
             factVal = self.premises[i].getValue()
@@ -38,11 +39,14 @@ class Rule():
                 or factVal == factValue.FALSE and truthVal == factValue.TRUE ):
                 print(self, " set to NOT available.")
                 self.available = False
-                return False
+                canFire = False
+                break
             if( factVal == factValue.UNKNOWN or factVal == factValue.MAYBE):
-                return False
+                canFire = False
 
-        return True
+        return canFire
+
+
 
     def isAvailable(self):
         return self.available
