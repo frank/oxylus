@@ -12,9 +12,10 @@ filter,Sauna_filter,Saunas,FALSE
 
 normal,HumidityResist_path
 normal,HumidityResist
-normal,Exterior_path
+#normal,Exterior_path
 normal,Exterior
 order,Exterior_order,Exterior Carpentry,1
+normal,Interior_path
 normal,BethellProcess_path
 normal,BethellProcess
 order,BethellProcess_order,Bethell process,1
@@ -43,4 +44,4 @@ normal,Price
 normal,Supply
 order,Price_order,Price,-1
 order,Supply_order,Ease of supply,-1
-order,LowWoodMovement_order,WoodMovement,-1
+order,LowWoodMovement_order,WoodMovement,-2
