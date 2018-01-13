@@ -5,10 +5,12 @@ normal,Musical
 normal,Sportive
 normal,Mockup
 normal,Sauna
+normal,NoObjectType
 
 filter,Sportive_filter,Sportive elements and tool handles,FALSE
 filter,Mockup_filter,Mock-ups,FALSE
 filter,Sauna_filter,Saunas,FALSE
+filter,Musical_filter,Musical Instruments,FALSE
 
 normal,HumidityResist_path
 normal,HumidityResist
@@ -39,6 +41,12 @@ normal,Hardness_path
 normal,Hardness
 order,Hardness_order,Hardness,1
 order,Dilation_order,DilationAvg,3
+normal,Bent_path
+normal,Bent
+order,Bent_order,Flexing Properties,1
+normal,AllowFastenings_path
+normal,AllowFastenings
+filter,AllowFastenings_filter,Fastening properties,FALSE
 
 normal,Price
 normal,Supply
