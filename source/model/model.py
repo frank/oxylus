@@ -17,7 +17,7 @@ class Model():
         self.questions = []  # list of all questions
         self.askedQuestions = []  # list of questions that have been asked
         self.filteredWoods = []
-        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0, "Painting properties" : 0}
+        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0, "Painting properties" : 0, "DilationAvg" : 0}
         self.currentQuestion = None
 
         self.readFacts()
@@ -292,6 +292,19 @@ class Model():
         self.woods.append(wood)
 
     def adjustWeight(self, weightName, weightVal):
+        wood = self.woods[0]
+        propExistsInSheet = False
+        for prop in wood.getProperties():
+            if( prop[0] == weightName ):
+                propExistsInSheet = True
+                break
+        if not propExistsInSheet:
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            print("ERROR: property from the rules with the name ", weightName, " does not exist in the wood spreadsheet!")
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+
+
         self.weights[weightName] = weightVal
 
     def readFacts(self):

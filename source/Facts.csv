@@ -35,7 +35,7 @@ normal,Hardness
 order,Dilation_order,DilationAvg,amount of thermal dilation,3
 normal,Bent_path
 normal,Bent
-order,Bent_order,Flexing Properties,ability to flex without breaking,1
+order,Bent_order,Flexing properties,ability to flex without breaking,1
 normal,AllowFastenings_path
 normal,AllowFastenings
 filter,AllowFastenings_filter,Fastening properties,FALSE
@@ -51,7 +51,7 @@ normal,Glued_path
 normal,Glued
 normal,NaturalColorNeed_path
 normal,NaturalColorNeed
-order,Glued_order,Paint properties,suitability to being glued,10
+order,Glued_order,Painting properties,suitability to being glued,10
 normal,Paint_path
 normal,Paint
 normal,Varnish_path

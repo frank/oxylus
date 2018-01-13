@@ -17,7 +17,7 @@ Do you want the wood type to be dense?,0,1,Dense,1,Light
 Is the wood required to have properties to allow fastenings? (Ex: screws; nails; etc.),0,1,AllowFastenings,0
 
 Does the wood require the ability to be easily glued?,0,1,Glued,0
-Is the wood's natural color and feel something you want to keep in the final product?,0,1,NaturalColorNeed,0,1,!NaturalColorNeed
+Is the wood's natural color and feel something you want to keep in the final product?,0,1,NaturalColorNeed,1,!NaturalColorNeed
 Does the wood require varnishing?,0,1,Varnish,0
 Is the wooden object meant to be painted?,0,1,Paint,0
 
