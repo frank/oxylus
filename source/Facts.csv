@@ -14,34 +14,34 @@ normal,HumidityResist_path
 normal,HumidityResist
 #normal,Exterior_path
 normal,Exterior
-order,Exterior_order,Exterior Carpentry,1
+order,Exterior_order,Exterior Carpentry,resistance to the outside weather,1
 normal,Interior_path
 normal,BethellProcess_path
 normal,BethellProcess
-order,BethellProcess_order,Bethell process,1
+order,BethellProcess_order,Bethell process,endurance to the Bethell treatment,1
 
 normal,Glued_path
 normal,Glued
-order,Glued_order,Paint properties,10
+order,Glued_order,Paint properties,suitability to being glued,10
 normal,NaturalColor_path
 normal,NaturalColor
 normal,Paint_path
 normal,Paint
 normal,Varnish_path
 normal,Varnish
-order,Paint_order,Painting properties,10
-order,Varnish_order,Painting properties,10
+order,Paint_order,Painting properties,aptness to being painted,10
+order,Varnish_order,Painting properties,aptness to being varnished,10
 
 normal,WeightRel_path
 normal,WeightRel
-order,WeightRel_order,DensityAvg,1
+order,WeightRel_order,DensityAvg,density,1
 normal,Hardness_path
 normal,Hardness
-order,Hardness_order,Hardness,1
-order,Dilation_order,DilationAvg,3
+order,Hardness_order,Hardness,hardness,1
+order,Dilation_order,DilationAvg,amount of thermal dilation,3
 
 normal,Price
 normal,Supply
-order,Price_order,Price,-1
-order,Supply_order,Ease of supply,-1
-order,LowWoodMovement_order,WoodMovement,-2
+order,Price_order,Price,price,-1
+order,Supply_order,Ease of supply,availability,-1
+order,LowWoodMovement_order,WoodMovement,amount of deformation in different atmospheric conditions,-2
