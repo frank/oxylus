@@ -47,8 +47,8 @@ normal,IndMachAccess
 normal,Glued_path
 normal,Glued
 order,Glued_order,Painting properties,10
-normal,NaturalColor_path
-normal,NaturalColor
+normal,NaturalColorNeed_path
+normal,NaturalColorNeed
 normal,Paint_path
 normal,Paint
 normal,Varnish_path

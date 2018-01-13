@@ -7,7 +7,7 @@
 !Sauna,Furniture
 WeightRel_order,Furniture
 Glued_path,Furniture
-NaturalColor_path,Furniture
+NaturalColorNeed_path,Furniture
 Bent_path,Furniture
 AllowFastenings_path,Furniture
 Hard_path,Furniture
@@ -21,7 +21,7 @@ Hard_path,Furniture
 !Sauna,Joinery
 !Exterior,Joinery
 Glued_path,Joinery
-NaturalColor_path,Joinery
+NaturalColorNeed_path,Joinery
 Bent_path,Joinery
 AllowFastenings_path,Joinery
 Hard_path,Joinery
@@ -34,7 +34,7 @@ Hard_path,Joinery
 !Mockup,Decorative
 !Sauna,Decorative
 Glued_path,Decorative
-NaturalColor_path,Decorative
+NaturalColorNeed_path,Decorative
 Bent_path,Decorative
 Malleable_path,Decorative
 
@@ -78,12 +78,20 @@ Sauna_filter,Sauna
 
 NoObjectType,!Furniture,!Joinery,!Decorative,!Musical,!Sportive,!Mockup,!Sauna
 Glued_path,NoObjectType
-NaturalColor_path,NoObjectType
+NaturalColorNeed_path,NoObjectType
 Bent_path,NoObjectType
 AllowFastenings_path,NoObjectType
 Interior_path,NoObjectType
 Malleable_path,NoObjectType
 Hard_path,NoObjectType
+
+Glued_order,Glued,Glued_path
+Paint_path,!NaturalColorNeed,NaturalColorNeed_path
+Paint_order,Paint,Paint_path
+Price_order,Paint_order
+Dilation_order,Paint_order
+Varnish_path,!NaturalColorNeed,NaturalColorNeed_path
+Varnish_order,Varnish,Varnish_path
 
 Exterior_order,Exterior,Furniture
 LowWoodMovement_filter,!Exterior,Furniture
@@ -91,20 +99,11 @@ BethellProcess_order,BethellProcess,Exterior,Furniture
 
 LowWoodMovement_filter,Interior,Interior_path
 WeightRel_order,WeightRel,WeightRel_path
-Hardness_order,Hardness,Hardness_path
 Bent_order,Bent,Bent_path
 AllowFastenings_filter,AllowFastenings,AllowFastenings_path
 Malleable_filter,Malleable,Malleable_path
 Hard_path,Malleable,Malleable_path
 Hard_order,!Hard,!IndMachAccess,Hard_path
-
-Glued_order,Glued,Glued_path
-Paint_path,!NaturalColor,NaturalColor_path
-Paint_order,Paint,Paint_path
-Price_order,Paint_order
-Dilation_order,Paint_order
-Varnish_path,!NaturalColor,NaturalColor_path
-Varnish_order,Varnish,Varnish_path
 
 
 Price_order,Price,!Musical,!Sportive,!Mockup,!Sauna
