@@ -94,11 +94,11 @@ class filteringFact(Fact):
             for prop in wood.getProperties():
                 #print( prop[0], " and " , self.prop)
                 if( prop[0] == self.prop ):
-                    #print("Filteroni!!!")
+                    
                     #print( prop[1], " and ", self.boolean)
                     if (prop[1] == self.boolean):
                         cnt += 1
-                        #print("Filteroni")
+                        print("Filtering ", wood.getEnglishName(), " because of ", prop[0], " is set to ", prop[1])
                         wood.filterOut(self.prop)
                     
                     break

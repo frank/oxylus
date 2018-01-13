@@ -33,7 +33,6 @@ class Model():
         print("")
         print("Round number ", self.questionCount)
         self.fireRules()
-        self.fireFacts()
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
@@ -46,23 +45,31 @@ class Model():
 
     def fireFacts(self):
         for fact in self.facts:
-            if (fact.value == factValue.TRUE):
+            if( fact.value == factValue.TRUE ):
                 fact.activate()
 
     # reorders the woods list according to the weights and filters
     def reorderWoods(self):
         print("Filtering woods...")
         # filter woods first:
+        removeWoods = []
         for wood in self.woods:
-            # print(wood.getRanking())
             if( wood.isAdmissible() == False ):
                 print("-")
                 print( wood, " was filtered out.")
                 print("-")
                 self.filteredWoods.append(wood)
-                self.woods.remove(wood)
+                removeWoods.append(wood)
             else:
                 wood.setRanking(self.weights)
+
+
+        for filteredWood in removeWoods:
+            for wood in self.woods:
+                if filteredWood == wood:
+                    self.woods.remove(wood)
+                    break
+
         # order woods according to ranking:#
         print("Reordering woods...")
         

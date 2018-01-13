@@ -55,8 +55,6 @@ class WoodType():
         return self.properties
 
     def addProperty(self, name, value):
-        print(name)
-        print(value)
         if( value == "" ):
             value = None
         elif( value != "TRUE" and value != "FALSE" ):
