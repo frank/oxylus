@@ -41,6 +41,9 @@ class Fact():
     def canBeAskedFor(self):
         return self.numQuestions > 0
 
+    def getNumQuestions(self):
+        return self.numQuestions
+
     def __repr__(self):
         return "FactName: " + self.name + "| FactVal: " + repr(self.value) 
 

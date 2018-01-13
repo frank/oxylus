@@ -39,7 +39,9 @@ class Model():
         self.printActivatedFilterFacts()
         print("Current Question: ",self.currentQuestion)
         print("   ")
-        print("   ")
+        #fact = self.findFact("Glued")
+        #print(fact, " noQuestions: ", fact.getNumQuestions())
+        
         self.questionCount += 1
         self.notify(None)
 
@@ -102,14 +104,16 @@ class Model():
         # collect the facts that they still require to know
         #print("")
         #print("Available rules: ")
-
+        #print("")
+        #print("NEXT FACT TO ASK FOR:")
         for rule in self.rules:
             unknownFactsInRule = 0
             currentPremises = []
+            #print(rule ," is available:", rule.isAvailable())
+
             if ( rule.isAvailable() ):
-                #print(rule)
                 for premise in rule.getPremises():
-                    if (premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor() ):
+                    if( premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor() ):
                         unknownFactsInRule += 1
                         currentPremises.append(premise)
             
@@ -306,8 +310,9 @@ class Model():
                 return fact  
 
         print(" ")
-        print("ERROR while reading Rules: No fact found with name: ", name)
-        print("Rule was dismissed. Please check your Database.")
+        print("ERROR while looking for fact. No fact found with name: ", name)
+        print("Please check your Database.")
+        quit()
         print(" ")
 
 
@@ -316,6 +321,7 @@ class Model():
         # Every item before the conclusion is a fact, which can be negated by adding a
         # "!" character in front of it
         readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
+        print("SCANNED RULES:")
         for rule in readCSV:
             if len(rule) > 0 and rule[0][0] != "#":
                 # Create rule
@@ -330,8 +336,9 @@ class Model():
 
                 if( conclusionFact == None ):
                     print(" ")
-                    print("Error while reading rule ", rule , ". No conclusion readable!")
+                    print("Error while reading rule ", rule , ". CHECK YOUR DATABASE - RULES ARE FAULTY")
                     print(" ")
+                    quit()
                     return
                 
                 # Add premises to rule
@@ -346,6 +353,7 @@ class Model():
                         newRule.addPremise(newPremise, factValue.TRUE)
                       
                 self.addRule(newRule)
+                print(newRule)
 
     def addRule(self, rule):
         self.rules.append(rule)
