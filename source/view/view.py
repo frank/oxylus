@@ -158,24 +158,24 @@ class View():
         space = self.questionFont.size(' ')[0]  # The width of a space.
         max_width = self.questionFrame_size[0] - 10
         x, y = self.askedFrame_pos
-        if self.model.getQuestions() != None:
-            for question in self.model.getQuestions():
-                words = [word.split(' ') for word in question.getText().splitlines()] # 2D array where each row is a list of words.
-                if question.getAskedStatus() == True:
-                    word_surface = self.woodLabelEnglishFont.render(" -", True, BLACK)
-                    self.screen.blit(word_surface, (x, y))
-                    x += word_surface.get_size()[0] + space
-                    for line in words:
-                        for word in line:
-                            word_surface = self.woodLabelEnglishFont.render(word, True, BLACK)
-                            word_width, word_height = word_surface.get_size()
-                            if x + word_width >= max_width:
-                                x = self.askedFrame_pos[0] + 30  # Reset the x.
-                                y += word_height  # Start on new row.
-                            self.screen.blit(word_surface, (x, y))
-                            x += word_width + space
-                        x = self.askedFrame_pos[0]  # Reset the x.
-                        y += word_height  # Start on new row.
+    
+        for question in self.model.getAskedQuestions():
+            words = [word.split(' ') for word in question.getText().splitlines()] # 2D array where each row is a list of words.
+            if question.getAskedStatus() == True:
+                word_surface = self.woodLabelEnglishFont.render(" -", True, BLACK)
+                self.screen.blit(word_surface, (x, y))
+                x += word_surface.get_size()[0] + space
+                for line in words:
+                    for word in line:
+                        word_surface = self.woodLabelEnglishFont.render(word, True, BLACK)
+                        word_width, word_height = word_surface.get_size()
+                        if x + word_width >= max_width:
+                            x = self.askedFrame_pos[0] + 30  # Reset the x.
+                            y += word_height  # Start on new row.
+                        self.screen.blit(word_surface, (x, y))
+                        x += word_width + space
+                    x = self.askedFrame_pos[0]  # Reset the x.
+                    y += word_height  # Start on new row.
 
     def blit_popUpContent(self):
         file_name = ""
