@@ -159,7 +159,7 @@ class View():
         if self.model.getQuestions() != None:
             for question in self.model.getAskedQuestions():
                 if question.getAskedStatus() == True:
-                    text = question.getText() + " --> " + question.getAnswer()
+                    text = question.getText() + " -->" + question.getAnswer()
                     words = [word.split(' ') for word in text.splitlines()] # 2D array where each row is a list of words.
                     word_surface = self.woodLabelEnglishFont.render(" -", True, BLACK)
                     self.screen.blit(word_surface, (x, y))

@@ -106,6 +106,7 @@ class Model():
         for rule in self.rules:
             unknownFactsInRule = 0
             currentPremises = []
+            premiseNotAskable = False
             #print(rule ," is available:", rule.isAvailable())
 
             if ( rule.isAvailable() ):
@@ -113,8 +114,11 @@ class Model():
                     if( premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor() ):
                         unknownFactsInRule += 1
                         currentPremises.append(premise)
+                    if( premise.getValue() == factValue.UNKNOWN and not premise.canBeAskedFor()):
+                        premiseNotAskable = True
+                        break
             
-            if( unknownFactsInRule == 0 ):
+            if( unknownFactsInRule == 0 or premiseNotAskable):
                 continue
 
             # Make a list of all the rules with the minimum number of unknown facts
