@@ -209,11 +209,11 @@ class View():
 
 
     def blit_questionText(self):
+        space = self.questionFont.size(' ')[0]  # The width of a space.
+        max_width = self.questionFrame_size[0] * 7 / 8
+        x, y = self.questionText_pos
         if (not self.model.getEnd()):
             words = [word.split(' ') for word in self.questionText.splitlines()] # 2D array where each row is a list of words.
-            space = self.questionFont.size(' ')[0]  # The width of a space.
-            max_width = self.questionFrame_size[0]*7/8
-            x, y = self.questionText_pos
             for line in words:
                 for word in line:
                     word_surface = self.questionFont.render(word, True, WHITE)
@@ -226,8 +226,21 @@ class View():
                 x = self.questionText_pos[0]  # Reset the x.
                 y += word_height  # Start on new row.
         else:
-            endText = self.questionFont.render("END", True, WHITE)
-            self.screen.blit(endText, self.questionText_pos)
+            endText = [["The", "woods", "that", "comply", "the", "most", "with", "your"],
+                       ["requirements", "are", "at", "the", "top", "of", "the", "list", "on"],
+                       ["the", "right.", "The", "pictures", "will", "help", "guide", "your"],
+                       ["choice!"]]
+            for line in endText:
+                for word in line:
+                    word_surface = self.questionFont.render(word, True, WHITE)
+                    word_width, word_height = word_surface.get_size()
+                    if x + word_width >= max_width:
+                        x = self.questionText_pos[0]  # Reset the x.
+                        y += word_height  # Start on new row.
+                    self.screen.blit(word_surface, (x, y))
+                    x += word_width + space
+                x = self.questionText_pos[0]  # Reset the x.
+                y += word_height  # Start on new row.
 
 
 
