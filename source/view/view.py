@@ -235,6 +235,7 @@ class View():
             if filters != "":
                 endText = endText + " They have been ordered according to their " + filters
             endText = endText + " Use the pictures to choose your favourite."
+            endText = endText + " The greener the wood name, the better suited it is for the purpose you chose."
             words = [word.split(' ') for word in endText.splitlines()]
             for line in words:
                 for word in line:
