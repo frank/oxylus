@@ -207,8 +207,8 @@ class Model():
                     if questionText[i] == ';':
                         questionText[i] = ','
                 questionText = ''.join(questionText)
-
                 newQuestion = Question(questionText, questionType)
+
                 # Yes/No question:
                 if questionType == 0:
                     numPositives = int(question[2])
@@ -217,6 +217,16 @@ class Model():
                     negativeStart = 4 + numPositives
                     self.addFactsToQuestion(newQuestion, question, numPositives, positiveStart, 0)
                     self.addFactsToQuestion(newQuestion, question, numNegatives, negativeStart, 1)
+                
+                if len(question) == 5 + numPositives + numNegatives:
+                    questionDescription = question[len(question)-1]
+                    questionDescription = list(questionDescription)
+                    for i in range(len(questionDescription)):
+                        if questionDescription[i] == ';':
+                            questionDescription[i] = ','
+                    questionDescription = ''.join(questionDescription)
+                    newQuestion.addDescription(questionDescription)
+
                 # Other type of question:
                 elif int(question[1]) == 1:
                     pass

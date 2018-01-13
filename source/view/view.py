@@ -63,7 +63,7 @@ class View():
         self.NObutton_pos = [self.questionFrame_size[0]*5/8, (self.questionFrame_size[1]*2/3)*5/8]
         #Currently selected wood Popup
         self.woodPopup_selection = None
-        self.woodPopup_size = [160*3 + 2, 90*3 + 1 + 200]
+        self.woodPopup_size = [160*3 +4 , 90*3 +4]
         self.woodPopup_pos = [pixel_width * 2/3 - self.woodPopup_size[0] - 2, 0]
         self.woodPopup_surf = pygame.Surface(self.woodPopup_size)
         self.woodPopup_surf.set_colorkey(TRANSPARENT)
@@ -75,7 +75,7 @@ class View():
         self.clock = pygame.time.Clock()
 
         #Initiate texts, text positions, and text fonts
-        self.questionFont = pygame.font.SysFont(None, 40)
+        self.questionFont = pygame.font.SysFont(None, 48)
         self.questionText_pos = [int(self.questionFrame_size[0]/8), int(self.questionFrame_size[1]/8)]
         self.woodLabelEnglishFont = pygame.font.SysFont(None, 24)
         self.woodLabelLatinFont = pygame.font.SysFont(None, 24, italic=True)
@@ -202,7 +202,7 @@ class View():
             image = pygame.image.load(file_path).convert()
             image_size = 160*3, 90*3
             image = pygame.transform.scale(image, image_size)
-            self.woodPopup_surf.blit(image, (1,1))
+            self.woodPopup_surf.blit(image, (2,2))
             #Text
             y_displacement = 0
             for item in self.woodPopup_selection.getInfo_from_appliedFilters():
@@ -229,6 +229,21 @@ class View():
                     x += word_width + space
                 x = self.questionText_pos[0]  # Reset the x.
                 y += word_height  # Start on new row.
+            if self.model.getNextQuestion().getDescription() != None:
+                y += word_height
+                descriptionWords = [word.split(' ') for word in self.model.getNextQuestion().getDescription().splitlines()] # 2D array where each row is a list of words.
+                for line in descriptionWords:
+                    for word in line:
+                        word_surface = self.woodLabelEnglishFont.render(word, True, WHITE)
+                        word_width, word_height = word_surface.get_size()
+                        if x + word_width >= max_width:
+                            x = self.questionText_pos[0]  # Reset the x.
+                            y += word_height  # Start on new row.
+                        self.screen.blit(word_surface, (x, y))
+                        x += word_width + space
+                    x = self.questionText_pos[0]  # Reset the x.
+                    y += word_height  # Start on new row.
+
         else:
             endText = "The available woods appear in the list on the right."
             filters = self.model.getActivatedFilterDescription()

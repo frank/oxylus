@@ -25,7 +25,10 @@ order,BethellProcess_order,Bethell process,endurance to the Bethell treatment,1
 
 normal,WeightRel_path
 normal,WeightRel
-order,WeightRel_order,DensityAvg,density,1
+normal,Dense_path
+normal,Dense
+order,Dense_order,DensityAvg,density,1
+order,Light_order,DensityAvg,density,-1
 normal,Hardness_path
 normal,Hardness
 order,Dilation_order,DilationAvg,amount of thermal dilation,3

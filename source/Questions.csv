@@ -1,6 +1,6 @@
-Are you looking to make furniture?,0,1,Furniture,1,!Furniture
-Are you looking to make joinery elements?,0,1,Joinery,1,!Joinery
-Are you looking to make decorative objects?,0,2,Decorative,!BethellProcess,1,!Decorative
+Are you looking to make furniture?,0,1,Furniture,1,!Furniture,Furniture can be anything from chairs to cabinets; or even shelves
+Are you looking to make joinery elements?,0,1,Joinery,1,!Joinery,
+Are you looking to make decorative objects?,0,1,Decorative,1,!Decorative
 Are you looking to make objects with musical properties?,0,1,Musical,1,!Musical
 Are you looking to make wooden sportive equipment that require high flexibility such as hockey sticks; golf clubs; and pool cues?,0,1,Sportive,1,!Sportive
 Are you looking to make models and mockups?,0,1,Mockup,1,!Mockup
@@ -13,6 +13,7 @@ Would you accept woods that have undergone chemical treatments internally to imp
 #Does the wood require high mechanical resistance?,0,1,MechResist,0
 Does the wood require the ability to be bent into shape?,0,1,Bent,0
 Is the weight of the wood type relevant to the project?,0,1,WeightRel,0
+Do you want the wood type to be dense?,0,1,Dense,1,Light
 Is the wood required to have properties to allow fastenings? (Ex: screws; nails; etc.),0,1,AllowFastenings,0
 
 Does the wood require the ability to be easily glued?,0,1,Glued,0
