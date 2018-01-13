@@ -6,7 +6,7 @@ Are you looking to make wooden sportive equipment that require high flexibility 
 Are you looking to make models and mockups?,0,1,Mockup,1,!Mockup
 Are you looking to make saunas?,0,1,Sauna,1,!Sauna
 
-Does the wooden object require resistance to humidity?,0,1,HumidityResist,0
+#Does the wooden object require resistance to humidity?,0,1,HumidityResist,0
 Is the wooden object meant for exterior use?,0,1,Exterior,1,!Exterior
 Would you accept woods that have undergone chemical treatments internally to improve durability in exterior environments?,0,1,BethellProcess,1,!BethellProcess
 
