@@ -28,6 +28,7 @@ normal,WeightRel
 normal,Dense_path
 normal,Dense
 order,Dense_order,DensityAvg,density,1
+normal,Light
 order,Light_order,DensityAvg,density,-1
 normal,Hardness_path
 normal,Hardness

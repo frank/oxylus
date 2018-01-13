@@ -19,7 +19,7 @@ Is the wood required to have properties to allow fastenings? (Ex: screws; nails;
 Does the wood require the ability to be easily glued?,0,1,Glued,0
 Is the wood's natural color and feel something you want to keep in the final product?,0,1,NaturalColorNeed,0,1,!NaturalColorNeed
 Does the wood require varnishing?,0,1,Varnish,0
-Is the wooden object meant to be painted?,0,1,Painted,0
+Is the wooden object meant to be painted?,0,1,Paint,0
 
 Does the wood require to be carved or moulded into shape?,0,1,Malleable,0
 Do you want the wood to have easy machining properties?,0,1,!Hard,0

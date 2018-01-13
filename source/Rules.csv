@@ -103,7 +103,7 @@ BethellProcess_order,BethellProcess,Exterior,Furniture
 LowWoodMovement_filter,Interior,Interior_path
 Dense_path,WeightRel,WeightRel_path
 Dense_order,Dense,Dense_path
-Light_order,!Dense,Dense_path
+Light_order,Light,Dense_path
 Bent_order,Bent,Bent_path
 AllowFastenings_filter,AllowFastenings,AllowFastenings_path
 Malleable_filter,Malleable,Malleable_path
