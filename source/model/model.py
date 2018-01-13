@@ -269,7 +269,7 @@ class Model():
             if i < len(allDescriptions) - 2:
                 fullDescription = fullDescription + description + ", "
             elif i == len(allDescriptions) - 2:
-                fullDescription = fullDescription + description + " and "
+                fullDescription = fullDescription + description + ", and "
             elif i == len(allDescriptions) - 1:
                 fullDescription = fullDescription + description + "."
         return fullDescription

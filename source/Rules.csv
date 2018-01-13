@@ -91,7 +91,6 @@ BethellProcess_order,BethellProcess,Exterior,Furniture
 
 LowWoodMovement_filter,Interior,Interior_path
 WeightRel_order,WeightRel,WeightRel_path
-Hardness_order,Hardness,Hardness_path
 Bent_order,Bent,Bent_path
 AllowFastenings_filter,AllowFastenings,AllowFastenings_path
 Malleable_filter,Malleable,Malleable_path

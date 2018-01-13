@@ -28,11 +28,10 @@ normal,WeightRel
 order,WeightRel_order,DensityAvg,density,1
 normal,Hardness_path
 normal,Hardness
-order,Hardness_order,Hardness,hardness,1
 order,Dilation_order,DilationAvg,amount of thermal dilation,3
 normal,Bent_path
 normal,Bent
-order,Bent_order,Flexing Properties,1
+order,Bent_order,Flexing Properties,ability to flex without breaking,1
 normal,AllowFastenings_path
 normal,AllowFastenings
 filter,AllowFastenings_filter,Fastening properties,FALSE
@@ -41,7 +40,7 @@ normal,Malleable
 filter,Malleable_filter,Malleability (Uniformity),FALSE
 normal,Hard_path
 normal,Hard
-order,Hard_order,Hardness,-1
+order,Hard_order,Hardness,hardness,-1
 normal,IndMachAccess
 
 normal,Glued_path

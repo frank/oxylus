@@ -230,7 +230,7 @@ class View():
             filters = self.model.getActivatedFilterDescription()
             if filters != "":
                 endText = endText + " They have been ordered according to their " + filters
-            endText = endText + " Use the wood pictures to choose your favourite!"
+            endText = endText + " Use the wood pictures to choose your favourite."
             words = [word.split(' ') for word in endText.splitlines()]
             for line in words:
                 for word in line:
