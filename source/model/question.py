@@ -52,7 +52,12 @@ class Question():
   def adjustFactValues(self, facts, values):
     for i in range(len(facts)):
             facts[i].setValue(values[i])
-            facts[i].deleteQuestion()
+          
+
+  def deleteFactLinks(self):
+    facts = self.getAllFacts()
+    for fact in facts:
+      fact.deleteQuestion()
 
   def setTruthValuesToAnsweredFacts(self, answer):
       if(answer == "YES"):
@@ -65,7 +70,9 @@ class Question():
       facts = self.facts[answerIdx]
       values = self.factTruthValues[answerIdx]
       self.adjustFactValues(facts,values)
+      self.deleteFactLinks()
       self.setAskedStatus()
+
 
   def getFactTruthValues(self):
       return self.factTruthValues
