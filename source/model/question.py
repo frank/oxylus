@@ -6,6 +6,7 @@ class Question():
     self.facts = [] # the fact associated to the question (only one?)
     self.factTruthValues = [] # the negations associated with the read facts
     self.options = None
+    self.answer = None
     if self.type == 0: #YES/NO question
       self.options = 2 #FactList will have 2 lists
       for i in range(2):
@@ -31,6 +32,12 @@ class Question():
 
   def getType(self):
       return self.type
+
+  def setAnswer(self, answer):
+      self.answer = answer
+
+  def getAnswer(self):
+      return self.answer
 
   def setAskedStatus(self):
       self.askedStatus = True
@@ -72,6 +79,7 @@ class Question():
       self.adjustFactValues(facts,values)
       self.deleteFactLinks()
       self.setAskedStatus()
+      self.setAnswer(answer)
 
 
   def getFactTruthValues(self):

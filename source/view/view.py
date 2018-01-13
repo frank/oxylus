@@ -109,15 +109,12 @@ class View():
             self.woodPopup_pos[1] = self.screen_size[1] - self.woodPopup_size[1]
         self.woodPopup_selection = woodSelection
 
-    def __draw_questionFrame(self):
-        self.questionFrame_surf.fill(BLACK)
-        if self.model.getNextQuestion() != None:
+    def __draw_askedQuestionFrame(self):
+        if(self.model.getNextQuestion() != None):
             self.questionText = self.model.getNextQuestion().getText()
-            YESbutton = pygame.Rect(self.YESbutton_pos, self.button_size)
-            NObutton = pygame.Rect(self.NObutton_pos, self.button_size)
-            self.questionFrame_surf.fill(WHITE, YESbutton)
-            self.questionFrame_surf.fill(WHITE, NObutton)
-            self.askedFrame_surf.fill(WHITE)
+        else:
+            self.questionText = None
+        self.askedFrame_surf.fill(WHITE)
 
     def __draw_sideBar(self):
         self.sideBar_surf.fill(TRANSPARENT)
@@ -134,15 +131,16 @@ class View():
         self.woodPopup_surf.fill(YELLOW)
 
     def redraw(self):
-        self.__draw_questionFrame()
+        self.__draw_askedQuestionFrame()
         self.__draw_sideBar()
         self.__draw_woodPopup()
 
     def blit(self):
         #Blank the screen, draw background later
         self.screen.fill(BG_COLOR)
-        self.screen.blit(self.questionFrame_surf, self.questionFrame_pos)
-        self.blit_buttonText()
+        self.blit_questionFrame()
+        if self.model.getNextQuestion() != None:
+            self.blit_buttonText()
         self.blit_questionText()
         self.screen.blit(self.askedFrame_surf, self.askedFrame_pos)
         self.blit_askedQuestionsText()
@@ -158,24 +156,33 @@ class View():
         space = self.questionFont.size(' ')[0]  # The width of a space.
         max_width = self.questionFrame_size[0] - 10
         x, y = self.askedFrame_pos
-    
-        for question in self.model.getAskedQuestions():
-            words = [word.split(' ') for word in question.getText().splitlines()] # 2D array where each row is a list of words.
-            if question.getAskedStatus() == True:
-                word_surface = self.woodLabelEnglishFont.render(" -", True, BLACK)
-                self.screen.blit(word_surface, (x, y))
-                x += word_surface.get_size()[0] + space
-                for line in words:
-                    for word in line:
-                        word_surface = self.woodLabelEnglishFont.render(word, True, BLACK)
-                        word_width, word_height = word_surface.get_size()
-                        if x + word_width >= max_width:
-                            x = self.askedFrame_pos[0] + 30  # Reset the x.
-                            y += word_height  # Start on new row.
-                        self.screen.blit(word_surface, (x, y))
-                        x += word_width + space
-                    x = self.askedFrame_pos[0]  # Reset the x.
-                    y += word_height  # Start on new row.
+        if self.model.getQuestions() != None:
+            for question in self.model.getAskedQuestions():
+                if question.getAskedStatus() == True:
+                    text = question.getText() + " --> " + question.getAnswer()
+                    words = [word.split(' ') for word in text.splitlines()] # 2D array where each row is a list of words.
+                    word_surface = self.woodLabelEnglishFont.render(" -", True, BLACK)
+                    self.screen.blit(word_surface, (x, y))
+                    x += word_surface.get_size()[0] + space
+                    for line in words:
+                        for word in line:
+                            word_surface = self.woodLabelEnglishFont.render(word, True, BLACK)
+                            word_width, word_height = word_surface.get_size()
+                            if x + word_width >= max_width:
+                                x = self.askedFrame_pos[0] + 30  # Reset the x.
+                                y += word_height  # Start on new row.
+                            self.screen.blit(word_surface, (x, y))
+                            x += word_width + space
+                        x = self.askedFrame_pos[0]  # Reset the x.
+                        y += word_height  # Start on new row.
+
+    def blit_questionFrame(self):
+        self.screen.blit(self.questionFrame_surf, self.questionFrame_pos)
+        file_path = os.path.join(os.getcwd(), "view", "backGround.jpeg")
+        image = pygame.image.load(file_path).convert()
+        image_size = int(self.questionFrame_size[0]), int(self.questionFrame_size[1]*2/3)
+        image = pygame.transform.scale(image, image_size)
+        self.questionFrame_surf.blit(image, self.questionFrame_pos)
 
     def blit_popUpContent(self):
         file_name = ""
@@ -202,21 +209,27 @@ class View():
 
 
     def blit_questionText(self):
-        words = [word.split(' ') for word in self.questionText.splitlines()] # 2D array where each row is a list of words.
-        space = self.questionFont.size(' ')[0]  # The width of a space.
-        max_width = self.questionFrame_size[0]*7/8
-        x, y = self.questionText_pos
-        for line in words:
-            for word in line:
-                word_surface = self.questionFont.render(word, True, WHITE)
-                word_width, word_height = word_surface.get_size()
-                if x + word_width >= max_width:
-                    x = self.questionText_pos[0]  # Reset the x.
-                    y += word_height  # Start on new row.
-                self.screen.blit(word_surface, (x, y))
-                x += word_width + space
-            x = self.questionText_pos[0]  # Reset the x.
-            y += word_height  # Start on new row.
+        if (not self.model.getEnd()):
+            words = [word.split(' ') for word in self.questionText.splitlines()] # 2D array where each row is a list of words.
+            space = self.questionFont.size(' ')[0]  # The width of a space.
+            max_width = self.questionFrame_size[0]*7/8
+            x, y = self.questionText_pos
+            for line in words:
+                for word in line:
+                    word_surface = self.questionFont.render(word, True, WHITE)
+                    word_width, word_height = word_surface.get_size()
+                    if x + word_width >= max_width:
+                        x = self.questionText_pos[0]  # Reset the x.
+                        y += word_height  # Start on new row.
+                    self.screen.blit(word_surface, (x, y))
+                    x += word_width + space
+                x = self.questionText_pos[0]  # Reset the x.
+                y += word_height  # Start on new row.
+        else:
+            endText = self.questionFont.render("END", True, WHITE)
+            self.screen.blit(endText, self.questionText_pos)
+
+
 
     def blit_labelText(self):
         wv = self.model.getWoods()
@@ -230,6 +243,10 @@ class View():
                 (englishText.get_width() + 2), wood*self.woodLabel_size[1]+textStartYPos))
 
     def blit_buttonText(self):
+        YESbutton = pygame.Rect(self.YESbutton_pos, self.button_size)
+        NObutton = pygame.Rect(self.NObutton_pos, self.button_size)
+        self.questionFrame_surf.fill(WHITE, YESbutton)
+        self.questionFrame_surf.fill(WHITE, NObutton)
         YEStext = self.buttonFont.render("YES", True, BLACK)
         NOtext = self.buttonFont.render("NO", True, BLACK)
         YEStext_size = YEStext.get_size()

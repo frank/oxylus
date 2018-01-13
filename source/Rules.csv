@@ -74,8 +74,7 @@ Sauna_filter,Sauna
 
 Exterior_order,Exterior,Furniture
 Interior_path,!Exterior,Furniture
-BethellProcess_path,Exterior_order
-BethellProcess_order,BethellProcess,BethellProcess_path,Furniture
+BethellProcess_order,BethellProcess,Exterior,Furniture
 LowWoodMovement,Interior_path
 
 WeightRel_order,WeightRel,WeightRel_path
