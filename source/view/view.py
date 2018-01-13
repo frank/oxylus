@@ -229,19 +229,20 @@ class View():
                     x += word_width + space
                 x = self.questionText_pos[0]  # Reset the x.
                 y += word_height  # Start on new row.
-            y += word_height
-            descriptionWords = [word.split(' ') for word in self.model.getNextQuestion().getDescription().splitlines()] # 2D array where each row is a list of words.
-            for line in descriptionWords:
-                for word in line:
-                    word_surface = self.woodLabelEnglishFont.render(word, True, WHITE)
-                    word_width, word_height = word_surface.get_size()
-                    if x + word_width >= max_width:
-                        x = self.questionText_pos[0]  # Reset the x.
-                        y += word_height  # Start on new row.
-                    self.screen.blit(word_surface, (x, y))
-                    x += word_width + space
-                x = self.questionText_pos[0]  # Reset the x.
-                y += word_height  # Start on new row.
+            if self.model.getNextQuestion().getDescription() != None:
+                y += word_height
+                descriptionWords = [word.split(' ') for word in self.model.getNextQuestion().getDescription().splitlines()] # 2D array where each row is a list of words.
+                for line in descriptionWords:
+                    for word in line:
+                        word_surface = self.woodLabelEnglishFont.render(word, True, WHITE)
+                        word_width, word_height = word_surface.get_size()
+                        if x + word_width >= max_width:
+                            x = self.questionText_pos[0]  # Reset the x.
+                            y += word_height  # Start on new row.
+                        self.screen.blit(word_surface, (x, y))
+                        x += word_width + space
+                    x = self.questionText_pos[0]  # Reset the x.
+                    y += word_height  # Start on new row.
 
         else:
             endText = "The available woods appear in the list on the right."
