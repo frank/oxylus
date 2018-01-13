@@ -45,9 +45,9 @@ normal,IndMachAccess
 
 normal,Glued_path
 normal,Glued
+normal,NaturalColorNeed_path
+normal,NaturalColorNeed
 order,Glued_order,Paint properties,suitability to being glued,10
-normal,NaturalColor_path
-normal,NaturalColor
 normal,Paint_path
 normal,Paint
 normal,Varnish_path

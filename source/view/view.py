@@ -159,7 +159,11 @@ class View():
         if self.model.getQuestions() != None:
             for question in self.model.getAskedQuestions():
                 if question.getAskedStatus() == True:
-                    text = question.getText() + " -->" + question.getAnswer()
+                    text = question.getText()
+                    if question.getAnswer() == "YES":
+                        text = text + " Yes."
+                    if question.getAnswer() == "NO":
+                        text = text + " No."
                     words = [word.split(' ') for word in text.splitlines()] # 2D array where each row is a list of words.
                     word_surface = self.woodLabelEnglishFont.render(" -", True, BLACK)
                     self.screen.blit(word_surface, (x, y))
@@ -230,7 +234,7 @@ class View():
             filters = self.model.getActivatedFilterDescription()
             if filters != "":
                 endText = endText + " They have been ordered according to their " + filters
-            endText = endText + " Use the wood pictures to choose your favourite."
+            endText = endText + " Use the pictures to choose your favourite."
             words = [word.split(' ') for word in endText.splitlines()]
             for line in words:
                 for word in line:
