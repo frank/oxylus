@@ -253,9 +253,27 @@ class Model():
         print("")
         print("Printing all Filter/Order Facts set to TRUE:")
         for fact in self.facts:
-            if (fact.isType() != "Normal" and fact.getValue() == factValue.TRUE):
-                print(fact, end=" ")
+            if fact.isType() != "Normal" and fact.getValue() == factValue.TRUE:
+                print(fact.getName(), end=" ")
         print("")
+
+    ########################################################################################### WIP
+    def getActivatedFilterDescription(self):
+        # Returns the descriptions of the filters that are currently applied
+        allDescriptions = []
+        fullDescription = ""
+        for fact in self.facts:
+            if fact.isType() == "Order" and fact.getValue() == factValue.TRUE:
+                allDescriptions.append(fact.getDescription())
+        for i, description in enumerate(allDescriptions):
+            if i < len(allDescriptions) - 2:
+                fullDescription = fullDescription + description + ", "
+            elif i == len(allDescriptions) - 2:
+                fullDescription = fullDescription + description + ", and "
+            elif i == len(allDescriptions) - 1:
+                fullDescription = fullDescription + description + "."
+        return fullDescription
+
 
     def getWoods(self):
         return self.woods
@@ -275,7 +293,7 @@ class Model():
         for fact in readCSV:
             if len(fact) > 0 and fact[0] != "#":
                 if fact[0] == "order":
-                    newfact = orderingFact(fact[1], fact[2], fact[3], self)
+                    newfact = orderingFact(fact[1], fact[2], fact[3], fact[4], self)
                 elif fact[0] == "filter":
                     newfact = filteringFact(fact[1], fact[2], fact[3], self)
                 else:

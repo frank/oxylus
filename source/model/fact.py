@@ -67,14 +67,18 @@ class decisiveFact(Fact):
 # gives the ordering criterion column with the name prop a weight 
 # prop can be: density, price, supply, outsideUse, hardness
 class orderingFact(Fact):
-    def __init__(self, name, prop, weight, model):
+    def __init__(self, name, prop, description, weight, model):
         super().__init__(name, model)
         self.prop = prop
+        self.description = description
         self.weight = int(weight)
 
     def activate(self):
-        print("Ordering of ", self.prop, " was given the weight " , self.weight)
+        print("Ordering of ", self.prop, " was given the weight ", self.weight)
         self.model.adjustWeight(self.prop, self.weight)
+
+    def getDescription(self):
+        return self.description
 
     def isType(self):
         return "Order"
@@ -91,18 +95,18 @@ class filteringFact(Fact):
         return "Filter"
 
     def activate(self):
-        print("Filtering of ", self.prop , " activated.")
+        print("Filtering of ", self.prop, " activated.")
         cnt = 0
         for wood in self.model.getWoods():
             for prop in wood.getProperties():
-                print( "|", prop[0], "|" , self.prop, "|")
-                if( prop[0] == self.prop ):
+                print("|", prop[0], "|", self.prop, "|")
+                if prop[0] == self.prop:
                     
-                    print( prop[1], " and ", self.boolean)
-                    if (prop[1] == self.boolean):
+                    print(prop[1], " and ", self.boolean)
+                    if prop[1] == self.boolean:
                         cnt += 1
                         print("Filtering ", wood.getEnglishName(), " because of ", prop[0], " is set to ", prop[1])
                         wood.filterOut(self.prop)
                     
                     break
-        print(cnt , " woods were filtered out.")
+        print(cnt, " woods were filtered out.")

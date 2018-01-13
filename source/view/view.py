@@ -159,7 +159,11 @@ class View():
         if self.model.getQuestions() != None:
             for question in self.model.getAskedQuestions():
                 if question.getAskedStatus() == True:
-                    text = question.getText() + " -->" + question.getAnswer()
+                    text = question.getText()
+                    if question.getAnswer() == "YES":
+                        text = text + " Yes."
+                    if question.getAnswer() == "NO":
+                        text = text + " No."
                     words = [word.split(' ') for word in text.splitlines()] # 2D array where each row is a list of words.
                     word_surface = self.woodLabelEnglishFont.render(" -", True, BLACK)
                     self.screen.blit(word_surface, (x, y))
@@ -212,7 +216,7 @@ class View():
         space = self.questionFont.size(' ')[0]  # The width of a space.
         max_width = self.questionFrame_size[0] * 7 / 8
         x, y = self.questionText_pos
-        if (not self.model.getEnd()):
+        if not self.model.getEnd():
             words = [word.split(' ') for word in self.questionText.splitlines()] # 2D array where each row is a list of words.
             for line in words:
                 for word in line:
@@ -226,11 +230,13 @@ class View():
                 x = self.questionText_pos[0]  # Reset the x.
                 y += word_height  # Start on new row.
         else:
-            endText = [["The", "woods", "that", "comply", "the", "most", "with", "your"],
-                       ["requirements", "are", "at", "the", "top", "of", "the", "list", "on"],
-                       ["the", "right.", "The", "pictures", "will", "help", "guide", "your"],
-                       ["choice!"]]
-            for line in endText:
+            endText = "The available woods appear in the list on the right."
+            filters = self.model.getActivatedFilterDescription()
+            if filters != "":
+                endText = endText + " They have been ordered according to their " + filters
+            endText = endText + " Use the pictures to choose your favourite."
+            words = [word.split(' ') for word in endText.splitlines()]
+            for line in words:
                 for word in line:
                     word_surface = self.questionFont.render(word, True, WHITE)
                     word_width, word_height = word_surface.get_size()
@@ -243,13 +249,12 @@ class View():
                 y += word_height  # Start on new row.
 
 
-
     def blit_labelText(self):
         wv = self.model.getWoods()
         for wood in range(len(wv)):
             if(wv[wood]):
-                englishText = self.woodLabelEnglishFont.render(wv[wood].getEnglishName(), True, RED)
-                latinText = self.woodLabelLatinFont.render(" (" + wv[wood].getLatinName() + ") ", True, RED)
+                englishText = self.woodLabelEnglishFont.render(wv[wood].getEnglishName(), True, BLACK)
+                latinText = self.woodLabelLatinFont.render(" (" + wv[wood].getLatinName() + ") ", True, BLACK)
                 textStartYPos = (self.woodLabel_size[1] - englishText.get_size()[1])/2
                 self.screen.blit(englishText, (self.sideBar_pos[0]+10, wood*self.woodLabel_size[1]+textStartYPos))
                 self.screen.blit(latinText, ((self.sideBar_pos[0]+10) + \
