@@ -9,6 +9,8 @@ from .question import Question
 
 class Model():
     def __init__(self):
+        self.questionCount = 0 #number of questions posed so far
+
         # Listener for model events
         self.listeners = []
         self.woods = []  # list of all the woodtypes
@@ -27,16 +29,17 @@ class Model():
 
 
     def update(self):
-        print("Starting update meep bop")
+        print("")
+        print("Round number ", self.questionCount)
         self.fireRules()
         self.fireFacts()
-        print("We fired stuff great")
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
         print("Current Question: ",self.currentQuestion)
         print("   ")
         print("   ")
+        self.questionCount += 1
         self.notify(None)
 
     def fireFacts(self):
@@ -46,6 +49,7 @@ class Model():
 
     # reorders the woods list according to the weights and filters
     def reorderWoods(self):
+        print("Filtering woods...")
         # filter woods first:
         for wood in self.woods:
             # print(wood.getRanking())
@@ -57,8 +61,16 @@ class Model():
                 self.woods.remove(wood)
             else:
                 wood.setRanking(self.weights)
-        # order woods according to ranking:
-        self.woods = sorted(self.woods, key=lambda wood: wood.getRanking()) 
+        # order woods according to ranking:#
+        print("Reordering woods...")
+        print("unordered:")
+        for wood in self.woods:
+            print(wood.getRanking())
+
+        self.woods = sorted(self.woods, key=lambda wood: wood.getRanking(), reverse = True) 
+        print("ordered:")
+        for wood in self.woods:
+            print(wood.getRanking())
         
         
 
@@ -85,13 +97,14 @@ class Model():
         minPremises = []
         # for all rules that require a minimum number of premises to be fulfilled,
         # collect the facts that they still require to know
-        print("")
-        print("Available rules:")
+        #print("")
+        #print("Available rules: ")
+
         for rule in self.rules:
             unknownFactsInRule = 0
             currentPremises = []
             if ( rule.isAvailable() ):
-                print(rule)
+                #print(rule)
                 for premise in rule.getPremises():
                     if (premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor() ):
                         unknownFactsInRule += 1
@@ -122,7 +135,9 @@ class Model():
             self.update()
 
     def findQuestionToAskFor(self, nextFact):
+        maxQuestionCnt = 0
         for question in self.questions:
+            questionCnt = 0
             #print("")
             #print(question)
             #print("question type: " ,question.getType())
@@ -131,11 +146,35 @@ class Model():
                 #print(question.getText() , " with the facts: " ,question.getAllFacts())
                 #print("number of facts in this question: ", len(question.getAllFacts()))
                 for fact in question.getAllFacts():
-                    nextFact.getName()
-                    print(fact.getName())
                     if( fact.getName() == nextFact.getName() ):
-                        return question
+                        questionCnt += 1
+                        if( questionCnt > maxQuestionCnt ):
+                            maxQuestionCnt = questionCnt
+                            questionToAskFor = question
+        
+        return questionToAskFor
+
+
+
             #print("")
+
+    
+    def addFactsToQuestion(self, newQuestion, questionScan, numFacts, start, button): 
+        for i in range(numFacts):
+            factString = questionScan[start+i]
+            factAdded = False
+            for fact in self.facts:
+                currentFact = fact.getName()
+
+                if( currentFact == factString or currentFact == factString[1:] ):
+                    factAdded = True
+                    if( factString[0] == "!" ):
+                        newQuestion.addFact(fact, factValue.FALSE, button)
+                    else:
+                        newQuestion.addFact(fact, factValue.TRUE, button)
+
+            if not factAdded:
+                print("ERROR! ", factString , " could not be added to question ", newQuestion)
 
 
     def readQuestions(self):
@@ -156,43 +195,22 @@ class Model():
                     if questionText[i] == ';':
                         questionText[i] = ','
                 questionText = ''.join(questionText)
-                # If YES/NO question, creates a list for YES facts and for NO facts
+        
                 newQuestion = Question(questionText, questionType)
+                # Yes/No question:
                 if questionType == 0:
                     numPositives = int(question[2])
-                    for i in range(numPositives):
-                        factExists = False
-                        for fact in self.facts:
-                            factString = question[3+i]
-                            if factString[0] == "!":
-                                if(fact.getName() == question[3 + i][1:]):
-                                    factExists = True
-                                    newQuestion.addFact(fact,factValue.FALSE,0)
-                            else:
-                                if(fact.getName() == question[3 + i]):
-                                    factExists = True
-                                    newQuestion.addFact(fact,factValue.TRUE,0)
-                        if not factExists:
-                            print("Fact '" + str(question[3 + i]) + "' failed to be added to Question '" +str(question[0]))
-                    for i in range(int(question[2 + numPositives + 1])):
-                        factExists = False
-                        for fact in self.facts:
-                            if question[2 + int(question[2]) + 2 + i][0] == "!":
-                                if(fact.getName() == question[2 + int(question[2]) + 2 + i][1:]):
-                                    factExists = True
-                                    newQuestion.addFact(fact,factValue.FALSE,1)
-                            else:
-                                if(fact.getName() == question[2 + int(question[2]) + 2 + i]):
-                                    factExists = True
-                                    newQuestion.addFact(fact,factValue.TRUE,1)
-                        if not factExists:
-                            print("Fact '" + str(question[2 + int(question[2]) + 2 + i]) + "' failed to be added to Question '" +str(question[0]))
-                    
-                    self.questions.append(newQuestion)
+                    positiveStart = 3
+                    numNegatives = int(question[3 + numPositives])
+                    negativeStart = 4 + numPositives
+                    self.addFactsToQuestion(newQuestion, question, numPositives, positiveStart, 0)
+                    self.addFactsToQuestion(newQuestion, question, numNegatives, negativeStart, 1)
+                # Other type of question:
                 elif int(question[1]) == 1:
                     pass
-        #for question in self.questions:
-           # print(question.getText())
+
+                self.questions.append(newQuestion)
+
 
     def getQuestions(self):
         return self.questions

@@ -16,7 +16,7 @@ class Fact():
     def __init__(self, name, model):
         self.value = factValue.UNKNOWN  # Possible values: UNKNOWN, TRUE, FALSE, MAYBE
         self.name = name
-        self.numQuestions = 1
+        self.numQuestions = 0
         self.model = model
 
     def getName(self):
@@ -39,7 +39,7 @@ class Fact():
         return self.numQuestions > 0
 
     def __repr__(self):
-        return "FactName: " + self.name + " FactVal: " + repr(self.value)
+        return "FactName: " + self.name + "| FactVal: " + repr(self.value) 
 
     def activate(self):
         pass
@@ -67,6 +67,7 @@ class orderingFact(Fact):
         self.weight = int(weight)
 
     def activate(self):
+        print("Ordering of ", self.prop, " was given the weight " , self.weight)
         self.model.adjustWeight(self.prop, self.weight)
 
 
@@ -78,10 +79,18 @@ class filteringFact(Fact):
         self.boolean = boolean
 
     def activate(self):
+        print("Filtering of ", self.prop , " activated.")
+        cnt = 0
         for wood in self.model.getWoods():
             for prop in wood.getProperties():
-                if (prop[0] == prop):
+                #print( prop[0], " and " , self.prop)
+                if( prop[0] == self.prop ):
+                    #print("Filteroni!!!")
+                    #print( prop[1], " and ", self.boolean)
                     if (prop[1] == self.boolean):
+                        cnt += 1
+                        #print("Filteroni")
                         wood.filterOut(self.prop)
-                    else:
-                        break
+                    
+                    break
+        print(cnt , " woods were filtered out.")
