@@ -19,6 +19,9 @@ class Fact():
         self.numQuestions = 0
         self.model = model
 
+    def isType(self):
+        return "Normal"
+
     def getName(self):
         return self.name
 
@@ -70,6 +73,9 @@ class orderingFact(Fact):
         print("Ordering of ", self.prop, " was given the weight " , self.weight)
         self.model.adjustWeight(self.prop, self.weight)
 
+    def isType(self):
+        return "Order"
+
 
 # filters out all the wood types with the specified prop(erty) set to the specified boolean
 class filteringFact(Fact):
@@ -77,6 +83,9 @@ class filteringFact(Fact):
         super().__init__(name, model)
         self.prop = prop
         self.boolean = boolean
+
+    def isType(self):
+        return "Filter"
 
     def activate(self):
         print("Filtering of ", self.prop , " activated.")

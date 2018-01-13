@@ -37,6 +37,7 @@ class Model():
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
+        self.printActivatedFilterFacts()
         print("Current Question: ",self.currentQuestion)
         print("   ")
         print("   ")
@@ -64,15 +65,9 @@ class Model():
                 wood.setRanking(self.weights)
         # order woods according to ranking:#
         print("Reordering woods...")
-        print("unordered:")
-        for wood in self.woods:
-            print(wood.getRanking())
-
-        self.woods = sorted(self.woods, key=lambda wood: wood.getRanking(), reverse = True) 
-        print("ordered:")
-        for wood in self.woods:
-            print(wood.getRanking())
         
+        self.woods = sorted(self.woods, key=lambda wood: wood.getRanking(), reverse = True) 
+
         
 
     def fireRules(self):
@@ -124,6 +119,8 @@ class Model():
                 for premise in currentPremises:
                     self.addToListWithCount(minPremises, premise)
         print(" minPremises :" , minPremises)
+        if( minPremises == [] ):
+            return None
         countsOfList = minPremises[1:2:len(minPremises)]
         mostAppearingFactIdx = countsOfList.index(max(countsOfList))
         factToAskFor = minPremises[mostAppearingFactIdx]
@@ -139,6 +136,10 @@ class Model():
         self.update()
 
     def findQuestionToAskFor(self, nextFact):
+        if( nextFact == None ):
+            question = self.findQuestion("END")
+            return question
+
         maxQuestionCnt = 0
         for question in self.questions:
             questionCnt = 0
@@ -243,6 +244,14 @@ class Model():
         for wood in self.woods:
             wood.print()
 
+    def printActivatedFilterFacts(self):
+        print("")
+        print("Printing all Filter/Order Facts set to TRUE:")
+        for fact in self.facts:
+            if( fact.isType() != "Normal" and fact.getValue() == factValue.TRUE ):
+                print(fact, end = " ")
+        print("")
+
     def getWoods(self):
         return self.woods
 
@@ -274,6 +283,15 @@ class Model():
 
     def addFact(self, fact):
         self.facts.append(fact)
+
+    def findQuestion(self, name):
+        for question in self.questions:
+            if( question.getText() == name ):
+                return question
+        print("")
+        print("ERROR: Question with name ", name , " could not be found!")
+        print("")
+
 
     def findFact(self, name):
         for fact in self.facts:
