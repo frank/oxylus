@@ -207,8 +207,16 @@ class Model():
                     if questionText[i] == ';':
                         questionText[i] = ','
                 questionText = ''.join(questionText)
-
                 newQuestion = Question(questionText, questionType)
+
+                if question[len(question)-1] != None:
+                    questionDescription = question[len(question)-1]
+                    questionDescription = list(questionDescription)
+                    for i in range(len(questionDescription)):
+                        if questionDescription[i] == ';':
+                            questionDescription[i] = ','
+                    questionDescription = ''.join(questionDescription)
+                    newQuestion.addDescription(questionDescription)
                 # Yes/No question:
                 if questionType == 0:
                     numPositives = int(question[2])
