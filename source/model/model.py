@@ -17,7 +17,7 @@ class Model():
         self.questions = []  # list of all questions
         self.askedQuestions = []  # list of questions that have been asked
         self.filteredWoods = []
-        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0}
+        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0, "Painting properties" : 0}
         self.currentQuestion = None
 
         self.readFacts()
@@ -61,7 +61,7 @@ class Model():
                 removeWoods.append(wood)
             else:
                 wood.setRanking(self.weights)
-
+        # remove filtered woods from self.woods
         for filteredWood in removeWoods:
             for wood in self.woods:
                 if filteredWood == wood:
@@ -70,7 +70,8 @@ class Model():
 
         # order woods according to ranking:#
         print("Reordering woods...")
-
+        print("Ordering weights:")
+        print(self.weights)
         self.woods = sorted(self.woods, key=lambda wood: wood.getRanking(), reverse=True)
 
     def fireRules(self):

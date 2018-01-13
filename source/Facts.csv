@@ -5,10 +5,12 @@ normal,Musical
 normal,Sportive
 normal,Mockup
 normal,Sauna
+normal,NoObjectType
 
 filter,Sportive_filter,Sportive elements and tool handles,FALSE
 filter,Mockup_filter,Mock-ups,FALSE
 filter,Sauna_filter,Saunas,FALSE
+filter,Musical_filter,Musical Instruments,FALSE
 
 normal,HumidityResist_path
 normal,HumidityResist
@@ -16,9 +18,31 @@ normal,HumidityResist
 normal,Exterior
 order,Exterior_order,Exterior Carpentry,resistance to the outside weather,1
 normal,Interior_path
+normal,Interior
 normal,BethellProcess_path
 normal,BethellProcess
 order,BethellProcess_order,Bethell process,endurance to the Bethell treatment,1
+
+normal,WeightRel_path
+normal,WeightRel
+order,WeightRel_order,DensityAvg,density,1
+normal,Hardness_path
+normal,Hardness
+order,Hardness_order,Hardness,hardness,1
+order,Dilation_order,DilationAvg,amount of thermal dilation,3
+normal,Bent_path
+normal,Bent
+order,Bent_order,Flexing Properties,1
+normal,AllowFastenings_path
+normal,AllowFastenings
+filter,AllowFastenings_filter,Fastening properties,FALSE
+normal,Malleable_path
+normal,Malleable
+filter,Malleable_filter,Malleability (Uniformity),FALSE
+normal,Hard_path
+normal,Hard
+order,Hard_order,Hardness,-1
+normal,IndMachAccess
 
 normal,Glued_path
 normal,Glued
@@ -32,16 +56,9 @@ normal,Varnish
 order,Paint_order,Painting properties,aptness to being painted,10
 order,Varnish_order,Painting properties,aptness to being varnished,10
 
-normal,WeightRel_path
-normal,WeightRel
-order,WeightRel_order,DensityAvg,density,1
-normal,Hardness_path
-normal,Hardness
-order,Hardness_order,Hardness,hardness,1
-order,Dilation_order,DilationAvg,amount of thermal dilation,3
-
 normal,Price
 normal,Supply
 order,Price_order,Price,price,-1
 order,Supply_order,Ease of supply,availability,-1
-order,LowWoodMovement_order,WoodMovement,amount of deformation in different atmospheric conditions,-2
+normal,LowWoodMovement
+filter,LowWoodMovement_filter,Low wood movement (Nerviosidad),FALSE
