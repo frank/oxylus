@@ -17,6 +17,7 @@ class Model():
         self.facts = []  # list of all facts
         self.rules = []  # list of all rules
         self.questions = []  # list of all questions
+        self.askedQuestions = [] # list of questions that have been asked
         self.filteredWoods = []
         self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0}
         self.currentQuestion = None
@@ -130,9 +131,12 @@ class Model():
         return factToAskFor
 
     def setAnswerToQuestion(self, answer):
-        if(self.currentQuestion.getAskedStatus() == False):
-            self.currentQuestion.setTruthValuesToAnsweredFacts(answer)
-            self.update()
+        if(self.currentQuestion.getAskedStatus() == True):
+            print("ERROR: question has been asked before!")
+
+        self.currentQuestion.setTruthValuesToAnsweredFacts(answer)
+        self.askedQuestions.append(self.currentQuestion)
+        self.update()
 
     def findQuestionToAskFor(self, nextFact):
         maxQuestionCnt = 0
@@ -215,6 +219,12 @@ class Model():
 
     def getQuestions(self):
         return self.questions
+
+    def getAskedQuestions(self):
+        return self.askedQuestions
+
+    def getRoundNumber(self):
+        return self.questionCount
 
     def getNextQuestion(self):
         return self.currentQuestion
