@@ -137,6 +137,7 @@ class View():
         self.woodPopup_surf.fill(YELLOW)
 
     def redraw(self):
+        print("################################### REDRAWN ########################################")
         self.__draw_askedQuestionFrame()
         self.__draw_sideBar()
         self.__draw_woodPopup()
