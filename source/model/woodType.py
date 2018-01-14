@@ -1,4 +1,4 @@
-class WoodType():
+class WoodType:
     def __init__(self, spanishName, englishName, latinName):
         self.englishName = englishName  # name of the wood
         self.latinName = latinName  # name of wood in latin
@@ -15,15 +15,15 @@ class WoodType():
         # as strings and are listed in this variable
         self.admissible = True
         self.ranking = 0
- 
+
     def setRanking(self, weights):
         self.ranking = 0
         for weightName in weights:
-             for prop in self.properties:
-                if( prop[1] == None):
-                    #print(prop[0])
+            for prop in self.properties:
+                if prop[1] is None:
+                    # print(prop[0])
                     continue
-                if( weightName == prop[0] ):
+                if weightName == prop[0]:
                     self.ranking += weights[weightName] * prop[1]
 
     def getRanking(self):
@@ -55,11 +55,11 @@ class WoodType():
         return self.properties
 
     def addProperty(self, name, value):
-        if( value == "" ):
+        if value == "":
             value = None
-        elif( value != "TRUE" and value != "FALSE" ):
+        elif value != "TRUE" and value != "FALSE":
             value = float(value)
-        
+
         self.properties.append([name, value])
 
     def addAppliedFilterInfo(self, string):

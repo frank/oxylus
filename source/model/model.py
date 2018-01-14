@@ -5,7 +5,7 @@ from .rule import Rule
 from .question import Question
 
 
-class Model():
+class Model:
     def __init__(self):
         self.questionCount = 0  # number of questions posed so far
         self.end = False
@@ -17,7 +17,8 @@ class Model():
         self.questions = []  # list of all questions
         self.askedQuestions = []  # list of questions that have been asked
         self.filteredWoods = []
-        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0, "Painting properties" : 0, "DilationAvg" : 0}
+        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0,
+                        "Painting properties": 0, "DilationAvg": 0}
         self.currentQuestion = None
         self.read()
         self.update()
@@ -38,21 +39,22 @@ class Model():
         self.questions = []  # list of all questions
         self.askedQuestions = []  # list of questions that have been asked
         self.filteredWoods = []
-        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0, "Painting properties" : 0, "DilationAvg" : 0}
+        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0,
+                        "Painting properties": 0, "DilationAvg": 0}
         self.currentQuestion = None
         self.read()
         self.update()
 
     def update(self):
-        print("")
-        print("Round number ", self.questionCount)
+        # print("")
+        # print("Round number ", self.questionCount)
         self.fireRules()
         self.reorderWoods()
         nextFact = self.nextFactToAskFor()
         self.currentQuestion = self.findQuestionToAskFor(nextFact)
-        self.printActivatedFilterFacts()
-        print("Current Question: ", self.currentQuestion)
-        print("   ")
+        # self.printActivatedFilterFacts()
+        # print("Current Question: ", self.currentQuestion)
+        # print("   ")
         # fact = self.findFact("Glued")
         # print(fact, " noQuestions: ", fact.getNumQuestions())
         self.questionCount += 1
@@ -60,19 +62,19 @@ class Model():
 
     def fireFacts(self):
         for fact in self.facts:
-            if (fact.value == factValue.TRUE):
+            if fact.value == factValue.TRUE:
                 fact.activate()
 
     # reorders the woods list according to the weights and filters
     def reorderWoods(self):
-        print("Filtering woods...")
+        # print("Filtering woods...")
         # filter woods first:
         removeWoods = []
         for wood in self.woods:
-            if (wood.isAdmissible() == False):
-                print("-")
-                print(wood, " was filtered out.")
-                print("-")
+            if not wood.isAdmissible():
+                # print("-")
+                # print(wood, " was filtered out.")
+                # print("-")
                 self.filteredWoods.append(wood)
                 removeWoods.append(wood)
             else:
@@ -85,23 +87,23 @@ class Model():
                     break
 
         # order woods according to ranking:#
-        print("Reordering woods...")
-        print("Ordering weights:")
-        print(self.weights)
+        # print("Reordering woods...")
+        # print("Ordering weights:")
+        # print(self.weights)
         self.woods = sorted(self.woods, key=lambda wood: wood.getRanking(), reverse=True)
 
     def fireRules(self):
         i = 0
         numRules = len(self.rules)
         while i < numRules:
-            if (self.rules[i].canFire()):
+            if self.rules[i].canFire():
                 self.rules[i].fire()
                 i = 0
             i += 1
 
     def addToListWithCount(self, origList, factToAdd):
         for i in range(len(origList)):
-            if (origList[i] == factToAdd):
+            if origList[i] == factToAdd:
                 origList[i + 1] += 1
                 return
         origList.append(factToAdd)
@@ -121,45 +123,45 @@ class Model():
             currentPremises = []
             premiseNotAskable = False
             # print(rule ," is available:", rule.isAvailable())
-            if (rule.isAvailable()):
+            if rule.isAvailable():
                 for premise in rule.getPremises():
-                    if (premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor()):
+                    if premise.getValue() == factValue.UNKNOWN and premise.canBeAskedFor():
                         unknownFactsInRule += 1
                         currentPremises.append(premise)
-                    if( premise.getValue() == factValue.UNKNOWN and not premise.canBeAskedFor()):
+                    if premise.getValue() == factValue.UNKNOWN and not premise.canBeAskedFor():
                         premiseNotAskable = True
                         break
-            if( unknownFactsInRule == 0 or premiseNotAskable):
+            if unknownFactsInRule == 0 or premiseNotAskable:
                 continue
 
             # Make a list of all the rules with the minimum number of unknown facts
-            if (unknownFactsInRule < minRuleCount):
+            if unknownFactsInRule < minRuleCount:
                 minRuleCount = unknownFactsInRule
                 minPremises = []
                 for premise in currentPremises:
                     self.addToListWithCount(minPremises, premise)
-            if (unknownFactsInRule == minRuleCount):
+            if unknownFactsInRule == minRuleCount:
                 for premise in currentPremises:
                     self.addToListWithCount(minPremises, premise)
-        print(" minPremises :", minPremises)
-        if (minPremises == []):
+        # print(" minPremises :", minPremises)
+        if minPremises == []:
             return None
         countsOfList = minPremises[1:2:len(minPremises)]
         mostAppearingFactIdx = countsOfList.index(max(countsOfList))
         factToAskFor = minPremises[mostAppearingFactIdx]
-        print("fact that we want to know: ", factToAskFor)
+        # print("fact that we want to know: ", factToAskFor)
         return factToAskFor
 
     def setAnswerToQuestion(self, answer):
-        if (self.currentQuestion.getAskedStatus() == True):
-            print("ERROR: question has been asked before!")
+        if self.currentQuestion.getAskedStatus():
+            print("ERROR: question has been asked before.")
 
         self.currentQuestion.setTruthValuesToAnsweredFacts(answer)
         self.askedQuestions.append(self.currentQuestion)
         self.update()
 
     def findQuestionToAskFor(self, nextFact):
-        if (nextFact == None):
+        if nextFact is None:
             self.end = True
             return None
 
@@ -170,14 +172,14 @@ class Model():
             # print(question)
             # print("question type: " ,question.getType())
             # Yes/No question:
-            if (question.getType() == 0):
+            if question.getType() == 0:
                 # print(question.getText() , " with the facts: " ,question.getAllFacts())
                 # print("number of facts in this question: ", len(question.getAllFacts()))
-                if (question.getAskedStatus() == False):
+                if not question.getAskedStatus():
                     for fact in question.getAllFacts():
-                        if (fact.getName() == nextFact.getName()):
+                        if fact.getName() == nextFact.getName():
                             questionCnt += 1
-                            if (questionCnt > maxQuestionCnt):
+                            if questionCnt > maxQuestionCnt:
                                 maxQuestionCnt = questionCnt
                                 questionToAskFor = question
 
@@ -195,19 +197,19 @@ class Model():
             for fact in self.facts:
                 currentFact = fact.getName()
 
-                if (currentFact == factString or currentFact == factString[1:]):
+                if currentFact == factString or currentFact == factString[1:]:
                     factAdded = True
-                    if (factString[0] == "!"):
+                    if factString[0] == "!":
                         newQuestion.addFact(fact, factValue.FALSE, button)
                     else:
                         newQuestion.addFact(fact, factValue.TRUE, button)
 
             if not factAdded:
-                print("ERROR! ", factString, " could not be added to question ", newQuestion)
+                print("ERROR: ", factString, " could not be added to question ", newQuestion)
 
     def readQuestions(self):
         # The Question csv file is structured like such:
-        # Question text, question type, questiontype dependent fact data structure
+        # Question text, question type, question type dependent fact data structure
         # Question type is a number that determines what kind of question it is (eg: 0 == YES/NO question)
         # In the case of YES/NO question, fact data structure looks like following:
         # Number of YES facts, yes fact1,..., yes fact n, number of NO facts, no fact 1, ..., no fact n
@@ -233,9 +235,9 @@ class Model():
                     negativeStart = 4 + numPositives
                     self.addFactsToQuestion(newQuestion, question, numPositives, positiveStart, 0)
                     self.addFactsToQuestion(newQuestion, question, numNegatives, negativeStart, 1)
-                
+
                 if len(question) == 5 + numPositives + numNegatives:
-                    questionDescription = question[len(question)-1]
+                    questionDescription = question[len(question) - 1]
                     questionDescription = list(questionDescription)
                     for i in range(len(questionDescription)):
                         if questionDescription[i] == ';':
@@ -283,7 +285,6 @@ class Model():
                 print(fact.getName(), end=" ")
         print("")
 
-    ########################################################################################### WIP
     def getActivatedFilterDescription(self):
         # Returns the descriptions of the filters that are currently applied
         allDescriptions = []
@@ -300,7 +301,6 @@ class Model():
                 fullDescription = fullDescription + description + "."
         return fullDescription
 
-
     def getWoods(self):
         return self.woods
 
@@ -311,16 +311,12 @@ class Model():
         wood = self.woods[0]
         propExistsInSheet = False
         for prop in wood.getProperties():
-            if( prop[0] == weightName ):
+            if (prop[0] == weightName):
                 propExistsInSheet = True
                 break
         if not propExistsInSheet:
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            print("ERROR: property from the rules with the name ", weightName, " does not exist in the wood spreadsheet!")
-            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-
-
-
+            print("ERROR: property from the rules with the name ", weightName,
+                  " does not exist in the wood spreadsheet!")
         self.weights[weightName] = weightVal
 
     def readFacts(self):
@@ -348,45 +344,39 @@ class Model():
 
     def findQuestion(self, name):
         for question in self.questions:
-            if (question.getText() == name):
+            if question.getText() == name:
                 return question
-        print("")
-        print("ERROR: Question with name ", name, " could not be found!")
-        print("")
+        print("ERROR: Question with name ", name, " could not be found.")
 
     def findFact(self, name):
         for fact in self.facts:
-            if (fact.name == name):
+            if fact.name == name:
                 return fact
 
-        print(" ")
-        print("ERROR while looking for fact. No fact found with name: ", name)
+        print("ERROR: No fact found with name: ", name)
         print("Please check your Database.")
         quit()
-        print(" ")
 
     def readRules(self):
         # Rules in CSV file are arranged such that conclusion is the last element in list.
         # Every item before the conclusion is a fact, which can be negated by adding a
         # "!" character in front of it
         readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
-        print("SCANNED RULES:")
+        # print("SCANNED RULES:")
         for rule in readCSV:
             if len(rule) > 0 and rule[0][0] != "#":
                 # Create rule
                 newRule = Rule()
                 conclusionFact = None
-                if (rule[0][0] == "!"):
+                if rule[0][0] == "!":
                     conclusionFact = self.findFact(rule[0][1:])
                     newRule.addConclusion(conclusionFact, factValue.FALSE)
                 else:
                     conclusionFact = self.findFact(rule[0])
                     newRule.addConclusion(conclusionFact, factValue.TRUE)
 
-                if (conclusionFact == None):
-                    print(" ")
-                    print("Error while reading rule ", rule, ". CHECK YOUR DATABASE - RULES ARE FAULTY")
-                    print(" ")
+                if conclusionFact is None:
+                    print("Error while reading rule ", rule, ". Please check your Database.")
                     quit()
                     return
 
@@ -402,7 +392,7 @@ class Model():
                         newRule.addPremise(newPremise, factValue.TRUE)
 
                 self.addRule(newRule)
-                print(newRule)
+                # print(newRule)
 
     def addRule(self, rule):
         self.rules.append(rule)
