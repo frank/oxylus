@@ -1,4 +1,4 @@
-class Question():
+class Question:
 
     def __init__(self, text, QUESTIONTYPE):
         self.text = text  # the question text
@@ -56,7 +56,7 @@ class Question():
         return self.text
 
     def getAllFacts(self):
-        if (self.type == 0):
+        if self.type == 0:
             return self.facts[0] + self.facts[1]
 
     def getFacts(self, answer):

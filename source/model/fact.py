@@ -1,5 +1,5 @@
 from enum import Enum
-import model
+
 
 class factValue(Enum):
     UNKNOWN = 1,
@@ -8,7 +8,7 @@ class factValue(Enum):
     MAYBE = 4
 
 
-class Fact():
+class Fact:
     """
     This class should represent the facts which are contained in rules.
     """
@@ -26,7 +26,7 @@ class Fact():
         return self.name
 
     def setValue(self, val):
-        print(self, " was adjusted to ", val)
+        # print(self, " was adjusted to ", val)
         self.value = val
 
     def getValue(self):
@@ -45,10 +45,11 @@ class Fact():
         return self.numQuestions
 
     def __repr__(self):
-        return "FactName: " + self.name + "| FactVal: " + repr(self.value) 
+        return "FactName: " + self.name + "| FactVal: " + repr(self.value)
 
     def activate(self):
         pass
+
 
 '''
 # if a decisive fact is set to TRUE it will trigger the elimination of a wood type
@@ -74,7 +75,7 @@ class orderingFact(Fact):
         self.weight = int(weight)
 
     def activate(self):
-        print("Ordering of ", self.prop, " was given the weight ", self.weight)
+        # print("Ordering of ", self.prop, " was given the weight ", self.weight)
         self.model.adjustWeight(self.prop, self.weight)
 
     def getDescription(self):
@@ -95,18 +96,18 @@ class filteringFact(Fact):
         return "Filter"
 
     def activate(self):
-        print("Filtering of ", self.prop, " activated.")
+        # print("Filtering of ", self.prop, " activated.")
         cnt = 0
         for wood in self.model.getWoods():
             for prop in wood.getProperties():
-                print("|", prop[0], "|", self.prop, "|")
+                # print("|", prop[0], "|", self.prop, "|")
                 if prop[0] == self.prop:
-                    
-                    print(prop[1], " and ", self.boolean)
+
+                    # print(prop[1], " and ", self.boolean)
                     if prop[1] == self.boolean:
                         cnt += 1
-                        print("Filtering ", wood.getEnglishName(), " because of ", prop[0], " is set to ", prop[1])
+                        # print("Filtering ", wood.getEnglishName(), " because of ", prop[0], " is set to ", prop[1])
                         wood.filterOut(self.prop)
-                    
+
                     break
-        print(cnt, " woods were filtered out.")
+        # print(cnt, " woods were filtered out.")
