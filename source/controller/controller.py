@@ -37,6 +37,7 @@ class Controller():
                     pygame.mouse.get_pos()[0] < self.view.getRESETbutton_pos_and_size()[0][0] + self.view.getRESETbutton_pos_and_size()[1][0] and \
                     pygame.mouse.get_pos()[1] < self.view.getRESETbutton_pos_and_size()[0][1] + self.view.getRESETbutton_pos_and_size()[1][1]:
                         self.model.reset()
+                        self.view.reset()
                             
             elif event.type == pygame.MOUSEMOTION:
                 #if in sidebar
