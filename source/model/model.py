@@ -366,7 +366,6 @@ class Model:
         readCSV = csv.reader(open(os.path.join( "model",'Rules.csv'), 'rt'), delimiter=",")
         # print("SCANNED RULES:")
         for rule in readCSV:
-            print(rule)
             if len(rule) > 0 and rule[0][0] != "#":
                 # Create rule
                 newRule = Rule()
