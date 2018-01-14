@@ -7,7 +7,8 @@
 !Sauna,Furniture
 Dense_order,Furniture
 Glued_path,Furniture
-NaturalColorNeed_path,Furniture
+#NaturalColorNeed_path,Furniture
+Paint_path,Furniture
 Bent_path,Furniture
 AllowFastenings_path,Furniture
 Hard_path,Furniture
@@ -21,11 +22,13 @@ Hard_path,Furniture
 !Sauna,Joinery
 !Exterior,Joinery
 Glued_path,Joinery
-NaturalColorNeed_path,Joinery
+#NaturalColorNeed_path,Joinery
+Paint_path,Joinery
 Bent_path,Joinery
 AllowFastenings_path,Joinery
 Hard_path,Joinery
-WeightRel_path,Sportive
+WeightRel_path,Joinery
+Interior_filter,Joinery
 
 
 #Decorative
@@ -35,8 +38,8 @@ WeightRel_path,Sportive
 !Sportive,Decorative
 !Mockup,Decorative
 !Sauna,Decorative
-Glued_path,Decorative
-Bent_path,Decorative
+#Glued_path,Decorative
+#Bent_path,Decorative
 Malleable_path,Decorative
 WeightRel_path,Sportive
 
@@ -81,24 +84,26 @@ Sauna_filter,Sauna
 
 NoObjectType,!Furniture,!Joinery,!Decorative,!Musical,!Sportive,!Mockup,!Sauna
 Glued_path,NoObjectType
-NaturalColorNeed_path,NoObjectType
+Paint_order,NoObjectType
 Bent_path,NoObjectType
 AllowFastenings_path,NoObjectType
 Interior_path,NoObjectType
 Malleable_path,NoObjectType
 Hard_path,NoObjectType
 
-Paint_path,!NaturalColorNeed,NaturalColorNeed_path
+Exterior_order,Exterior,Furniture
+BethellProcess_path,Exterior,Furniture
+LowWoodMovement_filter,!Exterior,Furniture
+Furniture_filter,!Exterior,Furniture
+BethellProcess_order,BethellProcess,BethellProcess_path
+!Paint_path,BethellProcess,BethellProcess_path
+
 Paint_order,Paint,Paint_path
 Price_order,Paint_order
-Dilation_order,Paint_order
-Varnish_path,!NaturalColorNeed,NaturalColorNeed_path
-Varnish_order,Varnish,Varnish_path
+DilationPaint_order,Paint_order
+Varnish_order,!Paint,Paint_path
+DilationVarnish_order,Varnish_order
 Glued_order,Glued,Glued_path
-
-Exterior_order,Exterior,Furniture
-LowWoodMovement_filter,!Exterior,Furniture
-BethellProcess_order,BethellProcess,Exterior,Furniture
 
 LowWoodMovement_filter,Interior,Interior_path
 Dense_path,WeightRel,WeightRel_path
@@ -107,8 +112,8 @@ Light_order,Light,Dense_path
 Bent_order,Bent,Bent_path
 AllowFastenings_filter,AllowFastenings,AllowFastenings_path
 Malleable_filter,Malleable,Malleable_path
-Hard_path,Malleable,Malleable_path
-Hard_order,!Hard,!IndMachAccess,Hard_path
+Hard_path,!Malleable,Malleable_path
+NotHard_filter,!IndMachAccess,Hard_path
 
 Price_order,Price,!Musical,!Sportive,!Mockup,!Sauna
 Supply_order,Supply,!Musical,!Sportive,!Mockup,!Sauna

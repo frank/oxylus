@@ -17,11 +17,22 @@ class Model:
         self.questions = []  # list of all questions
         self.askedQuestions = []  # list of questions that have been asked
         self.filteredWoods = []
-        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0,
-                        "Painting properties": 0, "DilationAvg": 0}
         self.currentQuestion = None
+        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0,
+                        "Painting properties": 0, "DilationAvg": 0}
+        #self.initializeWeights()
         self.read()
         self.update()
+
+    def initializeWeights(self):
+        readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
+        propertyNames = next(readCSV)
+        for wood in readCSV:
+            for item in wood:
+                if item.isdigit():
+                    self.weights.update({propertyNames[i]:0})
+            break
+        print(self.weights)
 
     def read(self):
         self.readFacts()
@@ -38,7 +49,7 @@ class Model:
         self.questions = []  # list of all questions
         self.askedQuestions = []  # list of questions that have been asked
         self.filteredWoods = []
-        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0,
+        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0,
                         "Painting properties": 0, "DilationAvg": 0}
         self.currentQuestion = None
         self.read()
@@ -268,6 +279,7 @@ class Model:
         for wood in readCSV:
             if (len(wood) > 0):
                 newWood = WoodType(wood[0], wood[1], wood[2])
+                i = 0
                 for prop in range(3, len(wood)):
                     newWood.addProperty(propertyNames[prop], wood[prop])
                 self.addWood(newWood)

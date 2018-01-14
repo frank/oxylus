@@ -11,6 +11,8 @@ filter,Sportive_filter,Sportive elements and tool handles,FALSE
 filter,Mockup_filter,Mock-ups,FALSE
 filter,Sauna_filter,Saunas,FALSE
 filter,Musical_filter,Musical Instruments,FALSE
+filter,Interior_filter,Interior carpentry,FALSE
+filter,Furniture_filter,Furniture and cabinet making,FALSE
 
 normal,HumidityResist_path
 normal,HumidityResist
@@ -30,9 +32,6 @@ normal,Dense
 order,Dense_order,DensityAvg,density,1
 normal,Light
 order,Light_order,DensityAvg,density,-1
-normal,Hardness_path
-normal,Hardness
-order,Dilation_order,DilationAvg,amount of thermal dilation,3
 normal,Bent_path
 normal,Bent
 order,Bent_order,Flexing properties,ability to flex without breaking,1
@@ -43,21 +42,20 @@ normal,Malleable_path
 normal,Malleable
 filter,Malleable_filter,Malleability (Uniformity),FALSE
 normal,Hard_path
-normal,Hard
-order,Hard_order,Hardness,hardness,-1
 normal,IndMachAccess
+filter,Hard_filter,Hardness,FALSE
+filter,NotHard_filter,Hardness,TRUE
 
 normal,Glued_path
 normal,Glued
-normal,NaturalColorNeed_path
-normal,NaturalColorNeed
-order,Glued_order,Painting properties,suitability to being glued,10
+order,Glued_order,Painting properties,suitability to being glued,3
 normal,Paint_path
 normal,Paint
-normal,Varnish_path
-normal,Varnish
-order,Paint_order,Painting properties,aptness to being painted,10
-order,Varnish_order,Painting properties,aptness to being varnished,10
+normal,Varnish_order
+order,Paint_order,Painting properties,aptness to being painted,3
+order,Varnish_order,Painting properties,aptness to being varnished,3
+order,DilationPaint_order,DilationAvg,amount of thermal dilation,-2
+order,DilationVarnish_order,DilationAvg,amount of thermal dilation,-2
 
 normal,Price
 normal,Supply
