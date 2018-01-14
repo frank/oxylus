@@ -88,13 +88,13 @@ Interior_path,NoObjectType
 Malleable_path,NoObjectType
 Hard_path,NoObjectType
 
-Glued_order,Glued,Glued_path
 Paint_path,!NaturalColorNeed,NaturalColorNeed_path
 Paint_order,Paint,Paint_path
 Price_order,Paint_order
 Dilation_order,Paint_order
 Varnish_path,!NaturalColorNeed,NaturalColorNeed_path
 Varnish_order,Varnish,Varnish_path
+Glued_order,Glued,Glued_path
 
 Exterior_order,Exterior,Furniture
 LowWoodMovement_filter,!Exterior,Furniture

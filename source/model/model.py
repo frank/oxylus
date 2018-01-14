@@ -19,11 +19,28 @@ class Model():
         self.filteredWoods = []
         self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0, "Painting properties" : 0, "DilationAvg" : 0}
         self.currentQuestion = None
+        self.read()
+        self.update()
 
+    def read(self):
         self.readFacts()
         self.readRules()
         self.readWoods()
         self.readQuestions()
+
+    def reset(self):
+        self.questionCount = 0  # number of questions posed so far
+        self.end = False
+        self.listeners = []
+        self.woods = []  # list of all the woodtypes
+        self.facts = []  # list of all facts
+        self.rules = []  # list of all rules
+        self.questions = []  # list of all questions
+        self.askedQuestions = []  # list of questions that have been asked
+        self.filteredWoods = []
+        self.weights = {"DensityAvg": 0, "Price": 0, "Ease of supply": 0, "Exterior Carpentry": 0, "Hardness": 0, "Painting properties" : 0, "DilationAvg" : 0}
+        self.currentQuestion = None
+        self.read()
         self.update()
 
     def update(self):
@@ -38,7 +55,6 @@ class Model():
         print("   ")
         # fact = self.findFact("Glued")
         # print(fact, " noQuestions: ", fact.getNumQuestions())
-
         self.questionCount += 1
         self.notify(None)
 

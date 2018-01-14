@@ -61,6 +61,9 @@ class View():
         self.button_size = [self.questionFrame_size[0]/4, self.questionFrame_size[1]/8]
         self.YESbutton_pos = [self.questionFrame_size[0]/8, (self.questionFrame_size[1]*2/3)*5/8]
         self.NObutton_pos = [self.questionFrame_size[0]*5/8, (self.questionFrame_size[1]*2/3)*5/8]
+        self.RESETbutton_size = [self.questionFrame_size[0]/8, self.questionFrame_size[1]*3/64]
+        self.RESETbutton_pos = [self.questionFrame_size[0]*13/16, self.questionFrame_size[1]/48]
+
         #Currently selected wood Popup
         self.woodPopup_selection = None
         self.woodPopup_size = [160*3 +4 , 90*3 +4]
@@ -79,7 +82,6 @@ class View():
         self.questionText_pos = [int(self.questionFrame_size[0]/8), int(self.questionFrame_size[1]/8)]
         self.woodLabelEnglishFont = pygame.font.SysFont(None, 24)
         self.woodLabelLatinFont = pygame.font.SysFont(None, 24, italic=True)
-        self.questionText = None    
         self.buttonFont = pygame.font.SysFont(None, 40, italic=True)
 
     def getSideBar_pos_and_size(self):
@@ -90,6 +92,9 @@ class View():
 
     def getNObutton_pos_and_size(self):
     	return (self.NObutton_pos, self.button_size)
+
+    def getRESETbutton_pos_and_size(self):
+        return (self.RESETbutton_pos, self.RESETbutton_size)
 
     def mouseInsideSideBar(self, mousePos):
         wv = self.model.getWoods()
@@ -110,10 +115,6 @@ class View():
         self.woodPopup_selection = woodSelection
 
     def __draw_askedQuestionFrame(self):
-        if(self.model.getNextQuestion() != None):
-            self.questionText = self.model.getNextQuestion().getText()
-        else:
-            self.questionText = None
         self.askedFrame_surf.fill(WHITE)
 
     def __draw_sideBar(self):
@@ -139,9 +140,8 @@ class View():
         #Blank the screen, draw background later
         self.screen.fill(BG_COLOR)
         self.blit_questionFrame()
-        if self.model.getNextQuestion() != None:
-            self.blit_buttonText()
         self.blit_questionText()
+        self.blit_buttons()
         self.screen.blit(self.askedFrame_surf, self.askedFrame_pos)
         self.blit_askedQuestionsText()
         self.screen.blit(self.sideBar_surf, self.sideBar_pos)
@@ -217,7 +217,7 @@ class View():
         max_width = self.questionFrame_size[0] * 7 / 8
         x, y = self.questionText_pos
         if not self.model.getEnd():
-            words = [word.split(' ') for word in self.questionText.splitlines()] # 2D array where each row is a list of words.
+            words = [word.split(' ') for word in self.model.getNextQuestion().getText().splitlines()] # 2D array where each row is a list of words.
             for line in words:
                 for word in line:
                     word_surface = self.questionFont.render(word, True, WHITE)
@@ -295,20 +295,32 @@ class View():
                 self.screen.blit(latinText, ((self.sideBar_pos[0]+10) + \
                 (englishText.get_width() + 2), wood*self.woodLabel_size[1]+textStartYPos))
 
-    def blit_buttonText(self):
-        YESbutton = pygame.Rect(self.YESbutton_pos, self.button_size)
-        NObutton = pygame.Rect(self.NObutton_pos, self.button_size)
-        self.questionFrame_surf.fill(WHITE, YESbutton)
-        self.questionFrame_surf.fill(WHITE, NObutton)
-        YEStext = self.buttonFont.render("YES", True, BLACK)
-        NOtext = self.buttonFont.render("NO", True, BLACK)
-        YEStext_size = YEStext.get_size()
-        NOtext_size = NOtext.get_size()
-        self.screen.blit(YEStext, (self.YESbutton_pos[0] + (self.button_size[0]-YEStext_size[0])/2,\
-            self.YESbutton_pos[1] + (self.button_size[1]-YEStext_size[1])/2))
-        self.screen.blit(NOtext, (self.NObutton_pos[0] + (self.button_size[0]-NOtext_size[0])/2,\
-            self.NObutton_pos[1] + (self.button_size[1]-NOtext_size[1])/2))
-
+    def blit_buttons(self):
+        if self.model.getNextQuestion() != None:
+            YESbutton = pygame.Rect(self.YESbutton_pos, self.button_size)
+            NObutton = pygame.Rect(self.NObutton_pos, self.button_size)
+        
+            self.questionFrame_surf.fill(WHITE, YESbutton)
+            self.questionFrame_surf.fill(WHITE, NObutton)
+        
+            YEStext = self.buttonFont.render("YES", True, BLACK)
+            NOtext = self.buttonFont.render("NO", True, BLACK)
+            YEStext_size = YEStext.get_size()
+            NOtext_size = NOtext.get_size()
+            self.screen.blit(YEStext, (self.YESbutton_pos[0] + (self.button_size[0]-YEStext_size[0])/2,\
+                self.YESbutton_pos[1] + (self.button_size[1]-YEStext_size[1])/2))
+            self.screen.blit(NOtext, (self.NObutton_pos[0] + (self.button_size[0]-NOtext_size[0])/2,\
+                self.NObutton_pos[1] + (self.button_size[1]-NOtext_size[1])/2))
+        RESETbutton1 = pygame.Rect(self.RESETbutton_pos, self.RESETbutton_size)
+        RESETbutton2 = pygame.Rect((self.RESETbutton_pos[0]+3,self.RESETbutton_pos[1]+3),\
+            (self.RESETbutton_size[0]-6,self.RESETbutton_size[1]-6))
+        self.questionFrame_surf.fill(BLUE, RESETbutton1)
+        self.questionFrame_surf.fill(GRAYx2, RESETbutton2)
+        RESETtext = self.woodLabelEnglishFont.render("Reset", True, BLACK)
+        RESETtext_size = RESETtext.get_size()
+        self.screen.blit(RESETtext, (self.RESETbutton_pos[0] + (self.RESETbutton_size[0]-RESETtext_size[0])/2,\
+            self.RESETbutton_pos[1] + (self.RESETbutton_size[1]-RESETtext_size[1])/2))
+        
     def model_event(self, event_name):
         #In case you want to redraw only part of the screen use the if-statements with event names
         if event_name == "woodTypes_rearranged":
