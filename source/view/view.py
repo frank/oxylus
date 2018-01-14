@@ -127,7 +127,6 @@ class View():
         wv = self.model.getWoods()
         # Create WoodType Labels
         for wood in range(len(wv)):
-            print(len(wv))
             if(wv[wood]):
                 newLabel = pygame.Rect(0, wood*self.woodLabel_size[1], self.woodLabel_size[0], self.woodLabel_size[1]-1)
                 self.sideBar_surf.fill(WHITE, newLabel)
@@ -137,7 +136,6 @@ class View():
         self.woodPopup_surf.fill(YELLOW)
 
     def redraw(self):
-        print("################################### REDRAWN ########################################")
         self.__draw_askedQuestionFrame()
         self.__draw_sideBar()
         self.__draw_woodPopup()
