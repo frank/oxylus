@@ -32,7 +32,6 @@ class Model:
     def reset(self):
         self.questionCount = 0  # number of questions posed so far
         self.end = False
-        self.listeners = []
         self.woods = []  # list of all the woodtypes
         self.facts = []  # list of all facts
         self.rules = []  # list of all rules
