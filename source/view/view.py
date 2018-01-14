@@ -84,6 +84,10 @@ class View():
         self.woodLabelLatinFont = pygame.font.SysFont(None, 24, italic=True)
         self.buttonFont = pygame.font.SysFont(None, 40, italic=True)
 
+    def reset(self):
+        self.woodLabelRectList = []
+        self.redraw()
+
     def getSideBar_pos_and_size(self):
         return (self.sideBar_pos, self.sideBar_size)
 
@@ -123,6 +127,7 @@ class View():
         wv = self.model.getWoods()
         # Create WoodType Labels
         for wood in range(len(wv)):
+            print(len(wv))
             if(wv[wood]):
                 newLabel = pygame.Rect(0, wood*self.woodLabel_size[1], self.woodLabel_size[0], self.woodLabel_size[1]-1)
                 self.sideBar_surf.fill(WHITE, newLabel)
