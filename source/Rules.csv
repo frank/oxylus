@@ -7,8 +7,6 @@
 !Sauna,Furniture
 Dense_order,Furniture
 Glued_path,Furniture
-#NaturalColorNeed_path,Furniture
-Paint_path,Furniture
 Bent_path,Furniture
 AllowFastenings_path,Furniture
 Hard_path,Furniture
@@ -22,7 +20,6 @@ Hard_path,Furniture
 !Sauna,Joinery
 !Exterior,Joinery
 Glued_path,Joinery
-#NaturalColorNeed_path,Joinery
 Paint_path,Joinery
 Bent_path,Joinery
 AllowFastenings_path,Joinery
@@ -38,8 +35,6 @@ Interior_filter,Joinery
 !Sportive,Decorative
 !Mockup,Decorative
 !Sauna,Decorative
-#Glued_path,Decorative
-#Bent_path,Decorative
 Malleable_path,Decorative
 WeightRel_path,Sportive
 
@@ -95,8 +90,8 @@ Exterior_order,Exterior,Furniture
 BethellProcess_path,Exterior,Furniture
 LowWoodMovement_filter,!Exterior,Furniture
 Furniture_filter,!Exterior,Furniture
+Paint_path,!Exterior,Furniture
 BethellProcess_order,BethellProcess,BethellProcess_path
-!Paint_path,BethellProcess,BethellProcess_path
 
 Paint_order,Paint,Paint_path
 Price_order,Paint_order
