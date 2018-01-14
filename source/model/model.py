@@ -1,4 +1,5 @@
 import csv
+import os
 from .woodType import WoodType
 from .fact import *
 from .rule import Rule
@@ -23,16 +24,6 @@ class Model:
         #self.initializeWeights()
         self.read()
         self.update()
-
-    def initializeWeights(self):
-        readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
-        propertyNames = next(readCSV)
-        for wood in readCSV:
-            for item in wood:
-                if item.isdigit():
-                    self.weights.update({propertyNames[i]:0})
-            break
-        print(self.weights)
 
     def read(self):
         self.readFacts()
@@ -223,7 +214,7 @@ class Model:
         # Question type is a number that determines what kind of question it is (eg: 0 == YES/NO question)
         # In the case of YES/NO question, fact data structure looks like following:
         # Number of YES facts, yes fact1,..., yes fact n, number of NO facts, no fact 1, ..., no fact n
-        readCSV = csv.reader(open('Questions.csv', 'rt'), delimiter=",")
+        readCSV = csv.reader(open(os.path.join( "model",'Questions.csv'), 'rt'), delimiter=",")
         for question in readCSV:
             if len(question) > 0 and question[0][0] != "#":
                 questionText = question[0]
@@ -274,7 +265,7 @@ class Model:
         return self.currentQuestion
 
     def readWoods(self):
-        readCSV = csv.reader(open('Wood_data.csv', 'rt'), delimiter=",")
+        readCSV = csv.reader(open(os.path.join( "model",'Wood_data.csv'), 'rt'), delimiter=",")
         propertyNames = next(readCSV)
         for wood in readCSV:
             if (len(wood) > 0):
@@ -335,7 +326,7 @@ class Model:
         # normal facts:     normal,factName
         # ordering facts:   order,factName,property,weight(-4 to 4
         # filtering facts:  filter,factName,property,boolean(1 or 0)
-        readCSV = csv.reader(open('Facts.csv', 'rt'), delimiter=",")
+        readCSV = csv.reader(open(os.path.join( "model",'Facts.csv'), 'rt'), delimiter=",")
         for fact in readCSV:
             if len(fact) > 0 and fact[0] != "#":
                 if fact[0] == "order":
@@ -372,9 +363,10 @@ class Model:
         # Rules in CSV file are arranged such that conclusion is the last element in list.
         # Every item before the conclusion is a fact, which can be negated by adding a
         # "!" character in front of it
-        readCSV = csv.reader(open('Rules.csv', 'rt'), delimiter=",")
+        readCSV = csv.reader(open(os.path.join( "model",'Rules.csv'), 'rt'), delimiter=",")
         # print("SCANNED RULES:")
         for rule in readCSV:
+            print(rule)
             if len(rule) > 0 and rule[0][0] != "#":
                 # Create rule
                 newRule = Rule()
