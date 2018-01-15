@@ -78,11 +78,11 @@ class View():
         self.clock = pygame.time.Clock()
 
         #Initiate texts, text positions, and text fonts
-        self.questionFont = pygame.font.SysFont(None, 48)
-        self.questionText_pos = [int(self.questionFrame_size[0]/8), int(self.questionFrame_size[1]/8)]
-        self.woodLabelEnglishFont = pygame.font.SysFont(None, 24)
-        self.woodLabelLatinFont = pygame.font.SysFont(None, 24, italic=True)
-        self.buttonFont = pygame.font.SysFont(None, 40, italic=True)
+        self.questionFont = pygame.font.SysFont("Sans", 36, bold=True)
+        self.questionText_pos = [int(self.questionFrame_size[0]/8), int(self.questionFrame_size[1]/16+10)]
+        self.woodLabelEnglishFont = pygame.font.SysFont("Sans", 18)
+        self.woodLabelLatinFont = pygame.font.SysFont("Sans", 18, italic=True)
+        self.buttonFont = pygame.font.SysFont("Sans", 40, italic=True, bold=True)
 
     def reset(self):
         self.woodLabelRectList = []
@@ -188,7 +188,7 @@ class View():
         self.screen.blit(self.questionFrame_surf, self.questionFrame_pos)
         file_path = os.path.join(os.getcwd(), "view", "backGround.jpeg")
         image = pygame.image.load(file_path).convert()
-        image_size = int(self.questionFrame_size[0]), int(self.questionFrame_size[1]*2/3)
+        image_size = int(self.questionFrame_size[0]-2), int(self.questionFrame_size[1]*2/3)
         image = pygame.transform.scale(image, image_size)
         self.questionFrame_surf.blit(image, self.questionFrame_pos)
 
