@@ -79,7 +79,7 @@ Sauna_filter,Sauna
 
 NoObjectType,!Furniture,!Joinery,!Decorative,!Musical,!Sportive,!Mockup,!Sauna
 Glued_path,NoObjectType
-Paint_order,NoObjectType
+Paint_path,NoObjectType
 Bent_path,NoObjectType
 AllowFastenings_path,NoObjectType
 Interior_path,NoObjectType
