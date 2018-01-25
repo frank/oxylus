@@ -1,4 +1,5 @@
 # -*- mode: python -*-
+import os
 
 block_cipher = None
 
@@ -19,6 +20,7 @@ a = Analysis(['oxylus.py'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher)
+a.datas += [('log32.ico',os.path.join("log32.ico"),'DATA')]
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
@@ -31,4 +33,5 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           runtime_tmpdir=None,
-          console=True )
+          console=True,
+          icon=os.path.join("log32.ico"))

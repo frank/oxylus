@@ -74,6 +74,9 @@ class View():
         #Initiate Main Frame 
         pygame.init()
         pygame.display.set_caption('WoodType Expert System')
+        icon = pygame.image.load(os.path.join("log32.ico"))
+        pygame.display.set_icon(icon)
+
         self.screen = pygame.display.set_mode(self.screen_size)
         self.clock = pygame.time.Clock()
 
